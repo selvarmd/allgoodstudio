@@ -1,3 +1,8 @@
+// Scroll to top when page loads
+window.addEventListener("load", () => {
+  window.scrollTo(0, 0);
+});
+
 // Header
 window.addEventListener("scroll", function () {
   const header = document.querySelector("header");
@@ -243,46 +248,47 @@ gsap.from(".hero-bg", {
 });
 
 // Hero Title Animation
-gsap.from(".hero-title", {
+gsap.from([".hero-title-top", ".hero-title-middle", ".hero-title-bottom"], {
+  y: "100%", // slide upward
+  duration: 1.2,
+  ease: "power3.out",
+  stagger: 0.25, // ⏱ tiny delay (50ms) between each line
   scrollTrigger: {
-    trigger: ".hero-section",
-    start: "top 50%", // when top of section hits 50% of viewport
-    toggleActions: "play none none reverse",
-    once: true, // ✅ ensures animation only runs once per page load
+    trigger: ".hero-title",
+    start: "top 80%",
+    once: true,
   },
-  opacity: 0,
-  y: 50,
-  duration: 4,
-  ease: "power2.out",
 });
 
 // Hero Sub Content Animation
-gsap.from(".hero-sub-content", {
+gsap.from([".hero-description", ".link-wrapper", ".detail-wrapper"], {
+  y: "100%", // slide upward
+  duration: 1.2,
+  ease: "power3.out",
+  stagger: 0.25, // ⏱ tiny delay (50ms) between each line
   scrollTrigger: {
-    trigger: ".hero-section",
-    start: "top 80%",
-    toggleActions: "play none none reverse",
+    trigger: ".hero-sub-content",
+    start: "top 80%", // start when hero section is in view
+    once: true,
   },
-  opacity: 0,
-  y: 30,
-  duration: 1,
-  delay: 0.5,
-  ease: "power2.out",
 });
 
-// Animate Project Title
-gsap.from(".project-title", {
-  scrollTrigger: {
-    trigger: ".project-section",
-    start: "top 50%", // adjust for earlier/later animation
-    toggleActions: "play none none reverse",
-    once: true, // ✅ ensures animation only runs once per page load
-  },
-  opacity: 0,
-  y: 100,
-  duration: 2,
-  ease: "power2.out",
-});
+// Project Section Title Animation
+gsap.fromTo(
+  [".project-title-top", ".project-title-bottom"],
+  { y: "100%" }, // START (offscreen below)
+  {
+    y: "0%", // END (natural position)
+    duration: 1.2,
+    ease: "power3.out",
+    stagger: 0.05,
+    scrollTrigger: {
+      trigger: ".project-title",
+      start: "top 80%",
+      once: true,
+    },
+  }
+);
 
 // Animate each project card only once
 const cards = gsap.utils.toArray(".project-card");
@@ -318,11 +324,21 @@ let tl = gsap.timeline({
   },
 });
 
+// ✅ Keep first card static but styled correctly
+gsap.set(cards[0], {
+  y: 0, // stays in place
+  opacity: 1,
+  maxWidth: `calc(100% - ${(totalCards - 1) * widthStep}px)`, // same width logic as before
+});
+
+// ✅ Animate the rest
 cards.forEach((card, i) => {
+  if (i === 0) return; // skip animation for first card
+
   tl.fromTo(
     card,
     {
-      y: window.innerHeight * 0.7 + 100, // slightly smaller travel for smoothness
+      y: window.innerHeight * 0.7 + 100,
       opacity: 0,
       maxWidth: `calc(100% - ${(totalCards - i - 1) * widthStep}px)`,
     },
@@ -330,9 +346,9 @@ cards.forEach((card, i) => {
       y: i * gap,
       opacity: 1,
       maxWidth: `calc(100% - ${(totalCards - i - 1) * widthStep}px)`,
-      ease: "power2.out", // ✅ smooth deceleration
+      ease: "power2.out",
     },
-    i * 0.4 // ✅ slightly reduced stagger for flow
+    i * 0.4
   );
 });
 
@@ -423,18 +439,25 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Animate service section Title
-gsap.from(".service-title", {
-  scrollTrigger: {
-    trigger: ".service-section",
-    start: "top 50%", // adjust for earlier/later animation
-    toggleActions: "play none none reverse",
-    once: true, // ✅ ensures animation only runs once per page load
-  },
-  opacity: 0,
-  y: 100,
-  duration: 2,
-  ease: "power2.out",
-});
+gsap.fromTo(
+  [
+    ".service-title-top",
+    ".service-title-middle",
+    ".service-title-bottom, .service-title-description",
+  ],
+  { y: "100%" }, // start from below
+  {
+    y: "0%",
+    duration: 1.2,
+    ease: "power3.out",
+    stagger: 0.05,
+    scrollTrigger: {
+      trigger: ".service-section",
+      start: "top 80%",
+      once: true,
+    },
+  }
+);
 
 // Animate service card
 gsap.set(".service-card", { opacity: 1, y: 0 }); // Ensure they are visible by default
@@ -455,32 +478,38 @@ gsap.from(".service-card", {
 });
 
 // Animate method section title
-gsap.from(".method-title", {
-  scrollTrigger: {
-    trigger: ".method-section",
-    start: "top 50%", // adjust for earlier/later animation
-    toggleActions: "play none none reverse",
-    once: true, // ✅ ensures animation only runs once per page load
-  },
-  opacity: 0,
-  y: 100,
-  duration: 2,
-  ease: "power2.out",
-});
+gsap.fromTo(
+  [".method-title-top", ".method-title-bottom"],
+  { y: "100%" }, // start below
+  {
+    y: "0%",
+    duration: 1.2,
+    ease: "power3.out",
+    stagger: 0.05,
+    scrollTrigger: {
+      trigger: ".method-section",
+      start: "top 80%",
+      once: true,
+    },
+  }
+);
 
 // Animate workflow title
-gsap.from(".workflow-title", {
-  scrollTrigger: {
-    trigger: ".workflow-section",
-    start: "top 50%", // adjust for earlier/later animation
-    toggleActions: "play none none reverse",
-    once: true, // ✅ ensures animation only runs once per page load
-  },
-  opacity: 0,
-  y: 100,
-  duration: 2,
-  ease: "power2.out",
-});
+gsap.fromTo(
+  [".workflow-title-top", ".workflow-title-bottom"],
+  { y: "100%" }, // start off-screen (below)
+  {
+    y: "0%",
+    duration: 1.2,
+    ease: "power3.out",
+    stagger: 0.05,
+    scrollTrigger: {
+      trigger: ".workflow-title",
+      start: "top 80%",
+      once: true,
+    },
+  }
+);
 
 // Animate workflow cards
 gsap.from(".workflow-card", {
@@ -499,19 +528,22 @@ gsap.from(".workflow-card", {
   },
 });
 
-// Animate workflow cards
-gsap.from(".testimonial-title", {
-  scrollTrigger: {
-    trigger: ".testimonial-section",
-    start: "top 50%", // adjust for earlier/later animation
-    toggleActions: "play none none reverse",
-    once: true, // ✅ ensures animation only runs once per page load
-  },
-  opacity: 0,
-  y: 100,
-  duration: 2,
-  ease: "power2.out",
-});
+// Animate testimonial title
+gsap.fromTo(
+  [".testimonial-title-top", ".testimonial-title-bottom"],
+  { y: "100%" }, // start off-screen (below)
+  {
+    y: "0%",
+    duration: 1.2,
+    ease: "power3.out",
+    stagger: 0.05,
+    scrollTrigger: {
+      trigger: ".testimonial-title",
+      start: "top 80%",
+      once: true,
+    },
+  }
+);
 
 // Animate filters
 gsap.from(".filters", {
@@ -540,18 +572,21 @@ gsap.from(".grid-wrapper", {
 });
 
 // Animate comparison title
-gsap.from(".comparison-title", {
-  scrollTrigger: {
-    trigger: ".comparison-section",
-    start: "top 50%", // adjust for earlier/later animation
-    toggleActions: "play none none reverse",
-    once: true, // ✅ ensures animation only runs once per page load
-  },
-  opacity: 0,
-  y: 100,
-  duration: 2,
-  ease: "power2.out",
-});
+gsap.fromTo(
+  [".comparison-title-top", ".comparison-title-bottom"],
+  { y: "100%" }, // start off-screen (below)
+  {
+    y: "0%",
+    duration: 1.2,
+    ease: "power3.out",
+    stagger: 0.05,
+    scrollTrigger: {
+      trigger: ".comparison-title",
+      start: "top 80%",
+      once: true,
+    },
+  }
+);
 
 // Animate comparison table
 const rows = gsap.utils.toArray(".comparison-row");
@@ -574,19 +609,22 @@ gsap.from(rows, {
   },
 });
 
-// Animate faq cards
-gsap.from(".faq-title", {
-  scrollTrigger: {
-    trigger: ".faq-section",
-    start: "top 50%", // adjust for earlier/later animation
-    toggleActions: "play none none reverse",
-    once: true, // ✅ ensures animation only runs once per page load
-  },
-  opacity: 0,
-  y: 100,
-  duration: 2,
-  ease: "power2.out",
-});
+// Animate faq title
+gsap.fromTo(
+  [".faq-title-top"],
+  { y: "100%" }, // start off-screen (below)
+  {
+    y: "0%",
+    duration: 1.2,
+    ease: "power3.out",
+    stagger: 0.05,
+    scrollTrigger: {
+      trigger: ".faq-title",
+      start: "top 80%",
+      once: true,
+    },
+  }
+);
 
 // Animate accordion items when reaching the section
 gsap.set(".accordion-item", { opacity: 1 });
@@ -606,15 +644,18 @@ gsap.from(".accordion-item", {
 });
 
 // Animate footer top
-gsap.from(".footer-top", {
-  scrollTrigger: {
-    trigger: ".site-footer",
-    start: "top 50%", // adjust for earlier/later animation
-    toggleActions: "play none none reverse",
-    once: true, // ✅ ensures animation only runs once per page load
-  },
-  opacity: 0,
-  y: 100,
-  duration: 2,
-  ease: "power2.out",
-});
+gsap.fromTo(
+  [".footer-title-top", ".footer-title-bottom"],
+  { y: "100%" }, // start off-screen (below)
+  {
+    y: "0%",
+    duration: 1.2,
+    ease: "power3.out",
+    stagger: 0.05,
+    scrollTrigger: {
+      trigger: ".footer-title",
+      start: "top 80%",
+      once: true,
+    },
+  }
+);
