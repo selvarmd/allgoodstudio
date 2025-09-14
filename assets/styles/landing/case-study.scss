@@ -1,0 +1,286 @@
+.case-study-wrapper {
+  background-color: #f8f8f8;
+
+  .case-study {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: 24px 0;
+
+    @media (min-width: 992px) {
+      flex-direction: row;
+    }
+
+    .details {
+      @media (min-width: 992px) {
+        max-width: 400px;
+      }
+
+      .logo-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 24px;
+        line-height: 30px;
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
+
+      .site-description {
+        margin-bottom: 30px;
+
+        p {
+          font-size: 16px;
+          font-weight: 400;
+        }
+      }
+
+      .value-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+
+        .value-block {
+          display: flex;
+          flex-direction: column;
+
+          &.two-col {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+
+            > div {
+              flex: 1;
+            }
+          }
+
+          label {
+            color: #909090;
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 6px;
+          }
+
+          .text-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+          }
+
+          .value {
+            font-weight: 500;
+          }
+        }
+      }
+
+      .btn-wrapper {
+        margin-top: 40px;
+
+        .connect-btn {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          border: 1px solid #000000;
+          border-radius: 5px;
+          background: #000000;
+          color: #ffffff;
+          font-weight: 500;
+          padding: 10px;
+          font-weight: 500;
+          line-height: 1;
+          cursor: pointer;
+          overflow: hidden;
+          z-index: 1;
+          text-decoration: none;
+          text-transform: uppercase;
+          transition: color 0.3s ease;
+
+          &::before {
+            content: "";
+            position: absolute;
+            bottom: -10px; // start from bottom
+            left: 50%; // center horizontally
+            width: 20px;
+            height: 20px;
+            background: #ffffff; // hover fill color
+            border-radius: 50%;
+            transform: translateX(-50%) scale(0); // hidden circle
+            transition: transform 0.3s ease-in-out;
+            z-index: -1;
+          }
+
+          &:hover {
+            color: #000000; // text color change
+
+            &::before {
+              transform: translateX(-50%) scale(20); // expand big enough to fill button
+            }
+
+            svg {
+              color: #000000;
+            }
+          }
+
+          svg {
+            color: #00dc72;
+            transition: all 0.3s ease-in-out;
+          }
+        }
+      }
+    }
+
+    .mockups {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+
+      .img-wrapper {
+        border-radius: 10px;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      .testi-wrapper {
+        background: #00dc72 url("../../images/backgrounds/testimonial-bg.svg")
+          no-repeat;
+        background-position: right bottom;
+        background-size: 30%;
+        padding: 24px;
+        border-radius: 10px;
+
+        @media (min-width: 1200px) {
+          padding: 50px 40px;
+        }
+
+        .testi-content {
+          @media (min-width: 1400px) {
+            max-width: 70%;
+          }
+        }
+
+        .title {
+          font-size: 20px;
+          font-weight: 600;
+          text-transform: uppercase;
+          margin-bottom: 20px;
+        }
+
+        .testi-desc {
+          font-size: 20px;
+
+          @media (min-width: 1200px) {
+            font-size: 25px;
+          }
+        }
+
+        .user-wrapper {
+          display: flex;
+          align-items: center;
+          gap: 25px;
+          margin-top: 30px;
+          //   margin-top: 50px;
+
+          .user-img {
+            height: 72px;
+            width: 72px;
+            border-radius: 100%;
+            overflow: hidden;
+
+            img {
+              height: 100%;
+              width: 100%;
+              object-fit: cover;
+            }
+          }
+
+          h5 {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 4px;
+          }
+        }
+      }
+
+      .next-study-wrapper {
+        padding: 30px;
+        background-color: #f1f1f1;
+        border-radius: 10px;
+
+        .header-top,
+        .header-bottom {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          text-transform: uppercase;
+          margin-bottom: 20px;
+
+          @media (min-width: 768px) {
+            margin-bottom: 40px;
+          }
+        }
+
+        .header-top {
+          font-size: 20px;
+          line-height: 30px;
+          font-weight: 500;
+
+          @media (min-width: 576px) {
+            font-size: 24px;
+            line-height: 60px;
+          }
+
+          .see-all {
+            color: #000000;
+            text-decoration: none;
+            font-size: 16px;
+
+            @media (min-width: 576px) {
+              font-size: 20px;
+            }
+          }
+        }
+
+        .header-bottom {
+          h3 {
+            font-size: 22px;
+            line-height: 1;
+            font-weight: 700;
+
+            @media (min-width: 576px) {
+              font-size: 36px;
+            }
+
+            @media (min-width: 768px) {
+              font-size: 48px;
+            }
+
+            @media (min-width: 992px) {
+              font-size: 40px;
+            }
+
+            @media (min-width: 1200px) {
+              font-size: 48px;
+            }
+          }
+          .next-link {
+            color: #000000;
+
+            svg {
+              width: 60px;
+
+              @media (min-width: 1400px) {
+                width: 120px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
