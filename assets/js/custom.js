@@ -1,6 +1,40 @@
 /********** Scroll to top when page loads **********/
+// Ensure page always starts at top on load
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) {
+    // If the page was restored from bfcache (back/forward cache)
+    window.scrollTo(0, 0);
+  } else {
+    // Normal reload
+    window.scrollTo(0, 0);
+  }
+});
+
+// Only reload after the page is fully loaded
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
 window.addEventListener("load", () => {
   window.scrollTo(0, 0);
+
+  let resizeTimeout;
+  let initialWidth = window.innerWidth;
+  let initialHeight = window.innerHeight;
+
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+
+    resizeTimeout = setTimeout(() => {
+      if (
+        window.innerWidth !== initialWidth ||
+        window.innerHeight !== initialHeight
+      ) {
+        window.scrollTo(0, 0);
+        window.location.reload();
+      }
+    }, 250);
+  });
 });
 
 /********** Sticky header **********/
@@ -11,6 +45,63 @@ window.addEventListener("scroll", function () {
   } else {
     header.classList.remove("scrolled");
   }
+});
+
+/********** Adding theme color for teh header based on the section theme color **********/
+document.addEventListener("DOMContentLoaded", () => {
+  const header = document.querySelector(".site-header");
+  const sections = Array.from(document.querySelectorAll("main section"));
+  if (!header || sections.length === 0) return;
+
+  function updateHeaderTheme() {
+    const headerHeight = header.offsetHeight;
+    let currentSection = null;
+
+    for (const section of sections) {
+      const rect = section.getBoundingClientRect();
+
+      // Check if section top has crossed header line (viewport top + header height)
+      if (rect.top <= headerHeight) {
+        currentSection = section;
+      }
+    }
+
+    if (currentSection) {
+      const theme = currentSection.dataset.theme || "light";
+
+      // Apply theme only if it actually changed
+      if (theme === "dark" && !header.classList.contains("dark-header")) {
+        header.classList.add("dark-header");
+        header.classList.remove("light-header");
+      } else if (
+        theme === "light" &&
+        !header.classList.contains("light-header")
+      ) {
+        header.classList.add("light-header");
+        header.classList.remove("dark-header");
+      }
+    }
+  }
+
+  // Attach scroll + load listeners
+  window.addEventListener("scroll", updateHeaderTheme);
+  window.addEventListener("load", updateHeaderTheme);
+
+  // Smooth scroll for nav links with offset for header height
+  document.querySelectorAll('.nav-link[href^="#"]').forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute("href");
+      const targetEl = document.querySelector(targetId);
+
+      if (targetEl) {
+        window.scrollTo({
+          top: targetEl.offsetTop, // no subtraction needed
+          behavior: "smooth",
+        });
+      }
+    });
+  });
 });
 
 /********** Logo carousel **********/
@@ -230,128 +321,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/********** GSAP Animations **********/
-
-gsap.registerPlugin(ScrollTrigger);
-
-/********** Animate hero-bg only when hero-section enters the viewport **********/
-gsap.from(".hero-bg", {
-  x: -100,
-  opacity: 0,
-  duration: 5,
-  ease: "power3.out",
-  scrollTrigger: {
-    trigger: ".hero-section", // Animation triggers when this section is visible
-    start: "top 80%", // When top of hero-section hits 80% of viewport height
-    toggleActions: "play none none none", // Play only once, don't reset
-  },
-});
-
-/********** Hero Title Animation **********/
-gsap.from([".hero-title-top", ".hero-title-middle", ".hero-title-bottom"], {
-  y: "100%", // slide upward
-  duration: 1.2,
-  ease: "power3.out",
-  stagger: 0.25, // ⏱ tiny delay (50ms) between each line
-  scrollTrigger: {
-    trigger: ".hero-title",
-    start: "top 80%",
-    once: true,
-  },
-});
-
-/********** Hero Sub Content Animation **********/
-gsap.from([".hero-description", ".link-wrapper", ".detail-wrapper"], {
-  y: "100%", // slide upward
-  duration: 1.2,
-  ease: "power3.out",
-  stagger: 0.25, // ⏱ tiny delay (50ms) between each line
-  scrollTrigger: {
-    trigger: ".hero-sub-content",
-    start: "top 80%", // start when hero section is in view
-    once: true,
-  },
-});
-
-/********** Project Section Title Animation **********/
-gsap.fromTo(
-  [".project-title-top", ".project-title-bottom"],
-  { y: "100%" }, // START (offscreen below)
-  {
-    y: "0%", // END (natural position)
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".project-title",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/********** Animate each project card only once **********/
-const cards = gsap.utils.toArray(".project-card");
-const totalCards = cards.length;
-let gap, widthStep;
-
-// Set values based on screen width
-if (window.innerWidth < 768) {
-  gap = 20;
-  widthStep = 30;
-} else if (window.innerWidth < 1024) {
-  gap = 30;
-  widthStep = 50;
-} else if (window.innerWidth < 1200) {
-  gap = 40;
-  widthStep = 60;
-} else {
-  gap = 50;
-  widthStep = 80;
-}
-
-// Dynamic scroll distance
-const scrollDistance = (totalCards - 1) * gap + window.innerHeight * 0.6;
-
-let tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".project-container-section",
-    pin: ".project-container-section",
-    start: "top top",
-    end: "+=" + scrollDistance,
-    scrub: 1.5, // ✅ Smooth scroll-linked animation
-    invalidateOnRefresh: true,
-  },
-});
-
-// ✅ Keep first card static but styled correctly
-gsap.set(cards[0], {
-  y: 0, // stays in place
-  opacity: 1,
-  maxWidth: `calc(100% - ${(totalCards - 1) * widthStep}px)`, // same width logic as before
-});
-
-// ✅ Animate the rest
-cards.forEach((card, i) => {
-  if (i === 0) return; // skip animation for first card
-
-  tl.fromTo(
-    card,
-    {
-      y: window.innerHeight * 0.7 + 100,
-      opacity: 0,
-      maxWidth: `calc(100% - ${(totalCards - i - 1) * widthStep}px)`,
-    },
-    {
-      y: i * gap,
-      opacity: 1,
-      maxWidth: `calc(100% - ${(totalCards - i - 1) * widthStep}px)`,
-      ease: "power2.out",
-    },
-    i * 0.4
-  );
-});
-
 /********** Counter animations **********/
 document.addEventListener("DOMContentLoaded", () => {
   function buildRolling(wrapper) {
@@ -436,224 +405,122 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/********** Animate service section Title **********/
-gsap.fromTo(
-  [
-    ".service-title-top",
-    ".service-title-middle",
-    ".service-title-bottom, .service-title-description",
-  ],
-  { y: "100%" }, // start from below
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".service-section",
-      start: "top 80%",
-      once: true,
-    },
+/****************** Custom Cursor *********************/
+function initCustomCursor() {
+  const cursor = document.querySelector(".custom-cursor");
+  const projectCards = document.querySelectorAll(".project-card");
+  const projectContainer = document.querySelector(".project-container");
+  let lastMousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  let activeCard = null;
+  let hideTimeout = null;
+
+  // Track mouse position globally
+  document.addEventListener("mousemove", (e) => {
+    lastMousePos.x = e.clientX;
+    lastMousePos.y = e.clientY;
+    cursor.style.left = `${lastMousePos.x}px`;
+    cursor.style.top = `${lastMousePos.y}px`;
+  });
+
+  function activateCursor(card, event) {
+    if (card === projectCards[projectCards.length - 1]) {
+      deactivateCursor();
+      document.body.style.cursor = "auto";
+      return;
+    }
+
+    clearTimeout(hideTimeout);
+    if (event) {
+      lastMousePos.x = event.clientX;
+      lastMousePos.y = event.clientY;
+    }
+    cursor.style.left = `${lastMousePos.x}px`;
+    cursor.style.top = `${lastMousePos.y}px`;
+
+    const color = card.dataset.cursorColor || "#000";
+    cursor.style.background = color;
+
+    cursor.style.transform = "translate(-50%, -50%) scale(1)";
+    cursor.style.opacity = 1;
+    document.body.style.cursor = "none";
+    activeCard = card;
   }
-);
 
-/**********Animate service card **********/
-gsap.set(".service-card", { opacity: 1, y: 0 }); // Ensure they are visible by default
+  function deactivateCursor() {
+    clearTimeout(hideTimeout);
+    hideTimeout = setTimeout(() => {
+      cursor.style.opacity = 0;
+      cursor.style.transform = "translate(-50%, -50%) scale(0)";
+      document.body.style.cursor = "auto";
+      activeCard = null;
+    }, 120);
+  }
 
-gsap.from(".service-card", {
-  scrollTrigger: {
-    trigger: ".services",
-    start: "top 80%",
-    once: true, // ✅ run only once
-  },
-  y: 80,
-  opacity: 0,
-  duration: 1.5,
-  ease: "power3.out",
-  stagger: {
-    each: 0.5,
-  },
+  projectCards.forEach((card) => {
+    card.addEventListener("pointerenter", (e) => activateCursor(card, e));
+    card.addEventListener("pointerleave", () => {
+      if (card === projectCards[projectCards.length - 1]) {
+        document.body.style.cursor = "auto";
+      }
+      deactivateCursor();
+    });
+    // card.addEventListener("click", () => {
+    //   if (card.dataset.link) window.location.href = card.dataset.link;
+    // });
+  });
+
+  projectContainer.addEventListener("mouseleave", () => {
+    deactivateCursor();
+    document.body.style.cursor = "auto";
+  });
+
+  let scrollTimeout;
+  window.addEventListener("scroll", () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      let hoveredCard = null;
+      projectCards.forEach((card) => {
+        const rect = card.getBoundingClientRect();
+        if (
+          lastMousePos.x >= rect.left &&
+          lastMousePos.x <= rect.right &&
+          lastMousePos.y >= rect.top &&
+          lastMousePos.y <= rect.bottom
+        ) {
+          hoveredCard = card;
+        }
+      });
+
+      if (hoveredCard) {
+        if (hoveredCard === projectCards[projectCards.length - 1]) {
+          deactivateCursor();
+          document.body.style.cursor = "auto";
+        } else if (hoveredCard !== activeCard) {
+          activateCursor(hoveredCard);
+        }
+      } else {
+        deactivateCursor();
+      }
+    }, 50);
+  });
+}
+
+// Initialize only if screen width > 992px
+if (window.innerWidth > 992) {
+  initCustomCursor();
+}
+
+// Optional: Re-check on resize
+window.addEventListener("resize", () => {
+  if (window.innerWidth > 991 && !window.customCursorInitialized) {
+    initCustomCursor();
+    window.customCursorInitialized = true;
+  } else if (window.innerWidth <= 992 && window.customCursorInitialized) {
+    // Remove custom cursor if needed
+    const cursor = document.querySelector(".custom-cursor");
+    if (cursor) cursor.style.opacity = 0;
+    document.body.style.cursor = "auto";
+    window.customCursorInitialized = false;
+    // Optionally, you can remove all event listeners here
+  }
 });
-
-/********** Animate method section title **********/
-gsap.fromTo(
-  [".method-title-top", ".method-title-bottom"],
-  { y: "100%" }, // start below
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".method-section",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/********** Animate workflow title **********/
-gsap.fromTo(
-  [".workflow-title-top", ".workflow-title-bottom"],
-  { y: "100%" }, // start off-screen (below)
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".workflow-title",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/********** Animate workflow cards **********/
-gsap.from(".workflow-card", {
-  scrollTrigger: {
-    trigger: ".workflow-cards",
-    start: "top 80%", // animation starts when 80% of viewport hits the section
-    once: true, // ✅ run only once per page load
-  },
-  y: 80, // slide up from below
-  opacity: 0, // fade in
-  duration: 3, // duration for each card
-  ease: "power3.out",
-  stagger: {
-    each: 0.5, // delay between each card start
-    overlap: 0.5, // ✅ overlapping animation (50% into previous one)
-  },
-});
-
-/********** Animate testimonial title **********/
-gsap.fromTo(
-  [".testimonial-title-top", ".testimonial-title-bottom"],
-  { y: "100%" }, // start off-screen (below)
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".testimonial-title",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/********** Animate filters **********/
-gsap.from(".filters", {
-  scrollTrigger: {
-    trigger: ".grid-wrapper",
-    start: "top 80%", // when grid-wrapper enters viewport
-    once: true, // ✅ only animate once
-  },
-  opacity: 0,
-  scale: 0.8, // start slightly smaller
-  duration: 3,
-  ease: "power3.out",
-});
-
-/********** Animate grid-wrapper **********/
-gsap.from(".grid-wrapper", {
-  scrollTrigger: {
-    trigger: ".grid-wrapper",
-    start: "top 80%",
-    once: true,
-  },
-  opacity: 0,
-  scale: 0.85,
-  duration: 3,
-  ease: "power3.out",
-});
-
-/********** Animate comparison title **********/
-gsap.fromTo(
-  [".comparison-title-top", ".comparison-title-bottom"],
-  { y: "100%" }, // start off-screen (below)
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".comparison-title",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/********** Animate comparison table **********/
-const rows = gsap.utils.toArray(".comparison-row");
-
-gsap.from(rows, {
-  scrollTrigger: {
-    trigger: ".comparison-block",
-    start: "top 80%", // Trigger when comparison block is ~80% visible
-    toggleActions: "play none none none", // play only once
-    once: true, // ✅ ensures animation happens only once per page load
-  },
-  x: -80, // slide from left
-  opacity: 0,
-  duration: 1.2,
-  ease: "power3.out",
-  stagger: {
-    each: 0.6, // delay between rows
-    amount: 1.2, // controls total stagger timing
-    from: "start",
-  },
-});
-
-/********** Animate faq title **********/
-gsap.fromTo(
-  [".faq-title-top"],
-  { y: "100%" }, // start off-screen (below)
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".faq-title",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/********** Animate accordion items when reaching the section **********/
-gsap.set(".accordion-item", { opacity: 1 });
-
-// ✅ Then animate them from hidden state when triggered
-gsap.from(".accordion-item", {
-  opacity: 0,
-  y: 50,
-  duration: 1.2,
-  ease: "power4.out",
-  stagger: 0.25,
-  scrollTrigger: {
-    trigger: ".accordion",
-    start: "top 80%",
-    once: true, // ✅ ensures it runs only once, doesn't reset opacity
-  },
-});
-
-/********** Animate footer top **********/
-gsap.fromTo(
-  [".footer-title-top", ".footer-title-bottom"],
-  { y: "100%" }, // start off-screen (below)
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".footer-title",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
