@@ -101,6 +101,8 @@ img {
 .site-header .navbar .navbar-brand {
   padding: 0;
   color: #000000;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
 .site-header .navbar .navbar-collapse {
@@ -601,8 +603,6 @@ img {
   }
 }
 
-.see-all-btn,
-.req-btn,
 .footer-cta-btn {
   position: relative;
   display: -webkit-box;
@@ -628,16 +628,12 @@ img {
 }
 
 @media (min-width: 992px) {
-  .see-all-btn,
-  .req-btn,
   .footer-cta-btn {
     font-size: 16px;
   }
 }
 
 @media (min-width: 1400px) {
-  .see-all-btn,
-  .req-btn,
   .footer-cta-btn {
     padding: 15px 25px;
     font-size: 20px;
@@ -645,16 +641,12 @@ img {
 }
 
 @media (min-width: 1600px) {
-  .see-all-btn,
-  .req-btn,
   .footer-cta-btn {
     padding: 20px 30px;
     font-size: 24px;
   }
 }
 
-.see-all-btn::before,
-.req-btn::before,
 .footer-cta-btn::before {
   content: "";
   position: absolute;
@@ -673,36 +665,26 @@ img {
   z-index: -1;
 }
 
-.see-all-btn:hover,
-.req-btn:hover,
 .footer-cta-btn:hover {
   color: #000000;
 }
 
-.see-all-btn:hover::before,
-.req-btn:hover::before,
 .footer-cta-btn:hover::before {
   -webkit-transform: translateX(-50%) scale(25);
           transform: translateX(-50%) scale(25);
 }
 
-.see-all-btn svg,
-.req-btn svg,
 .footer-cta-btn svg {
   width: 24px;
 }
 
 @media (min-width: 1200px) {
-  .see-all-btn svg,
-  .req-btn svg,
   .footer-cta-btn svg {
     width: 36px;
   }
 }
 
 @media (min-width: 1600px) {
-  .see-all-btn svg,
-  .req-btn svg,
   .footer-cta-btn svg {
     width: 45px;
   }

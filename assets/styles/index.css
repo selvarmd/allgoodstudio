@@ -583,7 +583,7 @@
   background: #000000;
 }
 
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .project-container-section {
     padding-top: 50px;
   }
@@ -593,6 +593,10 @@
   .project-container-section {
     padding-top: 68px;
   }
+}
+
+.project-container-section .see-all-wrapper {
+  text-align: center;
 }
 
 .project-container-section .project-container {
@@ -816,50 +820,6 @@
 }
 
 /* Custom Cursor */
-.custom-cursor {
-  display: none;
-}
-
-@media (min-width: 992px) {
-  .custom-cursor {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: #000;
-    color: #fff;
-    font-size: 12px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
-    pointer-events: none;
-    opacity: 0;
-    -webkit-transform: translate(-50%, -50%) scale(0);
-            transform: translate(-50%, -50%) scale(0);
-    -webkit-transition: opacity 0.2s ease, background 0.3s ease, -webkit-transform 0.2s ease;
-    transition: opacity 0.2s ease, background 0.3s ease, -webkit-transform 0.2s ease;
-    transition: transform 0.2s ease, opacity 0.2s ease, background 0.3s ease;
-    transition: transform 0.2s ease, opacity 0.2s ease, background 0.3s ease, -webkit-transform 0.2s ease;
-    z-index: 9999;
-  }
-}
-
-@media (min-width: 992px) and (min-width: 1400px) {
-  .custom-cursor {
-    width: 80px;
-    height: 80px;
-    font-size: 14px;
-  }
-}
-
 .service-section {
   background-color: #1c1f1e;
   color: #ffffff;
@@ -2484,7 +2444,7 @@
           transform: rotate(180deg);
 }
 
-.view-all-btn,
+.see-all-btn,
 .req-btn {
   position: relative;
   display: -webkit-inline-box;
@@ -2510,14 +2470,14 @@
 }
 
 @media (min-width: 992px) {
-  .view-all-btn,
+  .see-all-btn,
   .req-btn {
     font-size: 16px;
   }
 }
 
 @media (min-width: 1400px) {
-  .view-all-btn,
+  .see-all-btn,
   .req-btn {
     padding: 15px 25px;
     font-size: 20px;
@@ -2525,14 +2485,14 @@
 }
 
 @media (min-width: 1600px) {
-  .view-all-btn,
+  .see-all-btn,
   .req-btn {
     padding: 20px 30px;
     font-size: 24px;
   }
 }
 
-.view-all-btn::before,
+.see-all-btn::before,
 .req-btn::before {
   content: "";
   position: absolute;
@@ -2551,31 +2511,31 @@
   z-index: -1;
 }
 
-.view-all-btn:hover,
+.see-all-btn:hover,
 .req-btn:hover {
   color: #000000;
 }
 
-.view-all-btn:hover::before,
+.see-all-btn:hover::before,
 .req-btn:hover::before {
   -webkit-transform: translateX(-50%) scale(25);
           transform: translateX(-50%) scale(25);
 }
 
-.view-all-btn svg,
+.see-all-btn svg,
 .req-btn svg {
   width: 24px;
 }
 
 @media (min-width: 1200px) {
-  .view-all-btn svg,
+  .see-all-btn svg,
   .req-btn svg {
     width: 36px;
   }
 }
 
 @media (min-width: 1600px) {
-  .view-all-btn svg,
+  .see-all-btn svg,
   .req-btn svg {
     width: 45px;
   }
@@ -2743,5 +2703,134 @@
     -webkit-transform: translateX(100%) rotate(0deg);
             transform: translateX(100%) rotate(0deg);
   }
+}
+
+.gallery {
+  width: 100%;
+  overflow: hidden;
+  margin: 0 0 50px;
+}
+
+@media (min-width: 768px) {
+  .gallery {
+    height: 220px;
+  }
+}
+
+@media (min-width: 992px) {
+  .gallery {
+    height: 300px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .gallery {
+    height: 350px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .gallery {
+    height: 400px;
+  }
+}
+
+@media (min-width: 1600px) {
+  .gallery {
+    height: 450px;
+  }
+}
+
+.gallery .owl-carousel {
+  height: 100%;
+}
+
+.gallery .owl-carousel .owl-stage-outer {
+  height: 100%;
+}
+
+.gallery .owl-carousel .owl-stage-outer .owl-stage {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  height: 100%;
+}
+
+.gallery .owl-carousel .owl-stage-outer .owl-item {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  -webkit-transition: -webkit-transform 1.5s ease-in-out;
+  transition: -webkit-transform 1.5s ease-in-out;
+  transition: transform 1.5s ease-in-out;
+  transition: transform 1.5s ease-in-out, -webkit-transform 1.5s ease-in-out;
+}
+
+.gallery .owl-carousel .owl-stage-outer .owl-item .item {
+  opacity: 0.6;
+  -webkit-transition: opacity 1.5s ease-in-out;
+  transition: opacity 1.5s ease-in-out;
+}
+
+.gallery .owl-carousel .owl-stage-outer .owl-item .item img {
+  width: 100%;
+  border-radius: 12px;
+  -webkit-box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+          box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+  display: block;
+}
+
+.gallery .owl-carousel .owl-stage-outer .owl-item.center {
+  -webkit-transform: scale(1.5);
+          transform: scale(1.5);
+  z-index: 1;
+}
+
+.gallery .owl-carousel .owl-stage-outer .owl-item.center .item {
+  opacity: 1;
+}
+
+/* Base custom cursor */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #ff4d4d;
+  /* default color */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  pointer-events: none;
+  -webkit-transform: translate(-50%, -50%) scale(0);
+          transform: translate(-50%, -50%) scale(0);
+  -webkit-transition: background-color 1s ease, -webkit-transform 1s ease;
+  transition: background-color 1s ease, -webkit-transform 1s ease;
+  transition: background-color 1s ease, transform 1s ease;
+  transition: background-color 1s ease, transform 1s ease, -webkit-transform 1s ease;
+  z-index: 9999;
+}
+
+.custom-cursor.active {
+  -webkit-transform: translate(-50%, -50%) scale(1);
+          transform: translate(-50%, -50%) scale(1);
+}
+
+.custom-cursor .cursor-text {
+  -webkit-transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease;
 }
 /*# sourceMappingURL=index.css.map */

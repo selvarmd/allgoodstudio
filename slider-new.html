@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stacked Owl Carousel</title>
+
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <style>
+        body {
+            margin: 0;
+            background: #111;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .gallery {
+            width: 100%;
+            max-width: 1200px;
+            overflow: hidden;
+            height: 80vh;
+
+        }
+
+        .owl-carousel {
+            height: 100%;
+        }
+
+        .owl-carousel .owl-stage-outer {
+            height: 100%;
+        }
+
+        .owl-carousel .owl-stage {
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+
+        .owl-carousel .item {
+            /* transform: scale(0.85); */
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            opacity: 0.6;
+            cursor: pointer;
+        }
+
+        .owl-item.center {
+            transform: scale(1.5);
+            z-index: 1;
+        }
+
+        .owl-item.center .item {
+            /* transform: scale(1.5); */
+            opacity: 1;
+            /* z-index: 10; */
+        }
+
+        .item img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="gallery">
+        <div class="owl-carousel">
+            <div class="item" data-link="page1.html"><img src="./assets/images/project-1.png" alt=""></div>
+            <div class="item" data-link="page1.html"><img src="./assets/images/project-1.png" alt=""></div>
+            <div class="item" data-link="page1.html"><img src="./assets/images/project-1.png" alt=""></div>
+            <div class="item" data-link="page1.html"><img src="./assets/images/project-1.png" alt=""></div>
+            <div class="item" data-link="page1.html"><img src="./assets/images/project-1.png" alt=""></div>
+        </div>
+    </div>
+
+
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Owl Carousel JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            const $carousel = $(".owl-carousel");
+
+            $carousel.owlCarousel({
+                loop: true,
+                center: true,
+                items: 3,
+                margin: 0,
+                responsive: {
+                    0: { items: 1 },
+                    600: { items: 3 }
+                }
+            });
+
+            // Mouse wheel scroll navigation
+            $carousel.on('mousewheel', '.owl-stage', function (e) {
+                if (e.originalEvent.deltaY > 0) {
+                    $carousel.trigger('next.owl.carousel');
+                } else {
+                    $carousel.trigger('prev.owl.carousel');
+                }
+                e.preventDefault();
+            });
+
+            // Clickable redirect
+            $(".item").on("click", function () {
+                window.location.href = $(this).data("link");
+            });
+        });
+    </script>
+</body>
+
+</html>

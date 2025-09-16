@@ -95,6 +95,7 @@ img {
     .navbar-brand {
       padding: 0;
       color: #000000;
+      transition: all 0.3s ease-in-out;
     }
 
     .navbar-collapse {
@@ -501,8 +502,6 @@ img {
   }
 }
 
-.see-all-btn,
-.req-btn,
 .footer-cta-btn {
   position: relative;
   display: flex;

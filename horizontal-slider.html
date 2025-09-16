@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Locked Horizontal Scroll Portfolio</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            overflow-x: hidden;
+        }
+
+        section {
+            padding: 100px 0;
+            text-align: center;
+            font-size: 2rem;
+            background: #f0f0f0;
+        }
+
+        .portfolio-wrapper {
+            position: relative;
+            overflow: hidden;
+            height: 500px;
+            /* fixed showcase height */
+            background: #000;
+        }
+
+        .portfolio {
+            display: flex;
+            height: 100%;
+            width: max-content;
+            transform: translateX(0);
+            transition: transform 0.1s linear;
+        }
+
+        .portfolio-item {
+            flex: 0 0 calc(100vw / 3);
+            /* 3 visible at a time */
+            height: 100%;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <section>Section 1</section>
+
+    <div class="portfolio-wrapper">
+        <div class="portfolio">
+            <div class="portfolio-item"><img src="https://picsum.photos/id/1018/600/400" alt=""></div>
+            <div class="portfolio-item"><img src="https://picsum.photos/id/1015/600/400" alt=""></div>
+            <div class="portfolio-item"><img src="https://picsum.photos/id/1016/600/400" alt=""></div>
+            <div class="portfolio-item"><img src="https://picsum.photos/id/1019/600/400" alt=""></div>
+            <div class="portfolio-item"><img src="https://picsum.photos/id/1020/600/400" alt=""></div>
+        </div>
+    </div>
+
+    <section>Section 2</section>
+    <section>Section 3</section>
+
+    <script>
+        const wrapper = document.querySelector('.portfolio-wrapper');
+        const portfolio = document.querySelector('.portfolio');
+        const items = document.querySelectorAll('.portfolio-item');
+
+        const visibleItems = 3;
+        const totalWidth = items.length * (window.innerWidth / visibleItems);
+        const maxScroll = totalWidth - window.innerWidth;
+
+        let currentX = 0;
+
+        wrapper.addEventListener('wheel', (e) => {
+            const delta = e.deltaY;
+
+            // if we are not at edges, lock the scroll
+            if ((delta > 0 && currentX < maxScroll) || (delta < 0 && currentX > 0)) {
+                e.preventDefault();
+
+                currentX += delta;
+                if (currentX < 0) currentX = 0;
+                if (currentX > maxScroll) currentX = maxScroll;
+
+                portfolio.style.transform = `translateX(${-currentX}px)`;
+            }
+            // else: let normal scroll continue
+        }, { passive: false });
+    </script>
+
+</body>
+
+</html>
