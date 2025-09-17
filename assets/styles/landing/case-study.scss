@@ -91,8 +91,8 @@
           gap: 10px;
           border: 1px solid #000000;
           border-radius: 50px;
-          background: #000000;
-          color: #ffffff;
+          background: #ffffff;
+          color: #000000;
           font-weight: 500;
           padding: 10px 20px;
           font-weight: 500;
@@ -103,6 +103,11 @@
           text-decoration: none;
           transition: color 0.3s ease;
 
+          @media (min-width: 1400px) {
+            padding: 20px 30px;
+            font-size: 18px;
+          }
+
           &::before {
             content: "";
             position: absolute;
@@ -110,7 +115,7 @@
             left: 50%; // center horizontally
             width: 20px;
             height: 20px;
-            background: #ffffff; // hover fill color
+            background: #000000; // hover fill color
             border-radius: 50%;
             transform: translateX(-50%) scale(0); // hidden circle
             transition: transform 0.3s ease-in-out;
@@ -118,20 +123,19 @@
           }
 
           &:hover {
-            color: #000000; // text color change
+            color: #ffffff; // text color change
 
             &::before {
               transform: translateX(-50%) scale(20); // expand big enough to fill button
             }
-
-            svg {
-              color: #000000;
-            }
           }
 
           svg {
-            color: #00dc72;
-            transition: all 0.3s ease-in-out;
+            width: 24px;
+
+            @media (min-width: 1400px) {
+              width: 44px;
+            }
           }
         }
       }

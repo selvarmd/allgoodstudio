@@ -138,8 +138,8 @@
   gap: 10px;
   border: 1px solid #000000;
   border-radius: 50px;
-  background: #000000;
-  color: #ffffff;
+  background: #ffffff;
+  color: #000000;
   font-weight: 500;
   padding: 10px 20px;
   font-weight: 500;
@@ -152,6 +152,13 @@
   transition: color 0.3s ease;
 }
 
+@media (min-width: 1400px) {
+  .case-study-wrapper .case-study .details .btn-wrapper .connect-btn {
+    padding: 20px 30px;
+    font-size: 18px;
+  }
+}
+
 .case-study-wrapper .case-study .details .btn-wrapper .connect-btn::before {
   content: "";
   position: absolute;
@@ -159,7 +166,7 @@
   left: 50%;
   width: 20px;
   height: 20px;
-  background: #ffffff;
+  background: #000000;
   border-radius: 50%;
   -webkit-transform: translateX(-50%) scale(0);
           transform: translateX(-50%) scale(0);
@@ -171,7 +178,7 @@
 }
 
 .case-study-wrapper .case-study .details .btn-wrapper .connect-btn:hover {
-  color: #000000;
+  color: #ffffff;
 }
 
 .case-study-wrapper .case-study .details .btn-wrapper .connect-btn:hover::before {
@@ -179,14 +186,14 @@
           transform: translateX(-50%) scale(20);
 }
 
-.case-study-wrapper .case-study .details .btn-wrapper .connect-btn:hover svg {
-  color: #000000;
+.case-study-wrapper .case-study .details .btn-wrapper .connect-btn svg {
+  width: 24px;
 }
 
-.case-study-wrapper .case-study .details .btn-wrapper .connect-btn svg {
-  color: #00dc72;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+@media (min-width: 1400px) {
+  .case-study-wrapper .case-study .details .btn-wrapper .connect-btn svg {
+    width: 44px;
+  }
 }
 
 .case-study-wrapper .case-study .mockups {
