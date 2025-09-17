@@ -47,10 +47,10 @@ window.addEventListener("scroll", function () {
   }
 });
 
-/********** Adding theme color for teh header based on the section theme color **********/
+/********** Adding theme color for the header based on the section theme color **********/
 document.addEventListener("DOMContentLoaded", () => {
   const header = document.querySelector(".site-header");
-  const sections = Array.from(document.querySelectorAll("main section"));
+  const sections = Array.from(document.querySelectorAll("[data-theme]"));
   if (!header || sections.length === 0) return;
 
   function updateHeaderTheme() {
@@ -403,124 +403,4 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     },
   });
-});
-
-/****************** Custom Cursor *********************/
-function initCustomCursor() {
-  const cursor = document.querySelector(".custom-cursor");
-  const projectCards = document.querySelectorAll(".project-card");
-  const projectContainer = document.querySelector(".project-container");
-  let lastMousePos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
-  let activeCard = null;
-  let hideTimeout = null;
-
-  // Track mouse position globally
-  document.addEventListener("mousemove", (e) => {
-    lastMousePos.x = e.clientX;
-    lastMousePos.y = e.clientY;
-    cursor.style.left = `${lastMousePos.x}px`;
-    cursor.style.top = `${lastMousePos.y}px`;
-  });
-
-  function activateCursor(card, event) {
-    if (card === projectCards[projectCards.length - 1]) {
-      deactivateCursor();
-      document.body.style.cursor = "auto";
-      return;
-    }
-
-    clearTimeout(hideTimeout);
-    if (event) {
-      lastMousePos.x = event.clientX;
-      lastMousePos.y = event.clientY;
-    }
-    cursor.style.left = `${lastMousePos.x}px`;
-    cursor.style.top = `${lastMousePos.y}px`;
-
-    const color = card.dataset.cursorColor || "#000";
-    cursor.style.background = color;
-
-    cursor.style.transform = "translate(-50%, -50%) scale(1)";
-    cursor.style.opacity = 1;
-    document.body.style.cursor = "none";
-    activeCard = card;
-  }
-
-  function deactivateCursor() {
-    clearTimeout(hideTimeout);
-    hideTimeout = setTimeout(() => {
-      cursor.style.opacity = 0;
-      cursor.style.transform = "translate(-50%, -50%) scale(0)";
-      document.body.style.cursor = "auto";
-      activeCard = null;
-    }, 120);
-  }
-
-  projectCards.forEach((card) => {
-    card.addEventListener("pointerenter", (e) => activateCursor(card, e));
-    card.addEventListener("pointerleave", () => {
-      if (card === projectCards[projectCards.length - 1]) {
-        document.body.style.cursor = "auto";
-      }
-      deactivateCursor();
-    });
-    // card.addEventListener("click", () => {
-    //   if (card.dataset.link) window.location.href = card.dataset.link;
-    // });
-  });
-
-  projectContainer.addEventListener("mouseleave", () => {
-    deactivateCursor();
-    document.body.style.cursor = "auto";
-  });
-
-  let scrollTimeout;
-  window.addEventListener("scroll", () => {
-    clearTimeout(scrollTimeout);
-    scrollTimeout = setTimeout(() => {
-      let hoveredCard = null;
-      projectCards.forEach((card) => {
-        const rect = card.getBoundingClientRect();
-        if (
-          lastMousePos.x >= rect.left &&
-          lastMousePos.x <= rect.right &&
-          lastMousePos.y >= rect.top &&
-          lastMousePos.y <= rect.bottom
-        ) {
-          hoveredCard = card;
-        }
-      });
-
-      if (hoveredCard) {
-        if (hoveredCard === projectCards[projectCards.length - 1]) {
-          deactivateCursor();
-          document.body.style.cursor = "auto";
-        } else if (hoveredCard !== activeCard) {
-          activateCursor(hoveredCard);
-        }
-      } else {
-        deactivateCursor();
-      }
-    }, 50);
-  });
-}
-
-// Initialize only if screen width > 992px
-if (window.innerWidth > 992) {
-  initCustomCursor();
-}
-
-// Optional: Re-check on resize
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 991 && !window.customCursorInitialized) {
-    initCustomCursor();
-    window.customCursorInitialized = true;
-  } else if (window.innerWidth <= 992 && window.customCursorInitialized) {
-    // Remove custom cursor if needed
-    const cursor = document.querySelector(".custom-cursor");
-    if (cursor) cursor.style.opacity = 0;
-    document.body.style.cursor = "auto";
-    window.customCursorInitialized = false;
-    // Optionally, you can remove all event listeners here
-  }
 });

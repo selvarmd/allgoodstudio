@@ -10,36 +10,43 @@ gsap.from(".hero-bg", {
   ease: "power3.out",
   scrollTrigger: {
     trigger: ".hero-section", // Animation triggers when this section is visible
-    start: "top 80%", // When top of hero-section hits 80% of viewport height
+    start: "top 60%", // When top of hero-section hits 80% of viewport height
     toggleActions: "play none none none", // Play only once, don't reset
   },
 });
 
-/********** Hero Title Animation **********/
-gsap.from([".hero-title-top", ".hero-title-middle", ".hero-title-bottom"], {
-  y: "100%", // slide upward
-  duration: 1.2,
-  ease: "power3.out",
-  stagger: 0.25, // ⏱ tiny delay (50ms) between each line
+/********** Hero Animation Timeline **********/
+const heroTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: ".hero-title",
-    start: "top 80%",
-    once: true,
+    start: "top 60%",
+    once: true, // play only once
   },
 });
 
-/********** Hero Sub Content Animation **********/
-gsap.from([".hero-description", ".link-wrapper", ".detail-wrapper"], {
-  y: "100%", // slide upward
-  duration: 1.2,
-  ease: "power3.out",
-  stagger: 0.25, // ⏱ tiny delay (50ms) between each line
-  scrollTrigger: {
-    trigger: ".hero-sub-content",
-    start: "top 80%", // start when hero section is in view
-    once: true,
+// Hero Title Animation
+heroTimeline.from(
+  [".hero-title-top", ".hero-title-middle", ".hero-title-bottom"],
+  {
+    y: "100%", // slide upward
+    duration: 1,
+    ease: "power3.out",
+    stagger: 0.2, // delay between each line
+  }
+);
+
+// Hero Sub Content Animation (runs automatically after title animation)
+heroTimeline.from(
+  [".hero-description", ".link-wrapper", ".detail-wrapper"],
+  {
+    y: "100%",
+    opacity: 0,
+    duration: 1,
+    ease: "power3.out",
+    stagger: 0.1,
   },
-});
+  ">"
+); // ">" = start right after previous animation finishes
 
 /********** Project Section Title Animation **********/
 gsap.fromTo(
@@ -58,44 +65,54 @@ gsap.fromTo(
   }
 );
 
-/********** Animate service section Title **********/
-gsap.fromTo(
-  [
-    ".service-title-top",
-    ".service-title-middle",
-    ".service-title-bottom, .service-title-description",
-  ],
-  { y: "100%" }, // start from below
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".service-section",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/**********Animate service card **********/
-gsap.set(".service-card", { opacity: 1, y: 0 }); // Ensure they are visible by default
-
-gsap.from(".service-card", {
+/********** Service Section Animation **********/
+const serviceTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: ".services",
     start: "top 80%",
-    once: true, // ✅ run only once
-  },
-  y: 80,
-  opacity: 0,
-  duration: 1.5,
-  ease: "power3.out",
-  stagger: {
-    each: 0.5,
+    once: true,
   },
 });
+
+// Animate title lines first
+serviceTimeline.fromTo(
+  [".service-title-top", ".service-title-middle", ".service-title-bottom"],
+  { y: "100%" },
+  {
+    y: "0%",
+    duration: 0.5,
+    ease: "power3.out",
+    stagger: 0.1,
+  }
+);
+
+// Animate description AFTER titles finish
+serviceTimeline.fromTo(
+  ".service-title-description",
+  { y: "100%", opacity: 0 },
+  {
+    y: "0%",
+    opacity: 1,
+    duration: 0.25,
+    ease: "power3.out",
+  },
+  ">" // waits until title finishes
+);
+
+// Animate cards AFTER description finishes
+serviceTimeline.to(
+  ".service-card",
+  {
+    y: 0,
+    opacity: 1,
+    duration: 0.75,
+    ease: "power3.out",
+    stagger: {
+      each: 0.25, // one after another
+    },
+  },
+  ">" // wait until description finishes
+);
 
 /********** Animate method section title **********/
 gsap.fromTo(
@@ -103,9 +120,9 @@ gsap.fromTo(
   { y: "100%" }, // start below
   {
     y: "0%",
-    duration: 1.2,
+    duration: 0.5,
     ease: "power3.out",
-    stagger: 0.05,
+    stagger: 0.25,
     scrollTrigger: {
       trigger: ".method-section",
       start: "top 80%",
@@ -114,248 +131,246 @@ gsap.fromTo(
   }
 );
 
-/********** Animate workflow title **********/
-gsap.fromTo(
-  [".workflow-title-top", ".workflow-title-bottom"],
-  { y: "100%" }, // start off-screen (below)
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".workflow-title",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/********** Animate workflow cards **********/
-gsap.from(".workflow-card", {
+/********** Workflow Timeline **********/
+const workflowTimeline = gsap.timeline({
   scrollTrigger: {
-    trigger: ".workflow-cards",
-    start: "top 80%", // animation starts when 80% of viewport hits the section
-    once: true, // ✅ run only once per page load
-  },
-  y: 80, // slide up from below
-  opacity: 0, // fade in
-  duration: 3, // duration for each card
-  ease: "power3.out",
-  stagger: {
-    each: 0.5, // delay between each card start
-    overlap: 0.5, // ✅ overlapping animation (50% into previous one)
+    trigger: ".workflow-title", // wrapper for title + subtitle + cards
+    start: "top 80%",
+    once: true, // run only once
   },
 });
 
-/********** Animate testimonial title **********/
-gsap.fromTo(
-  [".testimonial-title-top", ".testimonial-title-bottom"],
-  { y: "100%" }, // start off-screen (below)
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".testimonial-title",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/********** Animate filters **********/
-gsap.from(".filters", {
-  scrollTrigger: {
-    trigger: ".grid-wrapper",
-    start: "top 80%", // when grid-wrapper enters viewport
-    once: true, // ✅ only animate once
-  },
+/********** Workflow Title Animation **********/
+workflowTimeline.from([".workflow-title-top", ".workflow-title-bottom"], {
+  y: "100%",
   opacity: 0,
-  scale: 0.8, // start slightly smaller
-  duration: 3,
+  duration: 0.5,
   ease: "power3.out",
+  stagger: 0.1, // delay between top and bottom
 });
 
-/********** Animate grid-wrapper **********/
-gsap.from(".grid-wrapper", {
+/********** Workflow Subtitle Animation **********/
+workflowTimeline.from(
+  ".workflow-subtitle-wrapper",
+  {
+    y: 50,
+    opacity: 0,
+    duration: 0.5,
+    ease: "power3.out",
+  },
+  ">" // start after title completes
+);
+
+/********** Workflow Cards Animation **********/
+workflowTimeline.from(
+  ".workflow-card",
+  {
+    y: 80,
+    opacity: 0,
+    duration: 0.75,
+    ease: "power3.out",
+    stagger: {
+      each: 0.2, // one by one
+    },
+  },
+  ">" // start after subtitle completes
+);
+
+/********** Testimonial Section Animation **********/
+const testimonialTimeline = gsap.timeline({
   scrollTrigger: {
-    trigger: ".grid-wrapper",
+    trigger: ".testimonial-title", // wrapper for title + subtitle
     start: "top 80%",
     once: true,
   },
-  opacity: 0,
-  scale: 0.85,
-  duration: 3,
-  ease: "power3.out",
 });
 
-/********** Animate comparison title **********/
-gsap.fromTo(
-  [".comparison-title-top", ".comparison-title-bottom"],
-  { y: "100%" }, // start off-screen (below)
+// Animate title lines first
+testimonialTimeline.from(
+  [".testimonial-title-top", ".testimonial-title-bottom"],
   {
-    y: "0%",
-    duration: 1.2,
+    y: "100%",
+    opacity: 0,
+    duration: 0.5,
     ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".comparison-title",
-      start: "top 80%",
-      once: true,
-    },
+    stagger: 0.2, // delay between top & bottom
   }
 );
 
-/********** Animate comparison table **********/
+// Animate subtitle AFTER title
+testimonialTimeline.from(
+  [".testi-subtitle-top", ".testi-subtitle-bottom"],
+  {
+    y: "100%",
+    opacity: 0,
+    duration: 0.75,
+    ease: "power3.out",
+    stagger: 0.2,
+  },
+  ">" // start after title finishes
+);
+
+/********** Animate filters **********/
+testimonialTimeline.from(
+  ".filters",
+  {
+    opacity: 0,
+    scale: 0.8,
+    duration: 0.5,
+    ease: "power3.out",
+  },
+  ">" // starts right after title animation completes
+);
+
+/********** Animate grid-wrapper **********/
+testimonialTimeline.from(
+  ".grid-wrapper",
+  {
+    opacity: 0,
+    scale: 0.85,
+    duration: 1.25,
+    ease: "power3.out",
+  },
+  ">" // starts after filters animation completes
+);
+
+/********** Comparison Section Animation **********/
+/********** Animate comparison section **********/
+const comparisonTimeline = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".comparison-block", // whole block (title + rows)
+    start: "top 80%",
+    once: true,
+  },
+});
+
+// 1️⃣ Animate title lines
+comparisonTimeline.from([".comparison-title-top", ".comparison-title-bottom"], {
+  y: "100%",
+  opacity: 0,
+  duration: 0.5,
+  ease: "power3.out",
+  stagger: 0.25,
+});
+
+// 2️⃣ Animate subtitle AFTER title
+comparisonTimeline.from(
+  ".comparison-subtitle",
+  {
+    y: "100%",
+    opacity: 0,
+    duration: 0.5,
+    ease: "power3.out",
+  },
+  ">" // after previous finishes
+);
+
+// 3️⃣ Animate rows one by one
 const rows = gsap.utils.toArray(".comparison-row");
 
-gsap.from(rows, {
-  scrollTrigger: {
-    trigger: ".comparison-block",
-    start: "top 80%", // Trigger when comparison block is ~80% visible
-    toggleActions: "play none none none", // play only once
-    once: true, // ✅ ensures animation happens only once per page load
-  },
-  x: -80, // slide from left
-  opacity: 0,
-  duration: 1.2,
-  ease: "power3.out",
-  stagger: {
-    each: 0.6, // delay between rows
-    amount: 1.2, // controls total stagger timing
-    from: "start",
-  },
-});
-
-/********** Animate faq title **********/
-gsap.fromTo(
-  [".faq-title-top"],
-  { y: "100%" }, // start off-screen (below)
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".faq-title",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/********** Animate accordion items when reaching the section **********/
-gsap.set(".accordion-item", { opacity: 1 });
-
-// ✅ Then animate them from hidden state when triggered
-gsap.from(".accordion-item", {
-  opacity: 0,
-  y: 50,
-  duration: 1.2,
-  ease: "power4.out",
-  stagger: 0.25,
-  scrollTrigger: {
-    trigger: ".accordion",
-    start: "top 80%",
-    once: true, // ✅ ensures it runs only once, doesn't reset opacity
-  },
-});
-
-/********** Animate footer top **********/
-gsap.fromTo(
-  [".footer-title-top", ".footer-title-bottom"],
-  { y: "100%" }, // start off-screen (below)
-  {
-    y: "0%",
-    duration: 1.2,
-    ease: "power3.out",
-    stagger: 0.05,
-    scrollTrigger: {
-      trigger: ".footer-title",
-      start: "top 80%",
-      once: true,
-    },
-  }
-);
-
-/****************** Project cards reveals animation *********************/
-
-const cards = gsap.utils.toArray(".project-card");
-let gap = 30; // gap between stacked cards
-
-if (window.innerWidth < 576) {
-  gap = 20;
-} else if (window.innerWidth >= 1200) {
-  gap = 30;
-}
-
-const revealDuration = 1;
-
-// ✅ Setup initial positions & visibility
-cards.forEach((card, i) => {
-  const cardHeight = card.offsetHeight;
-
-  gsap.set(card, {
-    y: i === 0 ? 0 : i * (cardHeight + gap), // place other cards below
-    scaleX: 1,
-    autoAlpha: i === 0 ? 1 : 0, // 👈 only first card visible
-    zIndex: i + 1, // reversed stacking order
-  });
-});
-
-// ✅ Scroll animation timeline
-// Determine start value based on screen width
-let startValue = "top 10%"; // default
-
-if (window.innerWidth < 576) {
-  startValue = "top 20%"; // smaller screens
-} else if (window.innerWidth >= 1200) {
-  startValue = "top 5%"; // large screens
-}
-
-// Create GSAP timeline
-const tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".project-container",
-    start: startValue,
-    end: `+=${cards.length * 300}`,
-    scrub: true,
-    pin: true,
-  },
-});
-
-cards.forEach((card, i) => {
-  if (i === 0) return;
-
-  const previousCard = cards[i - 1];
-
-  // Reveal and slide current card
-  tl.to(
-    card,
+rows.forEach((row) => {
+  comparisonTimeline.from(
+    row,
     {
-      autoAlpha: 1, // make visible
-      y: i * gap, // slide upward to stack with gap
-      duration: revealDuration,
+      x: -80,
+      opacity: 0,
+      duration: 0.25,
       ease: "power3.out",
     },
-    i
-  );
-
-  // Shrink previous card progressively and center it
-  const shrinkMap = [80, 60, 40, 20, 0]; // shrink values in px
-  const shrinkValue = shrinkMap[i - 1] || 0; // default 0 if no mapping
-
-  tl.to(
-    previousCard,
-    {
-      width: `calc(100% - ${shrinkValue}px)`,
-      left: "50%",
-      xPercent: -50, // center horizontally
-      duration: 1,
-      ease: "power2.out",
-    },
-    i
+    ">" // chain sequentially (one after the other)
   );
 });
+
+/********** Animate FAQ section **********/
+const faqTimeline = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".faq-title",
+    start: "top 80%",
+    once: true,
+  },
+});
+
+// Animate FAQ title
+faqTimeline.fromTo(
+  ".faq-title-top",
+  { y: "100%", opacity: 0 },
+  {
+    y: "0%",
+    opacity: 1,
+    duration: 0.5,
+    ease: "power3.out",
+  }
+);
+
+// Animate FAQ subtitle AFTER title
+faqTimeline.fromTo(
+  ".faq-subtitle",
+  { y: "100%", opacity: 0 },
+  {
+    y: "0%",
+    opacity: 1,
+    duration: 0.5,
+    ease: "power3.out",
+  },
+  ">" // start after title finishes
+);
+
+// 🔑 Animate accordion items (fade in only)
+faqTimeline.to(
+  ".accordion-item",
+  {
+    opacity: 1, // ✅ ensure it goes to fully visible
+    duration: 0.75,
+    ease: "power4.out",
+    stagger: 0.25, // one by one
+  },
+  ">" // after subtitle
+);
+
+/********** Animate Footer section **********/
+const footerTimeline = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".footer-title",
+    start: "top 80%",
+    once: true,
+  },
+});
+
+// Animate footer title lines
+footerTimeline.fromTo(
+  [".footer-title-top", ".footer-title-bottom"],
+  { y: "100%", opacity: 0 },
+  {
+    y: "0%",
+    opacity: 1,
+    duration: 0.5,
+    ease: "power3.out",
+    stagger: 0.2,
+  }
+);
+
+// Animate subtitle AFTER title
+footerTimeline.fromTo(
+  ".footer-subtitle",
+  { y: "100%", opacity: 0 },
+  {
+    y: "0%",
+    opacity: 1,
+    duration: 0.5,
+    ease: "power3.out",
+  },
+  ">" // start after title finishes
+);
+
+// Animate CTA AFTER subtitle
+footerTimeline.fromTo(
+  ".footer-cta-btn",
+  { opacity: 0, scale: 0.9 },
+  {
+    opacity: 1,
+    scale: 1,
+    duration: 0.5,
+    ease: "back.out(0.75)",
+  },
+  ">" // start after subtitle
+);

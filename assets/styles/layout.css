@@ -3,13 +3,6 @@ body {
   background-color: #ffffff;
   font-family: "ClashGrotesk", sans-serif;
   font-weight: 400;
-  padding-top: 82px;
-}
-
-@media (min-width: 992px) {
-  body {
-    padding-top: 76px;
-  }
 }
 
 img {
@@ -27,7 +20,8 @@ img {
   top: 0;
   left: 0;
   width: 100%;
-  background-color: #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(rgba(255, 255, 255, 0)));
+  background: linear-gradient(180deg, white 0%, rgba(255, 255, 255, 0) 100%);
   z-index: 999;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
@@ -45,17 +39,21 @@ img {
 
 @media (min-width: 992px) {
   .site-header.scrolled .navbar {
-    height: 66px;
+    height: 70px;
+    -webkit-box-shadow: 0 0 2px 0 rgba(175, 175, 175, 0.5);
+            box-shadow: 0 0 2px 0 rgba(175, 175, 175, 0.5);
   }
 }
 
 .site-header.light-header {
-  background-color: rgba(255, 255, 255, 0.1);
+  background: -webkit-gradient(linear, left top, left bottom, from(white), to(rgba(255, 255, 255, 0)));
+  background: linear-gradient(180deg, white 0%, rgba(255, 255, 255, 0) 100%);
   color: #000;
 }
 
 .site-header.dark-header {
-  background-color: rgba(255, 255, 255, 0.1);
+  background: -webkit-gradient(linear, left top, left bottom, from(black), to(rgba(0, 0, 0, 0)));
+  background: linear-gradient(180deg, black 0%, rgba(0, 0, 0, 0) 100%);
   color: #fff;
 }
 
@@ -70,6 +68,7 @@ img {
 .site-header.dark-header .book-btn {
   border-color: #ffffff;
   color: #ffffff;
+  background-color: transparent;
 }
 
 .site-header.dark-header .book-btn::before {
@@ -94,7 +93,7 @@ img {
 
 @media (min-width: 992px) {
   .site-header .navbar {
-    height: 76px;
+    height: 80px;
   }
 }
 
@@ -185,15 +184,17 @@ img {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
-  border: 1px solid #000000;
+  border: 1px solid #ffffff;
   border-radius: 50px;
-  background: transparent;
+  background: #ffffff;
   color: #000000;
+  font-size: 16px;
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
   overflow: hidden;
   z-index: 1;
+  text-decoration: none;
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
@@ -274,18 +275,18 @@ img {
 
 @media (min-width: 1200px) {
   .site-footer .footer-top .title-block {
-    width: 42%;
+    width: 44%;
   }
 }
 
 @media (min-width: 1400px) {
   .site-footer .footer-top .title-block {
-    width: 40%;
+    width: 45%;
   }
 }
 
 .site-footer .footer-top .title-block .title {
-  font-size: 32;
+  font-size: 32px;
   line-height: 1;
   font-weight: 400;
   margin-bottom: 24px;
@@ -327,25 +328,34 @@ img {
   }
 }
 
-.site-footer .footer-top .title-block .subtitle {
+.site-footer .footer-top .title-block .title span {
+  font-weight: 600;
+}
+
+.site-footer .footer-top .title-block .title .footer-title-bottom {
+  color: #00dc72;
+  font-weight: 600;
+}
+
+.site-footer .footer-top .title-block .footer-subtitle {
   font-size: 16px;
 }
 
 @media (min-width: 768px) {
-  .site-footer .footer-top .title-block .subtitle {
+  .site-footer .footer-top .title-block .footer-subtitle {
     width: 65%;
   }
 }
 
 @media (min-width: 992px) {
-  .site-footer .footer-top .title-block .subtitle {
+  .site-footer .footer-top .title-block .footer-subtitle {
     font-size: 18px;
     width: 60%;
   }
 }
 
 @media (min-width: 1400px) {
-  .site-footer .footer-top .title-block .subtitle {
+  .site-footer .footer-top .title-block .footer-subtitle {
     font-size: 24px;
     width: 65%;
   }
@@ -615,14 +625,15 @@ img {
   padding: 10px 20px;
   border: 1px solid #ffffff;
   border-radius: 50px;
-  background-color: #000000;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #000000;
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
   overflow: hidden;
   z-index: 1;
+  text-decoration: none;
   -webkit-transition: color 0.3s ease;
   transition: color 0.3s ease;
 }
@@ -635,15 +646,8 @@ img {
 
 @media (min-width: 1400px) {
   .footer-cta-btn {
-    padding: 15px 25px;
-    font-size: 20px;
-  }
-}
-
-@media (min-width: 1600px) {
-  .footer-cta-btn {
     padding: 20px 30px;
-    font-size: 24px;
+    font-size: 18px;
   }
 }
 
@@ -654,7 +658,7 @@ img {
   left: 50%;
   width: 20px;
   height: 20px;
-  background: #ffffff;
+  background: #000000;
   border-radius: 50%;
   -webkit-transform: translateX(-50%) scale(0);
           transform: translateX(-50%) scale(0);
@@ -666,7 +670,7 @@ img {
 }
 
 .footer-cta-btn:hover {
-  color: #000000;
+  color: #ffffff;
 }
 
 .footer-cta-btn:hover::before {

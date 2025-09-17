@@ -43,8 +43,6 @@
     <link rel="stylesheet" href="./assets/styles/reset.css">
     <link rel="stylesheet" href="./assets/icon_fonts/allgoodstudio_font_icons/allgoodstudio_fonts.css">
     <link rel="stylesheet" href="./assets/styles/particles-styles.css">
-    <link rel="stylesheet" href="./assets/styles/owl.carousel.min.css">
-    <link rel="stylesheet" href="./assets/styles/owl.theme.default.min.css">
     <link rel="stylesheet" href="./assets/styles/layout.css">
     <link rel="stylesheet" href="./assets/styles/index.css">
 </head>
@@ -54,6 +52,7 @@
         <nav class="navbar navbar-expand-lg">
             <div class="container">
                 <a class="navbar-brand" href="#">
+                    <!-- <img src="./assets/images/logo.svg" alt="All Good" class="logo"> -->
                     <svg width="139" height="56" viewBox="0 0 139 56" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M20.5 19.1587C20.5 19.1587 19.2265 17.4453 15.9185 17.3866C10.6262 17.2928 7.36327 22.1138 6.75568 26.6901C6.11148 31.5421 6.31419 36.4992 11.8462 37.3226C14.9444 37.7837 19.4819 35.5505 19.4819 35.5505"
@@ -154,8 +153,7 @@
                             results.
                             If we miss the agreed timebox, you get a credit. *</p>
                         <div class="link-wrapper">
-                            <a href="https://calendly.com/divanshu/15min" class="link-button">
-                                Book a 15-min intro
+                            <a href="https://calendly.com/divanshu/15min" class="link-button">Book a 15-min intro
                                 <svg width="45" height="26" viewBox="0 0 45 26" fill="none"
                                     xmlns="http://www.w3.org/2000/svg">
                                     <path
@@ -182,43 +180,62 @@
                 </div>
             </div>
         </section>
-        <section class="project-container-section" data-theme="dark">
+        <!-- <section class="project-container-section" data-theme="dark">
             <div class="container">
-                <div class="gallery">
-                    <div class="owl-carousel">
-                        <div class="item" data-link="page1.html" data-color="#FF4D4D">
-                            <img src="./assets/images/project-1.png" alt="" />
-                        </div>
-                        <div class="item" data-link="page2.html" data-color="#4D9FFF">
-                            <img src="./assets/images/project-1.png" alt="" />
-                        </div>
-                        <div class="item" data-link="page3.html" data-color="#4DFF7E">
-                            <img src="./assets/images/project-1.png" alt="" />
-                        </div>
-                        <div class="item" data-link="page4.html" data-color="#FFB84D">
-                            <img src="./assets/images/project-1.png" alt="" />
-                        </div>
-                        <div class="item" data-link="page5.html" data-color="#B64DFF">
-                            <img src="./assets/images/project-1.png" alt="" />
-                        </div>
-                    </div>
-                    <div class="custom-cursor">
-                        <span class="cursor-text">View</span>
-                    </div>
-                </div>
-                <div class="see-all-wrapper">
-                    <a href="" class="see-all-btn">
-                        See all works
-                        <svg width="45" height="26" viewBox="0 0 45 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
-                                stroke="currentColor" stroke-width="1.5" />
-                        </svg>
-
-                    </a>
+                <div class="project-container">
+                    <ul class="project-cards">
+                        <li class="project-card" data-cursor-color="#ff6b6b">
+                            <a href="./project-1.html">
+                                <img alt="" src="./assets/images/project-1.png" />
+                            </a>
+                        </li>
+                        <li class="project-card" data-cursor-color="#feca57">
+                            <a href="./project-1.html">
+                                <img alt="" src="./assets/images/project-1.png" />
+                            </a>
+                        </li>
+                        <li class="project-card" data-cursor-color="#1dd1a1">
+                            <a href="./project-1.html">
+                                <img alt="" src="./assets/images/project-1.png" />
+                            </a>
+                        </li>
+                        <li class="project-card" data-cursor-color="#54a0ff">
+                            <a href="./project-1.html">
+                                <img alt="" src="./assets/images/project-1.png" />
+                            </a>
+                        </li>
+                        <li class="project-card" data-cursor-color="#5f27cd">
+                            <a href="./project-1.html">
+                                <img alt="" src="./assets/images/project-1.png" />
+                            </a>
+                        </li>
+                        <li class="project-card view-all">
+                            <img alt="Click to see next" src="./assets/images/project-1.png" />
+                            <div class="category-wrapper">
+                                <div class="title">Browse by Category</div>
+                                <ul class="">
+                                    <li>Enterprise UX</li>
+                                    <li>Websites</li>
+                                    <li>Consumer UX</li>
+                                    <li>Branding</li>
+                                </ul>
+                                <div class="btn-wrapper">
+                                    <a href="./hybiz.html" class="view-all-btn">View all Projects
+                                        <svg width="45" height="26" viewBox="0 0 45 26" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
+                                                stroke="currentColor" stroke-width="1.5" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="custom-cursor"><span>View</span></div>
                 </div>
             </div>
-        </section>
+        </section> -->
         <section class="service-section" id="services" data-theme="dark">
             <div class="container">
                 <div class="title-block service-title">
@@ -364,8 +381,7 @@
                     </div>
                 </div>
                 <div class="req-link-wrapper">
-                    <a href="" class="req-btn">
-                        Request your free UI/UX audit
+                    <a href="" class="req-btn">Request your free UI/UX audit
                         <svg width="45" height="26" viewBox="0 0 45 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
@@ -903,82 +919,7 @@
     <script src="./assets/js/particles.min.js"></script>
     <script src="./assets/js/particles-app.js"></script>
     <script src="./assets/js/ags-gsap.js"></script>
-    <script src="./assets/js/owl.carousel.min.js"></script>
     <script src="./assets/js/custom.js"></script>
-    <script>
-        $(document).ready(function () {
-            const $carousel = $(".owl-carousel");
-            const $cursor = $(".custom-cursor");
-            const $cursorText = $(".cursor-text");
-
-            $carousel.owlCarousel({
-                loop: true,
-                center: true,
-                items: 3,
-                margin: 0,
-                nav: false,
-                dots: false,
-                smartSpeed: 1500,
-                // responsive: { 0: { items: 1 }, 576: { items: 3 } }
-            });
-
-            // Mouse wheel navigation
-            $carousel.on('mousewheel', '.owl-stage', function (e) {
-                if (e.originalEvent.deltaY > 0) $carousel.trigger('next.owl.carousel');
-                else $carousel.trigger('prev.owl.carousel');
-                e.preventDefault();
-            });
-
-            // Update cursor position
-            $(document).on("mousemove", function (e) {
-                $cursor.css({ top: e.clientY, left: e.clientX });
-            });
-
-            // Show cursor on hover & change background
-            $carousel.on("mouseenter", ".item", function () {
-                $cursor.addClass("active");
-                updateCursorColor($(this));
-            });
-
-            $carousel.on("mouseleave", ".item", function () {
-                $cursor.removeClass("active");
-            });
-
-            // Update cursor automatically when center changes
-            function updateCenterCursor() {
-                const $centerItem = $(".owl-item.center .item");
-                if ($centerItem.length) {
-                    updateCursorColor($centerItem);
-
-                    // ✅ Force cursor to refresh even if mouse hasn't moved
-                    if ($cursor.hasClass("active")) {
-                        $cursor.removeClass("active");
-                        setTimeout(() => $cursor.addClass("active"), 20);
-                    }
-                }
-            }
-
-            function updateCursorColor($item) {
-                const color = $item.data("color");
-                $cursor.css("background-color", color || "#ff4d4d");
-            }
-
-            $carousel.on("changed.owl.carousel initialized.owl.carousel", updateCenterCursor);
-
-            // Delegated click handler (center only)
-            $carousel.on("click", ".item", function () {
-                const $owlItem = $(this).closest(".owl-item");
-                if ($owlItem.hasClass("center")) {
-                    window.location.href = $(this).data("link");
-                }
-            });
-
-            // Initial center color set
-            updateCenterCursor();
-        });
-    </script>
-
-
 </body>
 
 </html>

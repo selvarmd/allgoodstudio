@@ -41,8 +41,6 @@
     <link rel="stylesheet" href="./assets/styles/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/styles/clash-grotesk.css">
     <link rel="stylesheet" href="./assets/styles/reset.css">
-    <link rel="stylesheet" href="./assets/icon_fonts/allgoodstudio_font_icons/allgoodstudio_fonts.css">
-    <link rel="stylesheet" href="./assets/styles/particles-styles.css">
     <link rel="stylesheet" href="./assets/styles/owl.carousel.min.css">
     <link rel="stylesheet" href="./assets/styles/owl.theme.default.min.css">
     <link rel="stylesheet" href="./assets/styles/layout.css">
@@ -89,6 +87,7 @@
                             d="M110.323 45.3853C109.745 45.3853 109.211 45.2587 108.722 45.0055C108.238 44.7467 107.854 44.3895 107.567 43.9338C107.287 43.4725 107.147 42.9549 107.147 42.3811C107.147 41.8072 107.287 41.2925 107.567 40.8368C107.854 40.3811 108.238 40.0266 108.722 39.7735C109.211 39.5147 109.745 39.3853 110.323 39.3853C110.908 39.3853 111.442 39.5147 111.925 39.7735C112.414 40.0266 112.799 40.3811 113.079 40.8368C113.36 41.2925 113.5 41.8072 113.5 42.3811C113.5 42.9549 113.36 43.4725 113.079 43.9338C112.799 44.3895 112.414 44.7467 111.925 45.0055C111.442 45.2587 110.908 45.3853 110.323 45.3853ZM110.323 44.5498C110.735 44.5498 111.102 44.4626 111.424 44.2882C111.746 44.1082 111.997 43.855 112.176 43.5287C112.361 43.1968 112.453 42.8143 112.453 42.3811C112.453 41.9479 112.361 41.5681 112.176 41.2418C111.997 40.9155 111.746 40.6652 111.424 40.4908C111.102 40.3164 110.735 40.2292 110.323 40.2292C109.912 40.2292 109.545 40.3164 109.223 40.4908C108.901 40.6652 108.647 40.9155 108.462 41.2418C108.283 41.5681 108.194 41.9479 108.194 42.3811C108.194 42.8143 108.283 43.1968 108.462 43.5287C108.647 43.855 108.901 44.1082 109.223 44.2882C109.545 44.4626 109.912 44.5498 110.323 44.5498Z"
                             fill="currentColor" />
                     </svg>
+
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -103,7 +102,7 @@
                             <li class="nav-item"><a class="nav-link" href="#stories">Stories</a></li>
                             <li class="nav-item"><a class="nav-link" href="#connect">Connect</a></li>
                         </ul>
-                        <a href="https://calendly.com/divanshu/15min" class="btn rounded-pill book-btn">Book a 15-min
+                        <a href="https://calendly.com/divanshu/15min" class="book-btn">Book a 15-min
                             intro</a>
                     </div>
                 </div>
@@ -112,60 +111,41 @@
     </header>
     <main>
         <section class="hero-section" data-theme="light">
-            <div class="particles-bg" id="particles-js"></div>
-            <div class="hero-bg">
-                <img src="./assets/images/backgrounds/hero-bg.svg" alt="">
-            </div>
             <div class="container">
-                <div class="hero-content">
-                    <h1 class="hero-title">
-                        <div class="hero-title-top-wrapper">
-                            <div class="hero-title-top">
-                                Launch
-                                <div class="highlight">
-                                    <div class="img-wrapper">
-                                        <img alt="" src="./assets/images/icons/hash-tag.svg" />
-                                        <img alt="" src="./assets/images/icons/eye-icon.svg" />
-                                    </div>
-                                </div>
-                                your
+                <div class="hero-wrapper">
+                    <div class="hero-img">
+                        <img src="./assets/images/hero-banner-img.svg" alt="">
+                    </div>
+                    <div class="hero-content">
+                        <h1 class="hero-title">
+                            <div class="hero-title-top-wrapper">
+                                <div class="hero-title-top">Launch your</div>
                             </div>
-                        </div>
-                        <div class="hero-title-middle-wrapper">
-                            <div class="hero-title-middle">
-                                next big idea—
+                            <div class="hero-title-middle-wrapper">
+                                <div class="hero-title-middle">next big idea—</div>
                             </div>
-                        </div>
-                        <div class="hero-title-bottom-wrapper">
-                            <div class="hero-title-bottom">
-                                tomorrow.
-                                <div class="highlight end">
-                                    <div class="img-wrapper">
-                                        <img alt="" src="./assets/images/icons/back-slash.svg" />
-                                        <img alt="" src="./assets/images/icons/circle-icon.svg" />
-                                    </div>
-                                </div>
+                            <div class="hero-title-bottom-wrapper">
+                                <div class="hero-title-bottom">tomorrow.</div>
                             </div>
+                        </h1>
+                        <div class="hero-sub-content">
+                            <p class="hero-description">
+                                Work directly with the lead designer. We use modern AI tools to work faster. We measure
+                                results. If we miss the agreed timebox, you get a credit. *</p>
+                            <div class="link-wrapper">
+                                <a href="https://calendly.com/divanshu/15min" class="link-button">
+                                    Book a 15-min intro
+                                    <svg width="45" height="26" viewBox="0 0 45 26" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
+                                            stroke="currentColor" stroke-width="1.5" />
+                                    </svg>
+                                </a>
+                                <a href="" class="link">Get a free UX audit</a>
+                            </div>
+                            <div class="detail-wrapper">4.9★ client rating / 150+ launches / On-time or credit*</div>
                         </div>
-                    </h1>
-                    <div class="hero-sub-content">
-                        <p class="hero-description">Work directly with the lead designer. We use modern AI tools to work
-                            faster. We measure
-                            results.
-                            If we miss the agreed timebox, you get a credit. *</p>
-                        <div class="link-wrapper">
-                            <a href="https://calendly.com/divanshu/15min" class="link-button">
-                                Book a 15-min intro
-                                <svg width="45" height="26" viewBox="0 0 45 26" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
-                                        stroke="currentColor" stroke-width="1.5" />
-                                </svg>
-                            </a>
-                            <a href="" class="link">Get a free UX audit</a>
-                        </div>
-                        <div class="detail-wrapper">4.9★ client rating / 150+ launches / On-time or credit*</div>
                     </div>
                 </div>
             </div>
@@ -181,45 +161,54 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <section class="project-container-section" data-theme="dark">
-            <div class="container">
-                <div class="gallery">
-                    <div class="owl-carousel">
-                        <div class="item" data-link="page1.html" data-color="#FF4D4D">
-                            <img src="./assets/images/project-1.png" alt="" />
+            <div class="project-container-section" data-theme="dark">
+                <div class="container">
+                    <div class="gallery">
+                        <div class="owl-carousel">
+                            <div class="item" data-link="page1.html">
+                                <img src="./assets/images/project-1.png" alt="" />
+                            </div>
+                            <div class="item" data-link="page2.html">
+                                <img src="./assets/images/project-1.png" alt="" />
+                            </div>
+                            <div class="item" data-link="page3.html">
+                                <img src="./assets/images/project-1.png" alt="" />
+                            </div>
+                            <div class="item" data-link="page4.html">
+                                <img src="./assets/images/project-1.png" alt="" />
+                            </div>
+                            <div class="item" data-link="page5.html">
+                                <img src="./assets/images/project-1.png" alt="" />
+                            </div>
                         </div>
-                        <div class="item" data-link="page2.html" data-color="#4D9FFF">
-                            <img src="./assets/images/project-1.png" alt="" />
-                        </div>
-                        <div class="item" data-link="page3.html" data-color="#4DFF7E">
-                            <img src="./assets/images/project-1.png" alt="" />
-                        </div>
-                        <div class="item" data-link="page4.html" data-color="#FFB84D">
-                            <img src="./assets/images/project-1.png" alt="" />
-                        </div>
-                        <div class="item" data-link="page5.html" data-color="#B64DFF">
-                            <img src="./assets/images/project-1.png" alt="" />
+                        <div class="custom-cursor">
+                            <svg width="89" height="94" viewBox="0 0 89 94" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M56.7433 8.25334C58.5633 7.00113 59.0236 4.51064 57.7714 2.69068C56.5191 0.870716 54.0287 0.410464 52.2087 1.66268L54.476 4.95801L56.7433 8.25334ZM35.0101 57.2141C35.3279 59.4003 37.3577 60.9149 39.5439 60.5972C41.73 60.2794 43.2447 58.2496 42.9269 56.0634L38.9685 56.6388L35.0101 57.2141ZM39.9376 29.9648L43.8104 30.9655L39.9376 29.9648ZM80.6259 40.8736C81.1263 43.0254 83.2763 44.364 85.428 43.8636C87.5797 43.3632 88.9184 41.2132 88.4179 39.0615L84.5219 39.9676L80.6259 40.8736ZM84.5219 50.8039L88.5126 50.5309C88.3655 48.3799 86.5401 46.7326 84.3854 46.8062C82.2306 46.8798 80.5219 48.6479 80.5219 50.8039H84.5219ZM44.3379 70.6166C46.5333 70.8629 48.5126 69.2828 48.7589 67.0874C49.0052 64.8921 47.4251 62.9127 45.2298 62.6665L44.7838 66.6415L44.3379 70.6166ZM54.476 4.95801L52.2087 1.66268C49.1026 3.79982 45.8487 7.76795 43.0658 12.3828C40.2252 17.0933 37.6401 22.8676 36.0648 28.9641L39.9376 29.9648L43.8104 30.9655C45.1728 25.693 47.4339 20.631 49.9166 16.514C52.457 12.3012 55.0035 9.45044 56.7433 8.25334L54.476 4.95801ZM39.9376 29.9648L36.0648 28.9641C33.2484 39.8643 34.0051 50.2996 35.0101 57.2141L38.9685 56.6388L42.9269 56.0634C41.9934 49.641 41.3719 40.4029 43.8104 30.9655L39.9376 29.9648ZM84.5219 39.9676L88.4179 39.0615C87.9859 37.2039 87.4929 34.6592 86.8315 32.3976C86.1502 30.0684 85.1553 27.4999 83.4238 25.3016C81.6171 23.0079 79.114 21.2538 75.7402 20.4789C72.4759 19.7291 68.6438 19.9505 64.1565 21.0856L65.1374 24.9635L66.1183 28.8413C69.8693 27.8925 72.3372 27.9056 73.9493 28.2759C75.4519 28.621 76.4017 29.3155 77.1392 30.2518C77.9519 31.2836 78.5925 32.7266 79.1531 34.6434C79.7335 36.6277 80.0886 38.5635 80.6259 40.8736L84.5219 39.9676ZM65.1374 24.9635L64.1565 21.0856C58.6049 22.4899 54.8719 26.4176 52.6796 31.037C50.5135 35.6012 49.7289 41.035 49.9967 46.2173C50.2647 51.4035 51.6034 56.6726 54.0279 60.9349C56.4409 65.177 60.2092 68.8523 65.4285 69.7501L66.1066 65.808L66.7847 61.8658C64.7348 61.5133 62.6878 59.9788 60.9816 56.9794C59.2869 54.0001 58.2026 49.9958 57.986 45.8044C57.7692 41.6092 58.4384 37.5613 59.9069 34.4671C61.3491 31.4282 63.4315 29.521 66.1183 28.8413L65.1374 24.9635ZM66.1066 65.808L65.4285 69.7501C74.1394 71.2484 80.2625 68.1191 83.9896 63.54C87.4628 59.2728 88.7426 53.8943 88.5126 50.5309L84.5219 50.8039L80.5312 51.0768C80.6243 52.4369 79.9656 55.8108 77.785 58.4899C75.8582 60.8572 72.6121 62.8682 66.7847 61.8658L66.1066 65.808ZM84.5219 50.8039H80.5219C80.5219 58.8816 79.9687 67.2936 75.4212 73.8416C71.0778 80.0957 62.3627 85.5815 43.7285 85.9821L43.8145 89.9812L43.9005 93.9803C64.0354 93.5474 75.674 87.5023 81.992 78.405C88.1059 69.6015 88.5219 58.8416 88.5219 50.8039H84.5219ZM43.8145 89.9812L43.7285 85.9821C34.3109 86.1846 29.15 84.6662 26.7157 83.0206C25.5772 82.251 25.1664 81.5486 25.0116 81.0705C24.855 80.5873 24.8332 79.942 25.1549 79.0683C25.8469 77.1891 27.9915 74.7613 31.6015 72.9098C35.1129 71.1088 39.5969 70.0847 44.3379 70.6166L44.7838 66.6415L45.2298 62.6665C38.8247 61.9479 32.7684 63.3204 27.9506 65.7914C23.2313 68.2119 19.2576 71.9316 17.6477 76.3041C16.8184 78.5563 16.5997 81.0628 17.401 83.5362C18.204 86.0147 19.9058 88.0734 22.2353 89.6482C26.737 92.6914 33.9336 94.1946 43.9005 93.9803L43.8145 89.9812Z"
+                                    fill="currentColor" />
+                                <path
+                                    d="M6.01534 21.6299C6.01534 21.6299 3.53718 34.4714 4.0769 43.3025C4.6264 52.2937 8.92294 59.9737 9.89222 62.4744M23.4613 57.473C23.4613 57.473 20.5537 44.9696 22.4921 33.2997"
+                                    stroke="currentColor" stroke-width="8" stroke-linecap="round" />
+                            </svg>
                         </div>
                     </div>
-                    <div class="custom-cursor">
-                        <span class="cursor-text">View</span>
-                    </div>
-                </div>
-                <div class="see-all-wrapper">
-                    <a href="" class="see-all-btn">
-                        See all works
-                        <svg width="45" height="26" viewBox="0 0 45 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
-                                stroke="currentColor" stroke-width="1.5" />
-                        </svg>
+                    <div class="see-all-wrapper">
+                        <a href="" class="see-all-btn">
+                            See all works
+                            <svg width="45" height="26" viewBox="0 0 45 26" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
+                                    stroke="currentColor" stroke-width="1.5" />
+                            </svg>
 
-                    </a>
+                        </a>
+                    </div>
                 </div>
             </div>
         </section>
-        <section class="service-section" id="services" data-theme="dark">
+        <section class="service-section" id="services" data-theme="light">
             <div class="container">
                 <div class="title-block service-title">
                     <h2>
@@ -235,8 +224,7 @@
                     </h2>
                     <div class="service-title-description-wrapper">
                         <p class="service-title-description">
-                            Fast where it helps. Careful where it counts. Fixed scopes.
-                            Clear pricing.
+                            Fast where it helps. Careful where it counts. Fixed scopes. Clear pricing.
                         </p>
                     </div>
                 </div>
@@ -248,7 +236,6 @@
                         <h3>2-Days Website Launch</h3>
                         <p>Go live fast with a polished, ready-to-use site.</p>
                         <div class="sercive-card-content">
-                            <h5>What's included</h5>
                             <ul>
                                 <li><span></span>Up to 5 pages</li>
                                 <li><span></span>CMS setup</li>
@@ -257,7 +244,7 @@
                                 <li><span></span>Launch checklist</li>
                             </ul>
                             <div class="price-wrapper">
-                                <div class="price">Start My Site — from $1,50</div>
+                                <div class="price">from $1,50</div>
                             </div>
                         </div>
                     </div>
@@ -268,7 +255,6 @@
                         <h3>Clickable Prototype in 1 Week</h3>
                         <p>Turn your idea into a working demo you can click and test.</p>
                         <div class="sercive-card-content">
-                            <h5>What's included</h5>
                             <ul>
                                 <li><span></span>Up to 3 flow</li>
                                 <li><span></span>Mobile + desktop screen</li>
@@ -277,7 +263,7 @@
                                 <li><span></span>Handoff file</li>
                             </ul>
                             <div class="price-wrapper">
-                                <div class="price">See My Demo — from $1,000</div>
+                                <div class="price">from $1,000</div>
                             </div>
                         </div>
                     </div>
@@ -289,7 +275,6 @@
                         <p>Get quick clarity on what’s hurting your site or app, plus fixes you can apply right
                             away.</p>
                         <div class="sercive-card-content">
-                            <h5>What's included</h5>
                             <ul>
                                 <li><span></span>Review of 3 key page</li>
                                 <li><span></span>Speed + usability check</li>
@@ -298,7 +283,7 @@
                                 <li><span></span>Short video walkthrough</li>
                             </ul>
                             <div class="price-wrapper">
-                                <div class="price">Get My Audit — from $400</div>
+                                <div class="price">from $400</div>
                             </div>
                         </div>
                     </div>
@@ -309,7 +294,6 @@
                         <h3>Ready-Made Brand Assets</h3>
                         <p>Instant visuals for web, social, and campaigns.</p>
                         <div class="sercive-card-content">
-                            <h5>What's included</h5>
                             <ul>
                                 <li><span></span>Icon + illustration set</li>
                                 <li><span></span>Social templates</li>
@@ -318,7 +302,7 @@
                                 <li><span></span>Simple usage guide</li>
                             </ul>
                             <div class="price-wrapper">
-                                <div class="price">Grab My Assets — from $600</div>
+                                <div class="price">from $600</div>
                             </div>
                         </div>
                     </div>
@@ -329,7 +313,6 @@
                         <h3>Brand Refresh + Design System</h3>
                         <p>Update your look and build a toolkit you can reuse everywhere.</p>
                         <div class="sercive-card-content">
-                            <h5>What's included</h5>
                             <ul>
                                 <li><span></span>Logo refinements/new options</li>
                                 <li><span></span>Updated colors + fonts</li>
@@ -338,7 +321,7 @@
                                 <li><span></span>Easy style guide</li>
                             </ul>
                             <div class="price-wrapper">
-                                <div class="price">Refresh My Brand — from $2,000</div>
+                                <div class="price">from $2,000</div>
                             </div>
                         </div>
                     </div>
@@ -349,7 +332,6 @@
                         <h3>Wireframes + UX Copy in 24 Hours</h3>
                         <p>Low-fidelity screens with high-conversion UX writing, ready to test.</p>
                         <div class="sercive-card-content">
-                            <h5>What's included</h5>
                             <ul>
                                 <li><span></span>Wireframes for up to 5 pages</li>
                                 <li><span></span>Mobile + desktop views</li>
@@ -358,7 +340,7 @@
                                 <li><span></span>Clear next-step plan</li>
                             </ul>
                             <div class="price-wrapper">
-                                <div class="price">Plan My Pages — from $500</div>
+                                <div class="price">from $500</div>
                             </div>
                         </div>
                     </div>
@@ -386,9 +368,6 @@
                             <div class="method-title-bottom">for themselves.</div>
                         </div>
                     </h2>
-                    <div>
-                        <a href="">See methodology</a>
-                    </div>
                 </div>
                 <div class="stats">
                     <div class="stat-item">
@@ -463,7 +442,11 @@
                             <div class="workflow-title-bottom">quality at warp speed.</div>
                         </div>
                     </h2>
-                    <p class="subtitle">A simple workflow that keeps you informed at every step.</p>
+                    <div class="subtitle workflow-subtitle">
+                        <p class="workflow-subtitle-wrapper">
+                            A simple workflow that keeps you informed at every step.
+                        </p>
+                    </div>
                 </div>
                 <div class="workflow-cards">
                     <div class="workflow-card">
@@ -506,8 +489,13 @@
                             </div>
                         </h2>
                         <div class="subtitle">
-                            <div>We design, build & ship websites and apps that shape the</div>
-                            <div>future of your business.</div>
+                            <div class="testi-subtitle-top-wrapper">
+                                <div class="testi-subtitle-top">We design, build & ship websites and apps that shape the
+                                </div>
+                            </div>
+                            <div class="testi-subtitle-bottom-wrapper">
+                                <div class="testi-subtitle-bottom">future of your business.</div>
+                            </div>
                         </div>
                     </div>
                     <div class="filters" role="tablist" aria-label="Case filters">
@@ -532,7 +520,7 @@
                                 <h4>checkout, simplified.</h4>
                                 <p>From 12 steps to 7. Faster, clearer.</p>
                                 <div class="testi-img">
-                                    <img src="./assets/images/testi-1.png" alt="">
+                                    <img src="./assets/images/testi-1.svg" alt="">
                                 </div>
                                 <div class="det-wrapper">
                                     <div class="percent-tag">+38% conversion</div>
@@ -550,7 +538,7 @@
                                 <h4>MVP in 48h.</h4>
                                 <p>9 interviews; 2 test rounds; 3 key insights.</p>
                                 <div class="testi-img">
-                                    <img src="./assets/images/testi-2.png" alt="">
+                                    <img src="./assets/images/testi-2.svg" alt="">
                                 </div>
                                 <div class="det-wrapper">
                                     <div class="percent-tag">Time-to-test: 48h</div>
@@ -568,7 +556,7 @@
                                 <h4>fewer screens, better flow.</h4>
                                 <p>12 screens to 7; cleaner paths.</p>
                                 <div class="testi-img">
-                                    <img src="./assets/images/testi-3.png" alt="">
+                                    <img src="./assets/images/testi-3.svg" alt="">
                                 </div>
                                 <div class="det-wrapper">
                                     <div class="percent-tag">–47% time-to-task</div>
@@ -586,7 +574,7 @@
                                 <h4>fewer screens, better flow.</h4>
                                 <p>12 screens to 7; cleaner paths.</p>
                                 <div class="testi-img">
-                                    <img src="./assets/images/testi-4.png" alt="">
+                                    <img src="./assets/images/testi-4.svg" alt="">
                                 </div>
                                 <div class="det-wrapper">
                                     <div class="percent-tag">–47% time-to-task</div>
@@ -604,7 +592,7 @@
                                 <h4>fewer screens, better flow.</h4>
                                 <p>12 screens to 7; cleaner paths.</p>
                                 <div class="testi-img">
-                                    <img src="./assets/images/testi-5.png" alt="">
+                                    <img src="./assets/images/testi-5.svg" alt="">
                                 </div>
                                 <div class="det-wrapper">
                                     <div class="percent-tag">–47% time-to-task</div>
@@ -622,7 +610,61 @@
                                 <h4>fewer screens, better flow.</h4>
                                 <p>12 screens to 7; cleaner paths.</p>
                                 <div class="testi-img">
-                                    <img src="./assets/images/testi-6.png" alt="">
+                                    <img src="./assets/images/testi-6.svg" alt="">
+                                </div>
+                                <div class="det-wrapper">
+                                    <div class="percent-tag">–47% time-to-task</div>
+                                    <a href="#" class="read-link">Read the case</a>
+                                </div>
+                            </div>
+                            <div class="testi-card more" data-category="ux">
+                                <span class="tag">Fintech · Dashboard</span>
+                                <div class="author-name">
+                                    <div class="author-img">
+                                        <img src="./assets/images/user-3.png" alt="">
+                                    </div>
+                                    <h3>Cambria Palencia</h3>
+                                </div>
+                                <h4>fewer screens, better flow.</h4>
+                                <p>12 screens to 7; cleaner paths.</p>
+                                <div class="testi-img">
+                                    <img src="./assets/images/testi-7.svg" alt="">
+                                </div>
+                                <div class="det-wrapper">
+                                    <div class="percent-tag">–47% time-to-task</div>
+                                    <a href="#" class="read-link">Read the case</a>
+                                </div>
+                            </div>
+                            <div class="testi-card more" data-category="ux">
+                                <span class="tag">Fintech · Dashboard</span>
+                                <div class="author-name">
+                                    <div class="author-img">
+                                        <img src="./assets/images/user-3.png" alt="">
+                                    </div>
+                                    <h3>Cambria Palencia</h3>
+                                </div>
+                                <h4>fewer screens, better flow.</h4>
+                                <p>12 screens to 7; cleaner paths.</p>
+                                <div class="testi-img">
+                                    <img src="./assets/images/testi-8.svg" alt="">
+                                </div>
+                                <div class="det-wrapper">
+                                    <div class="percent-tag">–47% time-to-task</div>
+                                    <a href="#" class="read-link">Read the case</a>
+                                </div>
+                            </div>
+                            <div class="testi-card more" data-category="ux">
+                                <span class="tag">Fintech · Dashboard</span>
+                                <div class="author-name">
+                                    <div class="author-img">
+                                        <img src="./assets/images/user-3.png" alt="">
+                                    </div>
+                                    <h3>Cambria Palencia</h3>
+                                </div>
+                                <h4>fewer screens, better flow.</h4>
+                                <p>12 screens to 7; cleaner paths.</p>
+                                <div class="testi-img">
+                                    <img src="./assets/images/testi-9.svg" alt="">
                                 </div>
                                 <div class="det-wrapper">
                                     <div class="percent-tag">–47% time-to-task</div>
@@ -635,7 +677,6 @@
                         <button id="toggle-cards" aria-expanded="false"></button>
                     </div>
                 </div>
-            </div>
         </section>
         <section class="comparison-section" id="connect" data-theme="dark">
             <div class="container">
@@ -648,7 +689,11 @@
                             <div class="comparison-title-bottom">traditional agency?</div>
                         </div>
                     </h2>
-                    <p class="subtitle">Fast where it helps. Careful where it counts. Fixed scopes. Clear pricing.</p>
+                    <div class="comparison-subtitle-wrapper">
+                        <p class="subtitle comparison-subtitle">Fast where it helps. Careful where it counts. Fixed
+                            scopes. Clear pricing.
+                        </p>
+                    </div>
                 </div>
                 <div class="comparison-block">
                     <div class="comparison-table">
@@ -659,63 +704,33 @@
                         </div>
                         <div class="comparison-row">
                             <div class="comparison-cell">Speed</div>
-                            <div class="comparison-cell">
-                                <div class="check-wrapper">
-                                    <img alt="" src="./assets/images/icons/check-green.svg">
-                                    <span>Up to 5 pages</span>
-                                </div>
-                            </div>
-                            <div class="comparison-cell">4–12 weeks</div>
+                            <div class="comparison-cell">Up to 5 pages</div>
+                            <div class="comparison-cell"><span>4–12 weeks</span></div>
                         </div>
                         <div class="comparison-row">
                             <div class="comparison-cell">Access</div>
-                            <div class="comparison-cell">
-                                <div class="check-wrapper">
-                                    <img alt="" src="./assets/images/icons/check-green.svg">
-                                    <span>Talk directly to the lead designer</span>
-                                </div>
-                            </div>
-                            <div class="comparison-cell">Account layers</div>
+                            <div class="comparison-cell">Talk directly to the lead designer</div>
+                            <div class="comparison-cell"><span>Account layers</span></div>
                         </div>
                         <div class="comparison-row">
                             <div class="comparison-cell">Visibility</div>
-                            <div class="comparison-cell">
-                                <div class="check-wrapper">
-                                    <img alt="" src="./assets/images/icons/check-green.svg">
-                                    <span>Daily updates</span>
-                                </div>
-                            </div>
-                            <div class="comparison-cell">Weekly status</div>
+                            <div class="comparison-cell">Daily updates</div>
+                            <div class="comparison-cell"><span>Weekly status</span></div>
                         </div>
                         <div class="comparison-row">
                             <div class="comparison-cell">Pricing</div>
-                            <div class="comparison-cell">
-                                <div class="check-wrapper">
-                                    <img alt="" src="./assets/images/icons/check-green.svg">
-                                    <span>Fixed scopes • Clear pricing</span>
-                                </div>
-                            </div>
-                            <div class="comparison-cell">Change orders</div>
+                            <div class="comparison-cell">Fixed scopes • Clear pricing</div>
+                            <div class="comparison-cell"><span>Change orders</span></div>
                         </div>
                         <div class="comparison-row">
                             <div class="comparison-cell">Accountability</div>
-                            <div class="comparison-cell">
-                                <div class="check-wrapper">
-                                    <img alt="" src="./assets/images/icons/check-green.svg">
-                                    <span>On-time or credit</span>
-                                </div>
-                            </div>
-                            <div class="comparison-cell">-</div>
+                            <div class="comparison-cell">On-time or credit</div>
+                            <div class="comparison-cell"><span>-</span></div>
                         </div>
                         <div class="comparison-row">
                             <div class="comparison-cell">Support</div>
-                            <div class="comparison-cell">
-                                <div class="check-wrapper">
-                                    <img alt="" src="./assets/images/icons/check-green.svg">
-                                    <span>30-day included</span>
-                                </div>
-                            </div>
-                            <div class="comparison-cell">Paid retainer</div>
+                            <div class="comparison-cell">30-day included</div>
+                            <div class="comparison-cell"><span>Paid retainer</span></div>
                         </div>
                     </div>
                 </div>
@@ -731,7 +746,11 @@
                             </div>
                         </div>
                     </h2>
-                    <p class="subtitle">Pricing / Process / Scope / Legal</p>
+                    <div class="faq-subtitle-wrapper">
+                        <div class="faq-subtitle">
+                            Pricing / Process / Scope / Legal
+                        </div>
+                    </div>
                 </div>
                 <div class="accordion" id="faqAccordion">
                     <div class="accordion-item">
@@ -830,35 +849,22 @@
                 </div>
             </div>
         </section>
-        <!-- Floating Widget -->
-        <div class="floating-widget">
-            <div class="widget-content">
-                <div class="top-text">New project slots this week</div>
-                <div class="middle-text">
-                    <div>
-                        <span>Reply in under</span>
-                        <h3>24h</h3>
-                    </div>
-                    <div class="widget-logo">
-                        <img alt="" src="./assets/images/logo-icon-green.svg" />
-                    </div>
-                </div>
-            </div>
-        </div>
     </main>
-    <footer class="site-footer">
+    <footer class="site-footer" data-theme="dark">
         <div class="container">
             <div class="footer-top">
                 <div class="title-block footer-title">
                     <h2 class="title">
                         <div class="footer-title-top-wrapper">
-                            <div class="footer-title-top">Don't just dream.</div>
+                            <div class="footer-title-top">Don't just <span>dream.</span></div>
                         </div>
                         <div class="footer-title-bottom-wrapper">
                             <div class="footer-title-bottom">launch.</div>
                         </div>
                     </h2>
-                    <p class="subtitle">No sales pressure. Clear scope & quote in 24h.</p>
+                    <div class="footer-subtitle-wrapper">
+                        <p class="footer-subtitle">No sales pressure. Clear scope &amp; quote in 24h.</p>
+                    </div>
                 </div>
                 <div class="footer-cta">
                     <a href="https://calendly.com/divanshu/15min" class="footer-cta-btn">
@@ -866,7 +872,7 @@
                         <svg width="45" height="26" viewBox="0 0 45 26" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
-                                stroke="currentColor" stroke-width="1.5" />
+                                stroke="currentColor" stroke-width="1.5"></path>
                         </svg>
                     </a>
                 </div>
@@ -882,7 +888,6 @@
                     <div class="footer-left">
                         <p class="label">Prefer email?</p>
                         <a href="mailto:hellow@allgoodstudio.com" class="email">hellow@allgoodstudio.com</a>
-                        <p class="label">Design Media</p>
                         <ul class="social">
                             <li><a href="#">Tw</a></li>
                             <li><a href="#">Lk</a></li>
@@ -900,8 +905,6 @@
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
     <script src="./assets/js/gsap.min.js"></script>
     <script src="./assets/js/ScrollTrigger.min.js"></script>
-    <script src="./assets/js/particles.min.js"></script>
-    <script src="./assets/js/particles-app.js"></script>
     <script src="./assets/js/ags-gsap.js"></script>
     <script src="./assets/js/owl.carousel.min.js"></script>
     <script src="./assets/js/custom.js"></script>
@@ -960,7 +963,7 @@
 
             function updateCursorColor($item) {
                 const color = $item.data("color");
-                $cursor.css("background-color", color || "#ff4d4d");
+                $cursor.css("background-color", color || "#00dc72");
             }
 
             $carousel.on("changed.owl.carousel initialized.owl.carousel", updateCenterCursor);
