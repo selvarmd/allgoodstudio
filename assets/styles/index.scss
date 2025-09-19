@@ -159,7 +159,7 @@
         font-size: 12px;
         font-weight: 500;
         line-height: 1;
-        cursor: pointer;
+        cursor: none;
         overflow: hidden;
         z-index: 1;
         text-decoration: none;
@@ -223,6 +223,7 @@
         transform: scale(1);
         transition: transform 0.2s ease;
         will-change: transform;
+        cursor: none;
 
         @media (min-width: 992px) {
           font-size: 16px;
@@ -278,7 +279,7 @@
   background-position: center;
   color: #ffffff;
   position: relative;
-  padding-top: 10%;
+  padding: 10% 0;
 
   @media (min-width: 768px) {
     background-position: left center;
@@ -326,179 +327,38 @@
       padding-top: 68px;
     }
 
-    .see-all-wrapper {
-      text-align: center;
-    }
-
-    .project-container {
-      position: relative;
+    .gallery {
       width: 100%;
-      height: 50vh;
       overflow: hidden;
+      margin: 0 0 50px;
 
-      @media (min-width: 768px) {
-        height: 70vh;
-      }
+      .owl-carousel {
+        height: 100%;
 
-      @media (min-width: 1200px) {
-        height: 100vh;
-      }
-    }
+        .owl-stage-outer {
+          height: 100%;
 
-    .project-cards {
-      position: relative;
-      width: 90%;
-      margin: 0 auto;
-      padding: 0;
-    }
-
-    .project-card {
-      list-style: none;
-      width: 100%;
-      margin: 0;
-      position: absolute;
-      left: 0;
-      top: 0;
-      transform: translate(0%, 100%) scale(0.95);
-      border-radius: 0.8rem;
-      cursor: pointer;
-
-      @media (min-width: 992px) {
-        cursor: none;
-      }
-
-      img {
-        width: 100%;
-      }
-
-      a {
-        @media (min-width: 992px) {
-          cursor: none;
-        }
-      }
-
-      &.view-all {
-        background-color: #1a1a1a;
-        color: #ffffff;
-        cursor: default;
-
-        img {
-          opacity: 0;
-        }
-
-        .category-wrapper {
-          position: absolute;
-          z-index: 1;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: 100%;
-          padding: 10px;
-          text-align: center;
-
-          @media (min-width: 450px) {
-            top: 40%;
+          .owl-stage {
+            display: flex;
+            align-items: center;
+            height: 100%;
           }
 
-          @media (min-width: 576px) {
-            top: 30%;
-          }
-
-          @media (min-width: 768px) {
-            top: 35%;
-          }
-
-          @media (min-width: 992px) {
-            top: 27%;
-          }
-
-          @media (min-width: 1200px) {
-            top: 36%;
-          }
-
-          .title {
-            font-size: 20px;
-            font-weight: 500;
-            margin-bottom: 10px;
-
-            @media (min-width: 768px) {
-              margin-bottom: 20px;
-            }
-
-            @media (min-width: 992px) {
-              font-size: 30px;
-            }
-
-            @media (min-width: 1200px) {
-              font-size: 45px;
-              margin-bottom: 30px;
-            }
-
-            @media (min-width: 1400px) {
-              font-size: 60px;
-              margin-bottom: 50px;
-            }
-          }
-
-          ul {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); /* default: 2 columns */
-            gap: 8px;
-
-            @media (min-width: 992px) {
-              grid-template-columns: repeat(4, 1fr);
-              width: 70%;
-              margin: auto;
-            }
-
-            li {
-              font-size: 12px;
-              padding: 5px 10px;
-              color: #a6a6a6;
-              font-weight: 500;
-              text-transform: uppercase;
-              border-left: 2px solid #5e5b5b;
-
-              @media (min-width: 992px) {
-                font-size: 14px;
-
-                &:first-child {
-                  border-left: 0 !important;
-                }
+          .owl-item {
+            .item {
+              a {
+                cursor: none;
               }
 
-              @media (min-width: 1200px) {
-                font-size: 16px;
-              }
-
-              @media (min-width: 1400px) {
-                font-size: 18px;
-                padding: 5px 25px;
-              }
-
-              &:nth-child(odd) {
-                border-left: 0;
-
-                @media (min-width: 992px) {
-                  border-left: 2px solid #5e5b5b;
-                }
+              img {
+                width: 100%;
+                border-radius: 12px;
+                display: block;
               }
             }
-          }
 
-          .btn-wrapper {
-            margin-top: 10px;
-
-            @media (min-width: 768px) {
-              margin-top: 20px;
-            }
-
-            @media (min-width: 1200px) {
-              margin-top: 30px;
-            }
-
-            @media (min-width: 1400px) {
-              margin-top: 60px;
+            &.center {
+              z-index: 1;
             }
           }
         }
@@ -624,8 +484,9 @@
       }
 
       &:hover {
-        box-shadow: 0 0 10px 0px #ccc;
+        box-shadow: 0 0 10px 0 #dcebe7;
         background-color: #fdfdfd;
+        transform: translateY(-10px) !important;
       }
 
       .icon {
@@ -1023,8 +884,8 @@
   .workflow-cards {
     display: grid;
     grid-template-columns: 1fr;
+    gap: 20px;
     margin-top: 30px;
-    gap: 3px;
 
     @media (min-width: 576px) {
       grid-template-columns: repeat(2, 1fr);
@@ -1033,6 +894,7 @@
     @media (min-width: 992px) {
       margin-top: 50px;
       grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
     }
 
     .workflow-card {
@@ -1176,7 +1038,7 @@
       border-color: transparent;
       border-radius: 0;
       background: #fff;
-      cursor: pointer;
+      cursor: none;
       font-size: 14px;
       transition: all 0.3s;
 
@@ -1316,6 +1178,7 @@
           font-size: 16px;
           font-weight: 500;
           text-decoration: underline;
+          cursor: none;
         }
       }
     }
@@ -1356,7 +1219,7 @@
       color: #00dc72;
       font-size: 18px;
       font-weight: 500;
-      cursor: pointer;
+      cursor: none;
       transition: all 0.3s ease;
 
       @media (min-width: 992px) {
@@ -1592,6 +1455,7 @@
         background-color: transparent;
         font-size: 20px;
         padding: 10px 20px;
+        cursor: none;
 
         @media (min-width: 768px) {
           font-size: 24px;
@@ -1691,7 +1555,7 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
-  cursor: pointer !important;
+  cursor: none;
   overflow: hidden;
   z-index: 1;
   text-decoration: none;
@@ -1837,104 +1701,5 @@
   }
   100% {
     transform: translateX(100%) rotate(0deg);
-  }
-}
-
-.gallery {
-  width: 100%;
-  overflow: hidden;
-  margin: 0 0 50px;
-
-  @media (min-width: 768px) {
-    height: 220px;
-  }
-
-  @media (min-width: 992px) {
-    height: 300px;
-  }
-
-  @media (min-width: 1200px) {
-    height: 350px;
-  }
-
-  @media (min-width: 1400px) {
-    height: 400px;
-  }
-
-  @media (min-width: 1600px) {
-    height: 450px;
-  }
-
-  .owl-carousel {
-    height: 100%;
-
-    .owl-stage-outer {
-      height: 100%;
-
-      .owl-stage {
-        display: flex;
-        align-items: center;
-        height: 100%;
-      }
-
-      .owl-item {
-        transform: scale(1);
-        transition: transform 1.5s ease-in-out;
-
-        .item {
-          opacity: 0.6;
-          transition: opacity 1.5s ease-in-out;
-          cursor: none;
-
-          img {
-            width: 100%;
-            border-radius: 12px;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.4);
-            display: block;
-          }
-        }
-
-        &.center {
-          transform: scale(1.5);
-          z-index: 1;
-
-          .item {
-            opacity: 1;
-          }
-        }
-      }
-    }
-  }
-}
-
-/* Base custom cursor */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  background: #00dc72; /* default color */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-  pointer-events: none;
-  transform: translate(-50%, -50%) scale(0);
-  transition: background-color 1s ease, transform 1s ease;
-  z-index: 9999;
-
-  &.active {
-    transform: translate(-50%, -50%) scale(1);
-  }
-
-  svg {
-    width: 50%;
-  }
-
-  @media (min-width: 992px) {
-    width: 80px;
-    height: 80px;
   }
 }

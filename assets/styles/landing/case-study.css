@@ -28,7 +28,7 @@
     max-width: 400px;
     position: -webkit-sticky;
     position: sticky;
-    top: 100px;
+    top: 104px;
     height: -webkit-fit-content;
     height: -moz-fit-content;
     height: fit-content;
@@ -144,7 +144,7 @@
   padding: 10px 20px;
   font-weight: 500;
   line-height: 1;
-  cursor: pointer;
+  cursor: none;
   overflow: hidden;
   z-index: 1;
   text-decoration: none;
@@ -333,6 +333,7 @@
   color: #000000;
   text-decoration: none;
   font-size: 16px;
+  cursor: none;
 }
 
 @media (min-width: 576px) {
@@ -373,6 +374,7 @@
 
 .case-study-wrapper .case-study .mockups .next-study-wrapper .header-bottom .next-link {
   color: #000000;
+  cursor: none;
 }
 
 .case-study-wrapper .case-study .mockups .next-study-wrapper .header-bottom .next-link svg {

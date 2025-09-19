@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Portfolio Horizontal Scroll (robust)</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            overflow-x: hidden;
+        }
+
+        section {
+            /* height: 100vh; */
+            padding: 100px;
+            box-sizing: border-box;
+        }
+
+        .portfolio-wrapper {
+            display: flex;
+            height: 100vh;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .portfolio-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .case-study {
+            flex: 0 0 100vw;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .case1 {
+            background: #009345
+        }
+
+        .case2 {
+            background: #00c9a7
+        }
+
+        .case3 {
+            background: #0077ff
+        }
+    </style>
+</head>
+
+<body>
+
+    <section style="background:#eee">Section 1 (above)</section>
+    <section style="background:#eee">Section 2 (above)</section>
+    <section style="background:#eee">Section 3 (above)</section>
+
+    <div class="portfolio-wrapper" id="portfolio">
+        <div class="case-study case1">Case Study 1</div>
+        <div class="case-study case2">Case Study 2</div>
+        <div class="case-study case3">Case Study 3</div>
+    </div>
+
+    <section style="background:#ccc">Section 5 (below)</section>
+    <section style="background:#ccc">Section 6 (below)</section>
+    <section style="background:#ccc">Section 7 (below)</section>
+    <section style="background:#ccc">Section 8 (below)</section>
+
+    <script>
+        (function () {
+            const portfolio = document.getElementById("portfolio");
+            if (!portfolio) return;
+
+            let cursorInside = false;
+            let isAnimatingPage = false;
+            const SCROLL_LOCK_MS = 700;
+            const SCROLL_SPEED = 5; // 🔥 increase this for faster horizontal scroll
+
+            portfolio.addEventListener("mouseenter", () => { cursorInside = true; });
+            portfolio.addEventListener("mouseleave", () => { cursorInside = false; });
+
+            function scrollToEl(el) {
+                if (!el) return;
+                isAnimatingPage = true;
+                const top = el.getBoundingClientRect().top + window.pageYOffset;
+                window.scrollTo({ top, behavior: "smooth" });
+                setTimeout(() => { isAnimatingPage = false; }, SCROLL_LOCK_MS);
+            }
+
+            window.addEventListener("wheel", function (ev) {
+                if (isAnimatingPage) return;
+                if (!cursorInside) return; // ✅ only when mouse is inside portfolio
+
+                const delta = ev.deltaY * SCROLL_SPEED; // 🚀 speed boost
+                const maxScrollLeft = portfolio.scrollWidth - portfolio.clientWidth;
+                const atStart = portfolio.scrollLeft <= 0;
+                const atEnd = portfolio.scrollLeft >= maxScrollLeft;
+
+                // 🚫 Block page scroll until edges reached
+                ev.preventDefault();
+
+                if (delta > 0) { // scrolling down
+                    if (!atEnd) {
+                        portfolio.scrollLeft = Math.min(maxScrollLeft, portfolio.scrollLeft + delta);
+                    } else {
+                        scrollToEl(portfolio.nextElementSibling);
+                    }
+                } else if (delta < 0) { // scrolling up
+                    if (!atStart) {
+                        portfolio.scrollLeft = Math.max(0, portfolio.scrollLeft + delta);
+                    } else {
+                        scrollToEl(portfolio.previousElementSibling);
+                    }
+                }
+            }, { passive: false });
+        })();
+
+    </script>
+
+</body>
+
+</html>

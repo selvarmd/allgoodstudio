@@ -3,6 +3,12 @@ body {
   background-color: #ffffff;
   font-family: "ClashGrotesk", sans-serif;
   font-weight: 400;
+  padding-top: 80px;
+  cursor: none;
+
+  &.index {
+    padding-top: 0;
+  }
 }
 
 img {
@@ -505,7 +511,7 @@ img {
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
-  cursor: pointer;
+  cursor: none;
   overflow: hidden;
   z-index: 1;
   text-decoration: none;
@@ -564,4 +570,56 @@ img {
 .footer-title-top,
 .footer-title-bottom {
   transform: translateY(0); // keep them in normal position
+}
+
+/* Base custom cursor */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #00dc72;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  z-index: 9999;
+
+  @media (min-width: 992px) {
+    width: 80px;
+    height: 80px;
+  }
+
+  &.active {
+    transform: translate(-50%, -50%) scale(1);
+  }
+
+  svg {
+    width: 50%;
+  }
+
+  .cursor-text {
+    display: none;
+    font-size: 12px;
+    font-weight: 500;
+
+    @media (min-width: 992px) {
+      font-size: 16px;
+    }
+  }
+
+  &.text-mode {
+    .cursor-icon {
+      display: none;
+    }
+
+    .cursor-text {
+      display: block;
+    }
+  }
 }

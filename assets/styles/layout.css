@@ -3,6 +3,12 @@ body {
   background-color: #ffffff;
   font-family: "ClashGrotesk", sans-serif;
   font-weight: 400;
+  padding-top: 80px;
+  cursor: none;
+}
+
+body.index {
+  padding-top: 0;
 }
 
 img {
@@ -630,7 +636,7 @@ img {
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
-  cursor: pointer;
+  cursor: none;
   overflow: hidden;
   z-index: 1;
   text-decoration: none;
@@ -704,5 +710,70 @@ img {
 .footer-title-bottom {
   -webkit-transform: translateY(0);
           transform: translateY(0);
+}
+
+/* Base custom cursor */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #00dc72;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #ffffff;
+  pointer-events: none;
+  -webkit-transform: translate(-50%, -50%) scale(0);
+          transform: translate(-50%, -50%) scale(0);
+  -webkit-transition: background-color 0.3s ease, -webkit-transform 0.3s ease;
+  transition: background-color 0.3s ease, -webkit-transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease, -webkit-transform 0.3s ease;
+  z-index: 9999;
+}
+
+@media (min-width: 992px) {
+  .custom-cursor {
+    width: 80px;
+    height: 80px;
+  }
+}
+
+.custom-cursor.active {
+  -webkit-transform: translate(-50%, -50%) scale(1);
+          transform: translate(-50%, -50%) scale(1);
+}
+
+.custom-cursor svg {
+  width: 50%;
+}
+
+.custom-cursor .cursor-text {
+  display: none;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+@media (min-width: 992px) {
+  .custom-cursor .cursor-text {
+    font-size: 16px;
+  }
+}
+
+.custom-cursor.text-mode .cursor-icon {
+  display: none;
+}
+
+.custom-cursor.text-mode .cursor-text {
+  display: block;
 }
 /*# sourceMappingURL=layout.css.map */

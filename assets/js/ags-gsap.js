@@ -120,12 +120,12 @@ gsap.fromTo(
   { y: "100%" }, // start below
   {
     y: "0%",
-    duration: 0.5,
+    duration: 1.2,
     ease: "power3.out",
-    stagger: 0.25,
+    stagger: 0.05,
     scrollTrigger: {
       trigger: ".method-section",
-      start: "top 80%",
+      start: "top 60%",
       once: true,
     },
   }
@@ -135,7 +135,7 @@ gsap.fromTo(
 const workflowTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: ".workflow-title", // wrapper for title + subtitle + cards
-    start: "top 80%",
+    start: "top 60%",
     once: true, // run only once
   },
 });
@@ -176,11 +176,20 @@ workflowTimeline.from(
   ">" // start after subtitle completes
 );
 
+document.querySelectorAll(".workflow-card").forEach((card) => {
+  card.addEventListener("mouseenter", () => {
+    gsap.to(card, { y: -10, duration: 0.3, ease: "power3.out" });
+  });
+  card.addEventListener("mouseleave", () => {
+    gsap.to(card, { y: 0, duration: 0.3, ease: "power3.out" });
+  });
+});
+
 /********** Testimonial Section Animation **********/
 const testimonialTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: ".testimonial-title", // wrapper for title + subtitle
-    start: "top 80%",
+    start: "top 60%",
     once: true,
   },
 });
@@ -216,7 +225,7 @@ testimonialTimeline.from(
   {
     opacity: 0,
     scale: 0.8,
-    duration: 0.5,
+    duration: 1,
     ease: "power3.out",
   },
   ">" // starts right after title animation completes
@@ -239,7 +248,7 @@ testimonialTimeline.from(
 const comparisonTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: ".comparison-block", // whole block (title + rows)
-    start: "top 80%",
+    start: "top 60%",
     once: true,
   },
 });
@@ -285,7 +294,7 @@ rows.forEach((row) => {
 const faqTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: ".faq-title",
-    start: "top 80%",
+    start: "top 60%",
     once: true,
   },
 });
@@ -331,7 +340,7 @@ faqTimeline.to(
 const footerTimeline = gsap.timeline({
   scrollTrigger: {
     trigger: ".footer-title",
-    start: "top 80%",
+    start: "top 70%",
     once: true,
   },
 });
@@ -374,3 +383,85 @@ footerTimeline.fromTo(
   },
   ">" // start after subtitle
 );
+
+/*************** Portfolio section animations *********************/
+
+// const section = document.querySelector(".portfolio-section");
+// const carousel = section.querySelector(".carousel");
+// const items = gsap.utils.toArray(".carousel-item", section);
+
+// const tl = gsap.timeline({ paused: true });
+
+// items.forEach((item, i) => {
+//   const offsetY = i * 20;
+//   const scale = 0.8 + (i / (items.length - 1)) * 0.2;
+
+//   tl.to(
+//     item,
+//     {
+//       y: offsetY,
+//       scale: scale,
+//       opacity: 1,
+//       duration: 1,
+//       ease: "power2.out",
+//       transformOrigin: "top center",
+//     },
+//     i
+//   );
+// });
+
+// ScrollTrigger.create({
+//   animation: tl,
+//   trigger: section,
+//   start: "top 20%",
+//   end: () => "+=" + window.innerHeight * (items.length - 1),
+//   scrub: true,
+//   pin: true,
+//   anticipatePin: 1,
+//   invalidateOnRefresh: true,
+// });
+
+gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+
+const smoother = ScrollSmoother.create({
+  wrapper: "#smooth-wrapper",
+  content: "#smooth-content",
+  smooth: 2,
+  normalizeScroll: true,
+  ignoreMobileResize: true,
+  preventDefault: true,
+});
+
+//Horizontal Scroll Galleries
+if (document.getElementById("portfolio")) {
+  const horizontalSections = gsap.utils.toArray(".horiz-gallery-wrapper");
+
+  horizontalSections.forEach(function (sec, i) {
+    const pinWrap = sec.querySelector(".horiz-gallery-strip");
+
+    let pinWrapWidth;
+    let horizontalScrollLength;
+
+    function refresh() {
+      pinWrapWidth = pinWrap.scrollWidth;
+      horizontalScrollLength = pinWrapWidth - window.innerWidth;
+    }
+
+    refresh();
+    // Pinning and horizontal scrolling
+    gsap.to(pinWrap, {
+      scrollTrigger: {
+        scrub: true,
+        trigger: sec,
+        pin: sec,
+        start: "center center",
+        end: () => `+=${pinWrapWidth}`,
+        invalidateOnRefresh: true,
+      },
+      x: () => -horizontalScrollLength,
+      ease: "none",
+    });
+
+    ScrollTrigger.addEventListener("refreshInit", refresh);
+  });
+}

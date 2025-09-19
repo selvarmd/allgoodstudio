@@ -404,3 +404,58 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   });
 });
+
+/*********** Custom Cursor *************/
+const cursor = document.querySelector(".custom-cursor");
+const gallery = document.querySelector(".gallery");
+const header = document.querySelector(".site-header");
+const footer = document.querySelector(".footer-bottom");
+
+// Follow mouse
+document.addEventListener("mousemove", (e) => {
+  cursor.style.top = e.clientY + "px";
+  cursor.style.left = e.clientX + "px";
+  cursor.classList.add("active");
+});
+
+// Inside gallery → switch to text mode
+if (gallery) {
+  gallery.addEventListener("mouseenter", () => {
+    cursor.classList.add("text-mode");
+  });
+  gallery.addEventListener("mouseleave", () => {
+    cursor.classList.remove("text-mode");
+  });
+}
+
+// Handle header/footer safely
+[header, footer].forEach((el) => {
+  if (!el) return; // skip if element not found
+
+  el.addEventListener("mouseenter", () => {
+    cursor.style.display = "none"; // hide custom cursor
+    el.style.cursor = "auto"; // restore system cursor
+  });
+
+  el.addEventListener("mouseleave", () => {
+    cursor.style.display = "flex"; // show custom cursor
+    el.style.cursor = "none"; // avoid double cursors
+  });
+});
+
+$(document).ready(function () {
+  /*********** Portfolio carousel *************/
+  const $carousel = $(".owl-carousel");
+  $carousel.owlCarousel({
+    loop: true,
+    center: true,
+    items: 1,
+    margin: 0,
+    nav: false,
+    dots: false,
+    smartSpeed: 1500,
+    autoplay: true, // enable auto slide
+    autoplayTimeout: 2500, // delay between slides (3s)
+    autoplayHoverPause: true,
+  });
+});
