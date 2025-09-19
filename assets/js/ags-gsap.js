@@ -68,8 +68,8 @@ gsap.fromTo(
 /********** Service Section Animation **********/
 const serviceTimeline = gsap.timeline({
   scrollTrigger: {
-    trigger: ".services",
-    start: "top 80%",
+    trigger: ".service-section",
+    start: "top 60%",
     once: true,
   },
 });
@@ -82,7 +82,7 @@ serviceTimeline.fromTo(
     y: "0%",
     duration: 0.5,
     ease: "power3.out",
-    stagger: 0.1,
+    stagger: 0.05,
   }
 );
 
@@ -93,7 +93,7 @@ serviceTimeline.fromTo(
   {
     y: "0%",
     opacity: 1,
-    duration: 0.25,
+    duration: 0.1,
     ease: "power3.out",
   },
   ">" // waits until title finishes
@@ -108,7 +108,7 @@ serviceTimeline.to(
     duration: 0.75,
     ease: "power3.out",
     stagger: {
-      each: 0.25, // one after another
+      each: 0.1, // one after another
     },
   },
   ">" // wait until description finishes
@@ -134,7 +134,7 @@ gsap.fromTo(
 /********** Workflow Timeline **********/
 const workflowTimeline = gsap.timeline({
   scrollTrigger: {
-    trigger: ".workflow-title", // wrapper for title + subtitle + cards
+    trigger: ".workflow-section", // wrapper for title + subtitle + cards
     start: "top 60%",
     once: true, // run only once
   },
@@ -144,7 +144,7 @@ const workflowTimeline = gsap.timeline({
 workflowTimeline.from([".workflow-title-top", ".workflow-title-bottom"], {
   y: "100%",
   opacity: 0,
-  duration: 0.5,
+  duration: 0.25,
   ease: "power3.out",
   stagger: 0.1, // delay between top and bottom
 });
@@ -155,7 +155,7 @@ workflowTimeline.from(
   {
     y: 50,
     opacity: 0,
-    duration: 0.5,
+    duration: 0.25,
     ease: "power3.out",
   },
   ">" // start after title completes
@@ -170,7 +170,7 @@ workflowTimeline.from(
     duration: 0.75,
     ease: "power3.out",
     stagger: {
-      each: 0.2, // one by one
+      each: 0.1, // one by one
     },
   },
   ">" // start after subtitle completes
@@ -188,7 +188,7 @@ document.querySelectorAll(".workflow-card").forEach((card) => {
 /********** Testimonial Section Animation **********/
 const testimonialTimeline = gsap.timeline({
   scrollTrigger: {
-    trigger: ".testimonial-title", // wrapper for title + subtitle
+    trigger: ".testimonial-section", // wrapper for title + subtitle
     start: "top 60%",
     once: true,
   },
@@ -200,9 +200,9 @@ testimonialTimeline.from(
   {
     y: "100%",
     opacity: 0,
-    duration: 0.5,
+    duration: 0.25,
     ease: "power3.out",
-    stagger: 0.2, // delay between top & bottom
+    stagger: 0.1, // delay between top & bottom
   }
 );
 
@@ -212,9 +212,9 @@ testimonialTimeline.from(
   {
     y: "100%",
     opacity: 0,
-    duration: 0.75,
+    duration: 0.25,
     ease: "power3.out",
-    stagger: 0.2,
+    stagger: 0.1,
   },
   ">" // start after title finishes
 );
@@ -237,17 +237,16 @@ testimonialTimeline.from(
   {
     opacity: 0,
     scale: 0.85,
-    duration: 1.25,
+    duration: 0.5,
     ease: "power3.out",
   },
   ">" // starts after filters animation completes
 );
 
 /********** Comparison Section Animation **********/
-/********** Animate comparison section **********/
 const comparisonTimeline = gsap.timeline({
   scrollTrigger: {
-    trigger: ".comparison-block", // whole block (title + rows)
+    trigger: ".comparison-section", // whole block (title + rows)
     start: "top 60%",
     once: true,
   },
@@ -257,9 +256,9 @@ const comparisonTimeline = gsap.timeline({
 comparisonTimeline.from([".comparison-title-top", ".comparison-title-bottom"], {
   y: "100%",
   opacity: 0,
-  duration: 0.5,
+  duration: 0.25,
   ease: "power3.out",
-  stagger: 0.25,
+  stagger: 0.1,
 });
 
 // 2️⃣ Animate subtitle AFTER title
@@ -268,7 +267,7 @@ comparisonTimeline.from(
   {
     y: "100%",
     opacity: 0,
-    duration: 0.5,
+    duration: 0.1,
     ease: "power3.out",
   },
   ">" // after previous finishes
@@ -283,7 +282,7 @@ rows.forEach((row) => {
     {
       x: -80,
       opacity: 0,
-      duration: 0.25,
+      duration: 0.2,
       ease: "power3.out",
     },
     ">" // chain sequentially (one after the other)
@@ -306,7 +305,7 @@ faqTimeline.fromTo(
   {
     y: "0%",
     opacity: 1,
-    duration: 0.5,
+    duration: 0.25,
     ease: "power3.out",
   }
 );
@@ -318,7 +317,7 @@ faqTimeline.fromTo(
   {
     y: "0%",
     opacity: 1,
-    duration: 0.5,
+    duration: 0.25,
     ease: "power3.out",
   },
   ">" // start after title finishes
@@ -329,9 +328,9 @@ faqTimeline.to(
   ".accordion-item",
   {
     opacity: 1, // ✅ ensure it goes to fully visible
-    duration: 0.75,
+    duration: 0.5,
     ease: "power4.out",
-    stagger: 0.25, // one by one
+    stagger: 0.1, // one by one
   },
   ">" // after subtitle
 );
@@ -354,7 +353,7 @@ footerTimeline.fromTo(
     opacity: 1,
     duration: 0.5,
     ease: "power3.out",
-    stagger: 0.2,
+    stagger: 0.1,
   }
 );
 
@@ -365,7 +364,7 @@ footerTimeline.fromTo(
   {
     y: "0%",
     opacity: 1,
-    duration: 0.5,
+    duration: 0.25,
     ease: "power3.out",
   },
   ">" // start after title finishes
@@ -378,7 +377,7 @@ footerTimeline.fromTo(
   {
     opacity: 1,
     scale: 1,
-    duration: 0.5,
+    duration: 0.25,
     ease: "back.out(0.75)",
   },
   ">" // start after subtitle

@@ -584,7 +584,7 @@ img {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ffffff;
+  color: #000000;
   pointer-events: none;
   transform: translate(-50%, -50%) scale(0);
   transition: background-color 0.3s ease, transform 0.3s ease;
@@ -605,11 +605,13 @@ img {
 
   .cursor-text {
     display: none;
-    font-size: 12px;
+    font-size: 10px;
     font-weight: 500;
+    // color: #ffffff;
+    text-align: center;
 
     @media (min-width: 992px) {
-      font-size: 16px;
+      font-size: 12px;
     }
   }
 

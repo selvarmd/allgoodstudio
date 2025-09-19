@@ -418,44 +418,85 @@ document.addEventListener("mousemove", (e) => {
   cursor.classList.add("active");
 });
 
-// Inside gallery → switch to text mode
+// === Gallery handling ===
 if (gallery) {
+  // Default: entering gallery adds text-mode
   gallery.addEventListener("mouseenter", () => {
     cursor.classList.add("text-mode");
   });
   gallery.addEventListener("mouseleave", () => {
     cursor.classList.remove("text-mode");
   });
-}
 
-// Handle header/footer safely
-[header, footer].forEach((el) => {
-  if (!el) return; // skip if element not found
-
-  el.addEventListener("mouseenter", () => {
-    cursor.style.display = "none"; // hide custom cursor
-    el.style.cursor = "auto"; // restore system cursor
+  // Portfolio links → keep custom cursor
+  gallery.querySelectorAll(".portfolio-link").forEach((link) => {
+    link.addEventListener("mouseenter", () => {
+      cursor.style.display = "flex"; // ensure custom cursor is visible
+      cursor.classList.add("text-mode");
+      link.style.cursor = "none";
+    });
+    link.addEventListener("mouseleave", () => {
+      cursor.style.display = "flex";
+      link.style.cursor = "none";
+    });
   });
 
+  // Category wrapper + children → force system cursor
+  gallery
+    .querySelectorAll(".category-wrapper, .category-wrapper *")
+    .forEach((el) => {
+      el.addEventListener("mouseenter", () => {
+        cursor.style.display = "none"; // hide custom cursor
+        el.style.cursor = "auto"; // show normal cursor
+      });
+      el.addEventListener("mouseleave", () => {
+        cursor.style.display = "flex"; // restore custom cursor outside
+        el.style.cursor = "none";
+      });
+    });
+}
+
+// === Header / Footer handling ===
+[header, footer].forEach((el) => {
+  if (!el) return;
+  el.addEventListener("mouseenter", () => {
+    cursor.style.display = "none";
+    el.style.cursor = "auto";
+  });
   el.addEventListener("mouseleave", () => {
-    cursor.style.display = "flex"; // show custom cursor
-    el.style.cursor = "none"; // avoid double cursors
+    cursor.style.display = "flex";
+    el.style.cursor = "none";
   });
 });
 
+// === Links & buttons outside gallery ===
+const links = document.querySelectorAll(
+  "a:not(.gallery a), button:not(.gallery button)"
+);
+links.forEach((el) => {
+  el.addEventListener("mouseenter", () => {
+    cursor.style.display = "none";
+    el.style.cursor = "pointer";
+  });
+  el.addEventListener("mouseleave", () => {
+    cursor.style.display = "flex";
+    el.style.cursor = "none";
+  });
+});
+
+/*********** Portfolio carousel *************/
 $(document).ready(function () {
-  /*********** Portfolio carousel *************/
   const $carousel = $(".owl-carousel");
   $carousel.owlCarousel({
     loop: true,
-    center: true,
+    // center: true,
     items: 1,
-    margin: 0,
+    margin: 10,
     nav: false,
     dots: false,
     smartSpeed: 1500,
     autoplay: true, // enable auto slide
-    autoplayTimeout: 2500, // delay between slides (3s)
+    autoplayTimeout: 2000, // delay between slides (3s)
     autoplayHoverPause: true,
   });
 });
