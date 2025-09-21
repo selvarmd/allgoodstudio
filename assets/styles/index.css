@@ -21,16 +21,14 @@
 
 .hero-section {
   position: relative;
-  background: #ffffff url("../images/backgrounds/hero-bg.svg") no-repeat;
+  background: #ffffff url("../images/backgrounds/hero-bg.svg") no-repeat fixed center center;
   background-size: cover;
-  background-position: center;
   padding: 80px 0 10%;
 }
 
 @media (min-width: 768px) {
   .hero-section {
     padding: 15% 0 10%;
-    background-position: left center;
   }
 }
 
@@ -369,18 +367,10 @@
 }
 
 .project-section {
-  background: #000000 url("../images/backgrounds/portfolio-bg.svg") no-repeat;
-  background-size: cover;
-  background-position: center;
+  background: #000000 url("../images/backgrounds/portfolio-bg.svg") no-repeat fixed right top;
   color: #ffffff;
   position: relative;
   padding: 10% 0;
-}
-
-@media (min-width: 768px) {
-  .project-section {
-    background-position: left center;
-  }
 }
 
 .project-section .project-title {
@@ -455,6 +445,20 @@
   height: 100%;
 }
 
+.project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item {
+  -webkit-transform: scale(0.8);
+          transform: scale(0.8);
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  opacity: 0.6;
+}
+
+.project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item.center {
+  -webkit-transform: scale(1);
+          transform: scale(1);
+  opacity: 1;
+}
+
 .project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item .item {
   height: 100%;
 }
@@ -496,9 +500,16 @@
 }
 
 .project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item .item .category-wrapper .title {
-  font-size: 20px;
-  font-weight: 500;
-  margin-bottom: 10px;
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item .item .category-wrapper .title {
+    display: block;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -528,19 +539,31 @@
 }
 
 .project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item .item .category-wrapper ul {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: (1fr)[2];
-      grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  margin: 30px auto;
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item .item .category-wrapper ul {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: (1fr)[2];
+        grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin: 10px auto;
+  }
 }
 
 @media (min-width: 768px) {
   .project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item .item .category-wrapper ul {
+    margin: 15px auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item .item .category-wrapper ul {
     -ms-grid-columns: (1fr)[4];
         grid-template-columns: repeat(4, 1fr);
-    margin: 40px auto;
+    margin: 30px auto;
   }
 }
 
@@ -605,8 +628,10 @@
   opacity: 1;
 }
 
-.project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item .item .category-wrapper .btn-wrapper {
-  margin-top: 10px;
+@media (min-width: 576px) {
+  .project-section .project-container-section .gallery .owl-carousel .owl-stage-outer .owl-item .item .category-wrapper .btn-wrapper {
+    margin-top: 10px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -629,15 +654,8 @@
 
 .service-section {
   color: #000000;
-  background: #f1f1f1 url("../images/backgrounds/service-bg.svg") no-repeat;
+  background: #f1f1f1 url("../images/backgrounds/service-bg.svg") no-repeat fixed right top;
   background-size: cover;
-  background-position: center;
-}
-
-@media (min-width: 768px) {
-  .service-section {
-    background-position: left center;
-  }
 }
 
 .service-section .title-block {
@@ -1256,15 +1274,8 @@
 
 .workflow-section {
   position: relative;
-  background: #f1f1f1 url("../images/backgrounds/workflow-bg.svg") no-repeat;
+  background: #f1f1f1 url("../images/backgrounds/workflow-bg.svg") no-repeat fixed right center;
   background-size: cover;
-  background-position: center;
-}
-
-@media (min-width: 768px) {
-  .workflow-section {
-    background-position: left center;
-  }
 }
 
 .workflow-section .title-block h2 {

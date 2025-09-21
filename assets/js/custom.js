@@ -486,17 +486,23 @@ links.forEach((el) => {
 
 /*********** Portfolio carousel *************/
 $(document).ready(function () {
-  const $carousel = $(".owl-carousel");
-  $carousel.owlCarousel({
+  $(".portfolio-carousel").owlCarousel({
     loop: true,
-    // center: true,
-    items: 1,
-    margin: 10,
+    center: true,
+    items: 1, // keep 1 full item in center
+    margin: 10, // bigger spacing between slides
     nav: false,
     dots: false,
     smartSpeed: 1500,
-    autoplay: true, // enable auto slide
+    autoplay: true,
+    stagePadding: 250, // wider prev/next slides
     autoplayTimeout: 2000, // delay between slides (3s)
     autoplayHoverPause: true,
+    responsive: {
+      0: { items: 1, stagePadding: 75 },
+      576: { items: 1, stagePadding: 150 },
+      768: { items: 1, stagePadding: 200 },
+      1200: { items: 1, stagePadding: 250 },
+    },
   });
 });
