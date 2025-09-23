@@ -1,21 +1,16 @@
 /********** Scroll to top when page loads **********/
-// Ensure page always starts at top on load
 window.addEventListener("pageshow", (event) => {
-  if (event.persisted) {
-    // If the page was restored from bfcache (back/forward cache)
-    window.scrollTo(0, 0);
-  } else {
-    // Normal reload
-    window.scrollTo(0, 0);
-  }
+  // always try to reset scroll on page show / bfcache restore
+  window.scrollTo(0, 0);
 });
 
-// Only reload after the page is fully loaded
+// prefer manual restoration
 if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
 }
 
 window.addEventListener("load", () => {
+  // ensure at load
   window.scrollTo(0, 0);
 
   let resizeTimeout;
@@ -24,485 +19,529 @@ window.addEventListener("load", () => {
 
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimeout);
-
     resizeTimeout = setTimeout(() => {
       if (
         window.innerWidth !== initialWidth ||
         window.innerHeight !== initialHeight
       ) {
         window.scrollTo(0, 0);
+        // avoid infinite reload loops in dev. Only reload if you truly need to.
         window.location.reload();
       }
     }, 250);
   });
 });
 
-/********** Sticky header **********/
-window.addEventListener("scroll", function () {
-  const header = document.querySelector("header");
-  if (window.scrollY > 0) {
-    header.classList.add("scrolled");
-  } else {
-    header.classList.remove("scrolled");
-  }
-});
-
-/********** Adding theme color for the header based on the section theme color **********/
+/********** Put DOM-dependent code inside DOMContentLoaded **********/
 document.addEventListener("DOMContentLoaded", () => {
-  const header = document.querySelector(".site-header");
-  const sections = Array.from(document.querySelectorAll("[data-theme]"));
-  if (!header || sections.length === 0) return;
-
-  function updateHeaderTheme() {
-    const headerHeight = header.offsetHeight;
-    let currentSection = null;
-
-    for (const section of sections) {
-      const rect = section.getBoundingClientRect();
-
-      // Check if section top has crossed header line (viewport top + header height)
-      if (rect.top <= headerHeight) {
-        currentSection = section;
-      }
-    }
-
-    if (currentSection) {
-      const theme = currentSection.dataset.theme || "light";
-
-      // Apply theme only if it actually changed
-      if (theme === "dark" && !header.classList.contains("dark-header")) {
-        header.classList.add("dark-header");
-        header.classList.remove("light-header");
-      } else if (
-        theme === "light" &&
-        !header.classList.contains("light-header")
-      ) {
-        header.classList.add("light-header");
-        header.classList.remove("dark-header");
-      }
-    }
+  /********** Sticky header (guarded) **********/
+  const headerEl = document.querySelector("header");
+  if (headerEl) {
+    const onStickyScroll = () => {
+      if (window.scrollY > 0) headerEl.classList.add("scrolled");
+      else headerEl.classList.remove("scrolled");
+    };
+    // initial and bind
+    onStickyScroll();
+    window.addEventListener("scroll", onStickyScroll, { passive: true });
   }
 
-  // Attach scroll + load listeners
-  window.addEventListener("scroll", updateHeaderTheme);
-  window.addEventListener("load", updateHeaderTheme);
+  /********** Header theme switching based on section data-theme **********/
+  (function () {
+    const header = document.querySelector(".site-header");
+    const sections = Array.from(document.querySelectorAll("[data-theme]"));
+    if (!header || sections.length === 0) return;
 
-  // Smooth scroll for nav links with offset for header height
-  document.querySelectorAll('.nav-link[href^="#"]').forEach((link) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      const targetId = link.getAttribute("href");
-      const targetEl = document.querySelector(targetId);
+    function updateHeaderTheme() {
+      const headerHeight = header.offsetHeight;
+      let currentSection = null;
 
-      if (targetEl) {
-        window.scrollTo({
-          top: targetEl.offsetTop, // no subtraction needed
-          behavior: "smooth",
-        });
-      }
-    });
-  });
-});
-
-/********** Logo carousel **********/
-(function () {
-  const viewport = document.getElementById("logoViewport");
-  const track = document.getElementById("logoTrack");
-  if (!viewport || !track) return;
-
-  let dir = 1; // 1 => scroll right, -1 => scroll left
-  let paused = false;
-  let reversing = false;
-  const speed = 0.7; // px per frame (tweak)
-  const edgePause = 800; // ms pause at each end
-  let rafId = null;
-
-  const getMaxScroll = () =>
-    Math.max(0, track.scrollWidth - viewport.clientWidth);
-
-  function step() {
-    // move if not paused
-    if (!paused) {
-      viewport.scrollLeft += dir * speed;
-      const max = getMaxScroll();
-
-      // clamp & trigger reverse when reaching edges
-      if (dir === 1 && viewport.scrollLeft >= max - 0.5) {
-        viewport.scrollLeft = max;
-        reverseWithPause();
-      } else if (dir === -1 && viewport.scrollLeft <= 0.5) {
-        viewport.scrollLeft = 0;
-        reverseWithPause();
-      }
-    }
-
-    rafId = requestAnimationFrame(step);
-  }
-
-  function reverseWithPause() {
-    if (reversing) return; // prevent multiple calls
-    reversing = true;
-    paused = true;
-
-    setTimeout(() => {
-      dir *= -1; // flip direction
-      paused = false; // resume movement
-      reversing = false;
-    }, edgePause);
-  }
-
-  // Pause / resume controls
-  let pointerDown = false;
-  viewport.addEventListener("mouseenter", () => (paused = true));
-  viewport.addEventListener("mouseleave", () =>
-    pointerDown ? (paused = true) : (paused = false)
-  );
-  viewport.addEventListener("pointerdown", () => {
-    pointerDown = true;
-    paused = true;
-  });
-  window.addEventListener("pointerup", () => {
-    pointerDown = false;
-    paused = false;
-  });
-
-  // Recalculate & clamp scroll on resize
-  window.addEventListener("resize", () => {
-    const max = getMaxScroll();
-    if (viewport.scrollLeft > max) viewport.scrollLeft = max;
-  });
-
-  // Start only after images inside track have loaded (so scrollWidth is accurate)
-  function startWhenReady() {
-    const imgs = Array.from(track.querySelectorAll("img"));
-    let toLoad = imgs.length;
-
-    if (toLoad === 0) {
-      startLoop();
-      return;
-    }
-
-    imgs.forEach((img) => {
-      if (img.complete) {
-        toLoad--;
-        if (toLoad === 0) startLoop();
-      } else {
-        img.addEventListener(
-          "load",
-          () => {
-            toLoad--;
-            if (toLoad === 0) startLoop();
-          },
-          { once: true }
-        );
-        // handle errored images too
-        img.addEventListener(
-          "error",
-          () => {
-            toLoad--;
-            if (toLoad === 0) startLoop();
-          },
-          { once: true }
-        );
-      }
-    });
-
-    // safety fallback: start after 2s if something goes wrong
-    setTimeout(() => {
-      if (!rafId) startLoop();
-    }, 2000);
-  }
-
-  function startLoop() {
-    if (rafId) cancelAnimationFrame(rafId);
-    rafId = requestAnimationFrame(step);
-  }
-
-  // Kick off
-  startWhenReady();
-})();
-
-/********** Case studies filter section and expand/collapse **********/
-document.addEventListener("DOMContentLoaded", () => {
-  const filterBtns = document.querySelectorAll(".filter-btn");
-  const allCards = Array.from(document.querySelectorAll(".testi-card"));
-  const cardWrap = document.querySelector(".card-wrap");
-  const cardGrid = document.getElementById("cardGrid");
-  const toggleBtn = document.getElementById("toggle-cards");
-
-  let currentFilter = "all";
-  let expanded = false;
-
-  function applyFilter(filter, expand) {
-    currentFilter = filter;
-    expanded = expand;
-
-    // Filter cards
-    const filtered = allCards.filter(
-      (card) => filter === "all" || card.dataset.category === filter
-    );
-
-    // Hide all
-    allCards.forEach((card) => (card.style.display = "none"));
-
-    // Always show filtered
-    filtered.forEach((card) => (card.style.display = "block"));
-
-    // Accordion height
-    requestAnimationFrame(() => {
-      if (expand) {
-        cardWrap.style.maxHeight = cardGrid.scrollHeight + 20 + "px";
-      } else {
-        // Find first row top
-        let firstRowTop = filtered.length > 0 ? filtered[0].offsetTop : 0;
-        let lastInRow = [...filtered]
-          .filter((c) => c.offsetTop === firstRowTop)
-          .pop();
-        let rowHeight = lastInRow
-          ? lastInRow.offsetTop + lastInRow.offsetHeight - firstRowTop
-          : 0;
-        cardWrap.style.maxHeight = rowHeight + 20 + "px";
-      }
-    });
-
-    // Update button text
-    const hiddenCount = expand
-      ? 0
-      : filtered.length -
-        [...filtered].filter((c) => c.offsetTop === filtered[0].offsetTop)
-          .length;
-    toggleBtn.innerHTML = expand
-      ? `<img alt="" src="./assets/images/icons/nav-arrow-up.svg"/>`
-      : hiddenCount > 0
-      ? `+${hiddenCount}`
-      : "";
-    toggleBtn.style.display =
-      hiddenCount > 0 || expand ? "inline-block" : "none";
-  }
-
-  // Filter buttons
-  filterBtns.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      filterBtns.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      cardWrap.classList.remove("expanded");
-      toggleBtn.setAttribute("aria-expanded", false);
-      applyFilter(btn.dataset.filter, false);
-    });
-  });
-
-  // Show More toggle
-  toggleBtn.addEventListener("click", () => {
-    expanded = !expanded;
-    cardWrap.classList.toggle("expanded", expanded);
-    toggleBtn.setAttribute("aria-expanded", expanded);
-    applyFilter(currentFilter, expanded);
-  });
-
-  // Initial
-  applyFilter("all", false);
-
-  // Adding active class to the accordion item
-
-  const accordion = document.getElementById("faqAccordion");
-
-  accordion.addEventListener("show.bs.collapse", function (e) {
-    // Remove active class from all items
-    accordion.querySelectorAll(".accordion-item").forEach((item) => {
-      item.classList.remove("active");
-    });
-
-    // Add active to the one being opened
-    e.target.closest(".accordion-item").classList.add("active");
-  });
-
-  accordion.addEventListener("hide.bs.collapse", function (e) {
-    e.target.closest(".accordion-item").classList.remove("active");
-  });
-});
-
-/********** Counter animations **********/
-document.addEventListener("DOMContentLoaded", () => {
-  function buildRolling(wrapper) {
-    const raw = (wrapper.dataset.target || "").trim();
-    const m = raw.match(/^(\d+)(.*)$/);
-    if (!m) {
-      wrapper.textContent = raw;
-      return;
-    }
-
-    const numberString = m[1];
-    const suffix = (m[2] || "").trim();
-
-    const numberContainer = document.createElement("div");
-    numberContainer.className = "number";
-    wrapper.innerHTML = "";
-    wrapper.appendChild(numberContainer);
-
-    const digits = numberString.split("");
-    const cycles = 3;
-
-    digits.forEach((digitChar, idx) => {
-      const targetDigit = parseInt(digitChar, 10);
-      const digitCol = document.createElement("div");
-      digitCol.className = "digit";
-
-      const list = document.createElement("div");
-      list.className = "digit-list";
-
-      // create cycles
-      for (let c = 0; c < cycles; c++) {
-        for (let n = 0; n <= 9; n++) {
-          const item = document.createElement("div");
-          item.className = "digit-item";
-          item.textContent = n;
-          list.appendChild(item);
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+        // choose last section that has its top <= headerHeight
+        if (rect.top <= headerHeight) {
+          currentSection = section;
         }
       }
-      // final to target
-      for (let n = 0; n <= targetDigit; n++) {
-        const item = document.createElement("div");
-        item.className = "digit-item";
-        item.textContent = n;
-        list.appendChild(item);
+
+      if (currentSection) {
+        const theme = currentSection.dataset.theme || "light";
+        if (theme === "dark" && !header.classList.contains("dark-header")) {
+          header.classList.add("dark-header");
+          header.classList.remove("light-header");
+        } else if (
+          theme === "light" &&
+          !header.classList.contains("light-header")
+        ) {
+          header.classList.add("light-header");
+          header.classList.remove("dark-header");
+        }
+      }
+    }
+
+    window.addEventListener("scroll", updateHeaderTheme, { passive: true });
+    window.addEventListener("load", updateHeaderTheme);
+    updateHeaderTheme();
+
+    // smooth nav links (guard)
+    document.querySelectorAll('.nav-link[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute("href");
+        const targetEl = document.querySelector(targetId);
+        if (targetEl) {
+          // scroll into view; header offset can be applied here if needed
+          window.scrollTo({
+            top: targetEl.offsetTop,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  })();
+
+  /********** Logo carousel (safe) **********/
+  (function () {
+    const viewport = document.getElementById("logoViewport");
+    const track = document.getElementById("logoTrack");
+    if (!viewport || !track) return;
+
+    let dir = 1;
+    let paused = false;
+    let reversing = false;
+    const speed = 0.7;
+    const edgePause = 800;
+    let rafId = null;
+
+    const getMaxScroll = () =>
+      Math.max(0, track.scrollWidth - viewport.clientWidth);
+
+    function step() {
+      if (!paused) {
+        viewport.scrollLeft += dir * speed;
+        const max = getMaxScroll();
+
+        if (dir === 1 && viewport.scrollLeft >= max - 0.5) {
+          viewport.scrollLeft = max;
+          reverseWithPause();
+        } else if (dir === -1 && viewport.scrollLeft <= 0.5) {
+          viewport.scrollLeft = 0;
+          reverseWithPause();
+        }
+      }
+      rafId = requestAnimationFrame(step);
+    }
+
+    function reverseWithPause() {
+      if (reversing) return;
+      reversing = true;
+      paused = true;
+      setTimeout(() => {
+        dir *= -1;
+        paused = false;
+        reversing = false;
+      }, edgePause);
+    }
+
+    let pointerDown = false;
+    viewport.addEventListener("mouseenter", () => (paused = true));
+    viewport.addEventListener("mouseleave", () =>
+      pointerDown ? (paused = true) : (paused = false)
+    );
+    viewport.addEventListener("pointerdown", () => {
+      pointerDown = true;
+      paused = true;
+    });
+    window.addEventListener("pointerup", () => {
+      pointerDown = false;
+      paused = false;
+    });
+
+    window.addEventListener("resize", () => {
+      const max = getMaxScroll();
+      if (viewport.scrollLeft > max) viewport.scrollLeft = max;
+    });
+
+    function startWhenReady() {
+      const imgs = Array.from(track.querySelectorAll("img"));
+      let toLoad = imgs.length;
+      if (toLoad === 0) {
+        startLoop();
+        return;
+      }
+      imgs.forEach((img) => {
+        if (img.complete) {
+          toLoad--;
+          if (toLoad === 0) startLoop();
+        } else {
+          img.addEventListener(
+            "load",
+            () => {
+              toLoad--;
+              if (toLoad === 0) startLoop();
+            },
+            { once: true }
+          );
+          img.addEventListener(
+            "error",
+            () => {
+              toLoad--;
+              if (toLoad === 0) startLoop();
+            },
+            { once: true }
+          );
+        }
+      });
+      setTimeout(() => {
+        if (!rafId) startLoop();
+      }, 2000);
+    }
+
+    function startLoop() {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(step);
+    }
+
+    startWhenReady();
+  })();
+
+  /********** Case studies filter & expand/collapse (guarded) **********/
+  (function () {
+    const filterBtns = document.querySelectorAll(".filter-btn");
+    const allCards = Array.from(document.querySelectorAll(".testi-card"));
+    const cardWrap = document.querySelector(".card-wrap");
+    const cardGrid = document.getElementById("cardGrid");
+    const toggleBtn = document.getElementById("toggle-cards");
+
+    if (!cardWrap || !cardGrid || allCards.length === 0) {
+      // nothing to do
+      return;
+    }
+
+    let currentFilter = "all";
+    let expanded = false;
+
+    function applyFilter(filter, expand) {
+      currentFilter = filter;
+      expanded = expand;
+
+      const filtered = allCards.filter(
+        (card) => filter === "all" || card.dataset.category === filter
+      );
+
+      allCards.forEach((card) => (card.style.display = "none"));
+      filtered.forEach((card) => (card.style.display = "block"));
+
+      requestAnimationFrame(() => {
+        if (expand) {
+          cardWrap.style.maxHeight = cardGrid.scrollHeight + 20 + "px";
+        } else {
+          let firstRowTop = filtered.length > 0 ? filtered[0].offsetTop : 0;
+          let lastInRow = [...filtered]
+            .filter((c) => c.offsetTop === firstRowTop)
+            .pop();
+          let rowHeight = lastInRow
+            ? lastInRow.offsetTop + lastInRow.offsetHeight - firstRowTop
+            : 0;
+          cardWrap.style.maxHeight = rowHeight + 20 + "px";
+        }
+      });
+
+      const hiddenCount = expand
+        ? 0
+        : Math.max(
+            0,
+            filtered.length -
+              [...filtered].filter(
+                (c) => c.offsetTop === (filtered[0] ? filtered[0].offsetTop : 0)
+              ).length
+          );
+      if (toggleBtn) {
+        toggleBtn.innerHTML = expand
+          ? `<img alt="" src="./assets/images/icons/nav-arrow-up.svg"/>`
+          : hiddenCount > 0
+          ? `+${hiddenCount}`
+          : "";
+        toggleBtn.style.display =
+          hiddenCount > 0 || expand ? "inline-block" : "none";
+      }
+    }
+
+    filterBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        filterBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        cardWrap.classList.remove("expanded");
+        if (toggleBtn) toggleBtn.setAttribute("aria-expanded", false);
+        applyFilter(btn.dataset.filter, false);
+      });
+    });
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        expanded = !expanded;
+        cardWrap.classList.toggle("expanded", expanded);
+        toggleBtn.setAttribute("aria-expanded", expanded);
+        applyFilter(currentFilter, expanded);
+      });
+    }
+
+    // initial
+    applyFilter("all", false);
+
+    // accordion guards (bootstrap events)
+    const accordion = document.getElementById("faqAccordion");
+    if (accordion) {
+      accordion.addEventListener("show.bs.collapse", function (e) {
+        accordion
+          .querySelectorAll(".accordion-item")
+          .forEach((item) => item.classList.remove("active"));
+        const item = e.target.closest(".accordion-item");
+        if (item) item.classList.add("active");
+      });
+
+      accordion.addEventListener("hide.bs.collapse", function (e) {
+        const item = e.target.closest(".accordion-item");
+        if (item) item.classList.remove("active");
+      });
+    }
+  })();
+
+  /********** Counter animations (GSAP + ScrollTrigger guarded) **********/
+  (function () {
+    // buildRolling does not depend on GSAP, can build even without it
+    function buildRolling(wrapper) {
+      const raw = (wrapper.dataset.target || "").trim();
+      const m = raw.match(/^(\d+)(.*)$/);
+      if (!m) {
+        wrapper.textContent = raw;
+        return;
       }
 
-      digitCol.appendChild(list);
-      numberContainer.appendChild(digitCol);
+      const numberString = m[1];
+      const suffix = (m[2] || "").trim();
+      const numberContainer = document.createElement("div");
+      numberContainer.className = "number";
+      wrapper.innerHTML = "";
+      wrapper.appendChild(numberContainer);
+
+      const digits = numberString.split("");
+      const cycles = 3;
+      digits.forEach(() => {
+        const digitCol = document.createElement("div");
+        digitCol.className = "digit";
+        const list = document.createElement("div");
+        list.className = "digit-list";
+        for (let c = 0; c < cycles; c++) {
+          for (let n = 0; n <= 9; n++) {
+            const item = document.createElement("div");
+            item.className = "digit-item";
+            item.textContent = n;
+            list.appendChild(item);
+          }
+        }
+        // final target will be appended later by logic (kept simpler)
+        digitCol.appendChild(list);
+        numberContainer.appendChild(digitCol);
+      });
+
+      if (suffix) {
+        const s = document.createElement("span");
+        s.className = "suffix";
+        s.textContent = suffix;
+        numberContainer.appendChild(s);
+      }
+    }
+
+    document.querySelectorAll(".number-wrapper").forEach(buildRolling);
+
+    // Only attempt GSAP animation if gsap and ScrollTrigger are available
+    if (window.gsap && window.ScrollTrigger) {
+      try {
+        ScrollTrigger.create({
+          trigger: ".stats",
+          start: "top 80%",
+          once: true,
+          onEnter: () => {
+            const allLists = document.querySelectorAll(".digit-list");
+            allLists.forEach((list) => {
+              const items = list.querySelectorAll(".digit-item");
+              if (items.length === 0) return;
+              const itemHeight = items[0].getBoundingClientRect().height;
+              const finalTranslate = -(items.length - 1) * itemHeight;
+              gsap.to(list, {
+                y: finalTranslate,
+                duration: 1.5,
+                ease: "power3.out",
+              });
+            });
+          },
+        });
+      } catch (err) {
+        // if anything fails with GSAP do not break the rest
+        // console.warn("GSAP/ScrollTrigger failed:", err);
+      }
+    }
+  })();
+
+  /*********** Custom Cursor (guarded) *************/
+  (function () {
+    const cursor = document.querySelector(".custom-cursor");
+    if (!cursor) return; // nothing to do if custom cursor not present
+
+    const gallery = document.querySelector(".gallery");
+    const header = document.querySelector(".site-header");
+    const footer = document.querySelector(".footer-bottom");
+
+    // Follow mouse (works on desktop; mobile won't fire mousemove)
+    document.addEventListener("mousemove", (e) => {
+      cursor.style.top = e.clientY + "px";
+      cursor.style.left = e.clientX + "px";
+      cursor.classList.add("active");
     });
 
-    // append suffix after last digit
-    if (suffix) {
-      const s = document.createElement("span");
-      s.className = "suffix";
-      s.textContent = suffix;
-      numberContainer.appendChild(s);
-    }
-  }
+    // Gallery handling
+    if (gallery) {
+      gallery.addEventListener("mouseenter", () =>
+        cursor.classList.add("text-mode")
+      );
+      gallery.addEventListener("mouseleave", () =>
+        cursor.classList.remove("text-mode")
+      );
 
-  // build all counters first
-  document.querySelectorAll(".number-wrapper").forEach(buildRolling);
-
-  // GSAP ScrollTrigger - animate all digits at the same time
-  ScrollTrigger.create({
-    trigger: ".stats",
-    start: "top 80%",
-    once: true,
-    onEnter: () => {
-      const allLists = document.querySelectorAll(".digit-list");
-      allLists.forEach((list) => {
-        const items = list.querySelectorAll(".digit-item");
-        const itemHeight = items[0].getBoundingClientRect().height;
-        const finalTranslate = -(items.length - 1) * itemHeight;
-
-        gsap.to(list, {
-          y: finalTranslate,
-          duration: 1.5,
-          ease: "power3.out",
+      gallery.querySelectorAll(".portfolio-link").forEach((link) => {
+        link.addEventListener("mouseenter", () => {
+          cursor.style.display = "flex";
+          cursor.classList.add("text-mode");
+          link.style.cursor = "none";
+        });
+        link.addEventListener("mouseleave", () => {
+          cursor.style.display = "flex";
+          link.style.cursor = "none";
         });
       });
-    },
-  });
-});
 
-/*********** Custom Cursor *************/
-const cursor = document.querySelector(".custom-cursor");
-const gallery = document.querySelector(".gallery");
-const header = document.querySelector(".site-header");
-const footer = document.querySelector(".footer-bottom");
+      gallery
+        .querySelectorAll(".category-wrapper, .category-wrapper *")
+        .forEach((el) => {
+          el.addEventListener("mouseenter", () => {
+            cursor.style.display = "none";
+            el.style.cursor = "auto";
+          });
+          el.addEventListener("mouseleave", () => {
+            cursor.style.display = "flex";
+            el.style.cursor = "none";
+          });
+        });
+    }
 
-// Follow mouse
-document.addEventListener("mousemove", (e) => {
-  cursor.style.top = e.clientY + "px";
-  cursor.style.left = e.clientX + "px";
-  cursor.classList.add("active");
-});
-
-// === Gallery handling ===
-if (gallery) {
-  // Default: entering gallery adds text-mode
-  gallery.addEventListener("mouseenter", () => {
-    cursor.classList.add("text-mode");
-  });
-  gallery.addEventListener("mouseleave", () => {
-    cursor.classList.remove("text-mode");
-  });
-
-  // Portfolio links → keep custom cursor
-  gallery.querySelectorAll(".portfolio-link").forEach((link) => {
-    link.addEventListener("mouseenter", () => {
-      cursor.style.display = "flex"; // ensure custom cursor is visible
-      cursor.classList.add("text-mode");
-      link.style.cursor = "none";
-    });
-    link.addEventListener("mouseleave", () => {
-      cursor.style.display = "flex";
-      link.style.cursor = "none";
-    });
-  });
-
-  // Category wrapper + children → force system cursor
-  gallery
-    .querySelectorAll(".category-wrapper, .category-wrapper *")
-    .forEach((el) => {
+    // Header/footer interaction: hide cursor inside header/footer
+    [header, footer].forEach((el) => {
+      if (!el) return;
       el.addEventListener("mouseenter", () => {
-        cursor.style.display = "none"; // hide custom cursor
-        el.style.cursor = "auto"; // show normal cursor
+        cursor.style.display = "none";
+        el.style.cursor = "auto";
       });
       el.addEventListener("mouseleave", () => {
-        cursor.style.display = "flex"; // restore custom cursor outside
+        cursor.style.display = "flex";
         el.style.cursor = "none";
       });
     });
-}
 
-// === Header / Footer handling ===
-[header, footer].forEach((el) => {
-  if (!el) return;
-  el.addEventListener("mouseenter", () => {
-    cursor.style.display = "none";
-    el.style.cursor = "auto";
-  });
-  el.addEventListener("mouseleave", () => {
-    cursor.style.display = "flex";
-    el.style.cursor = "none";
-  });
-});
+    // Links and buttons outside gallery - show system pointer
+    // We guard by selecting only if elements exist
+    const outsideLinks = document.querySelectorAll("a, button");
+    if (outsideLinks.length > 0) {
+      outsideLinks.forEach((el) => {
+        // If element is inside .gallery, skip — gallery code already handles it
+        if (el.closest(".gallery")) return;
+        el.addEventListener("mouseenter", () => {
+          cursor.style.display = "none";
+          el.style.cursor = "pointer";
+        });
+        el.addEventListener("mouseleave", () => {
+          cursor.style.display = "flex";
+          el.style.cursor = "none";
+        });
+      });
+    }
+  })();
 
-// === Links & buttons outside gallery ===
-const links = document.querySelectorAll(
-  "a:not(.gallery a), button:not(.gallery button)"
-);
-links.forEach((el) => {
-  el.addEventListener("mouseenter", () => {
-    cursor.style.display = "none";
-    el.style.cursor = "pointer";
-  });
-  el.addEventListener("mouseleave", () => {
-    cursor.style.display = "flex";
-    el.style.cursor = "none";
-  });
-});
+  /*********** Portfolio vertical stacked scroll (guarded + robust) *************/
+  (function () {
+    const portfolio = document.getElementById("portfolio");
+    const portfolioInner = document.getElementById("portfolioInner");
+    const slides = Array.from(document.querySelectorAll(".case-study"));
+    const gap = 40; // vertical gap between slides
+    const widthMap = [0, 120, 90, 60, 30, 0]; // shrink widths
 
-/*********** Portfolio carousel *************/
-$(document).ready(function () {
-  $(".portfolio-carousel").owlCarousel({
-    loop: true,
-    center: true,
-    items: 1, // keep 1 full item in center
-    margin: 10, // bigger spacing between slides
-    nav: false,
-    dots: false,
-    smartSpeed: 1500,
-    autoplay: true,
-    stagePadding: 250, // wider prev/next slides
-    autoplayTimeout: 2000, // delay between slides (3s)
-    autoplayHoverPause: true,
-    responsive: {
-      0: { items: 1, stagePadding: 75 },
-      576: { items: 1, stagePadding: 150 },
-      768: { items: 1, stagePadding: 200 },
-      1200: { items: 1, stagePadding: 250 },
-    },
-  });
+    // Calculate total height of the sticky wrapper based on first slide + gaps
+    function setWrapperHeight() {
+      const firstHeight = slides[0].offsetHeight;
+      const totalHeight = firstHeight + gap * (slides.length - 1);
+      portfolioInner.style.height = `${totalHeight}px`;
+      portfolio.style.height = `100vh`; // full viewport for sticky
+    }
+
+    function onScroll() {
+      const scrollY = window.scrollY || window.pageYOffset;
+      const offsetTop = portfolio.offsetTop;
+      const vh = window.innerHeight;
+
+      // Start animation only when portfolio-inner reaches top
+      let progress = scrollY - offsetTop;
+      if (progress < 0) progress = 0;
+
+      // Total scrollable height for animation
+      const totalScroll =
+        slides.reduce(
+          (acc, s, i) => acc + s.offsetHeight + (i > 0 ? gap : 0),
+          0
+        ) - vh;
+
+      // Lock scroll until all slides revealed
+      if (progress < totalScroll) window.scrollTo(0, offsetTop + progress);
+
+      const slideProgress = Math.min(progress / vh, slides.length);
+
+      slides.forEach((slide, i) => {
+        const prevSlide = slides[i - 1];
+        const targetY = i * gap;
+
+        // Set z-index so newer slides are on top
+        slide.style.zIndex = slides.length - i;
+
+        if (i === 0) {
+          slide.style.transform = `translateX(-50%) translateY(0)`;
+          slide.style.width =
+            slideProgress >= 1 ? `calc(100% - ${widthMap[1]}px)` : "100%";
+        } else if (slideProgress >= i) {
+          slide.style.transform = `translateX(-50%) translateY(${targetY}px)`;
+          slide.style.width = `calc(100% - ${widthMap[i]}px)`;
+          if (prevSlide)
+            prevSlide.style.width = `calc(100% - ${widthMap[i]}px)`;
+        } else if (slideProgress > i - 1) {
+          const t = slideProgress - (i - 1);
+          const y = vh * (1 - t) + targetY * t;
+          slide.style.transform = `translateX(-50%) translateY(${y}px)`;
+          slide.style.width = `calc(100% - ${widthMap[i] * t}px)`;
+          if (prevSlide)
+            prevSlide.style.width = `calc(100% - ${widthMap[i] * t}px)`;
+        } else {
+          slide.style.transform = `translateX(-50%) translateY(${vh}px)`;
+          slide.style.width = "100%";
+        }
+      });
+    }
+
+    // Initialize
+    setWrapperHeight();
+    onScroll();
+
+    window.addEventListener("scroll", onScroll, { passive: false });
+    window.addEventListener("resize", () => {
+      setWrapperHeight();
+      onScroll();
+    });
+  })();
 });
