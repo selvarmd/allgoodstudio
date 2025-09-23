@@ -513,7 +513,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // during animation
           const tRaw = progress - (i - 1);
           const t = Math.min(1, Math.max(0, tRaw));
-          const easedT = 1 - Math.pow(1 - t, 3); // cubic ease-out (faster)
+          const easedT = 1 - Math.pow(1 - t, 5); // cubic ease-out (faster)
 
           const startY = vh;
           const y = startY * (1 - easedT) + targetY * easedT;
