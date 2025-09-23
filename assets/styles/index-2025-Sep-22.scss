@@ -13,8 +13,8 @@
 
 .hero-section {
   position: relative;
-  // background: #ffffff url("../images/backgrounds/hero-bg.svg") no-repeat;
-  background: #ffffff url("../images/backgrounds/hero-bg.svg") no-repeat fixed
+  // background: #ffffff url("../images/background/hero-bg.svg") no-repeat;
+  background: #ffffff url("../images/background/hero-bg.svg") no-repeat fixed
     center center;
   background-size: cover;
   // background-position: center;
@@ -275,8 +275,8 @@
 }
 
 .project-section {
-  // background: #000000 url("../images/backgrounds/portfolio-bg.svg") no-repeat;
-  background: #000000 url("../images/backgrounds/portfolio-bg.svg") no-repeat
+  // background: #000000 url("../images/background/portfolio-bg.svg") no-repeat;
+  background: #000000 url("../images/background/portfolio-bg.svg") no-repeat
     fixed right top;
   // background-size: cover;
   // background-position: center;
@@ -508,9 +508,9 @@
 
 .service-section {
   color: #000000;
-  // background: #f1f1f1 url("../images/backgrounds/service-bg.svg") no-repeat;
-  background: #f1f1f1 url("../images/backgrounds/service-bg.svg") no-repeat
-    fixed right top;
+  // background: #f1f1f1 url("../images/background/service-bg.svg") no-repeat;
+  background: #f1f1f1 url("../images/background/service-bg.svg") no-repeat fixed
+    right top;
   background-size: cover;
   // background-position: center;
 
@@ -960,8 +960,8 @@
 
 .workflow-section {
   position: relative;
-  // background: #f1f1f1 url("../images/backgrounds/workflow-bg.svg") no-repeat;
-  background: #f1f1f1 url("../images/backgrounds/workflow-bg.svg") no-repeat
+  // background: #f1f1f1 url("../images/background/workflow-bg.svg") no-repeat;
+  background: #f1f1f1 url("../images/background/workflow-bg.svg") no-repeat
     fixed right center;
   background-size: cover;
   // background-position: center;
@@ -1379,7 +1379,7 @@
 
 .comparison-section {
   color: #ffffff;
-  background: url("../images/backgrounds/comparision-bg.png") no-repeat fixed
+  background: url("../images/background/comparision-bg.png") no-repeat fixed
     right center;
   background-size: cover;
 

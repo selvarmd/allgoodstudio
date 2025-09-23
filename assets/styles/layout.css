@@ -190,7 +190,7 @@ img {
   position: relative;
   display: inline-block;
   padding: 10px 20px;
-  border: 1px solid #ffffff;
+  border: 1px solid #000000;
   border-radius: 50px;
   background: #ffffff;
   color: #000000;
@@ -233,7 +233,8 @@ img {
 }
 
 .site-footer {
-  background: #000000;
+  background: #000000 url("../images/background/footer-bg.png") no-repeat scroll top right;
+  background-size: cover;
 }
 
 .site-footer .footer-top {
@@ -391,7 +392,7 @@ img {
 
 @media (min-width: 768px) {
   .site-footer .footer-bottom:after {
-    background: #00dc72 url("../images/backgrounds/footer-bg.svg") no-repeat left bottom;
+    background: #00dc72 url("../images/background/footer-bg-img.svg") no-repeat left bottom;
     background-size: auto 40%;
     border-top-right-radius: 200px;
   }
