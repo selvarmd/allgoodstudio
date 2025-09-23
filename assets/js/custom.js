@@ -495,7 +495,7 @@ document.addEventListener("DOMContentLoaded", () => {
     slides.forEach((slide, i) => {
       slide.style.zIndex = i + 1;
       const prevSlide = slides[i - 1];
-      const targetY = i * gap; // 0, 40px, 80px, 120px, etc.
+      const targetY = i * gap; // 0, 40px, 80px, etc.
 
       if (i === 0) {
         // first item always pinned at top
@@ -511,13 +511,16 @@ document.addEventListener("DOMContentLoaded", () => {
             prevSlide.style.width = `calc(100% - ${widthMap[i]}px)`;
         } else if (progress > i - 1) {
           // during animation
-          const t = progress - (i - 1);
+          const tRaw = progress - (i - 1);
+          const t = Math.min(1, Math.max(0, tRaw));
+          const easedT = 1 - Math.pow(1 - t, 3); // cubic ease-out (faster)
+
           const startY = vh;
-          const y = startY * (1 - t) + targetY * t;
+          const y = startY * (1 - easedT) + targetY * easedT;
           slide.style.transform = `translateX(-50%) translateY(${y}px)`;
           slide.style.width = "100%";
           if (prevSlide)
-            prevSlide.style.width = `calc(100% - ${widthMap[i] * t}px)`;
+            prevSlide.style.width = `calc(100% - ${widthMap[i] * easedT}px)`;
         } else {
           // not reached yet
           slide.style.transform = `translateX(-50%) translateY(${vh}px)`;
