@@ -21,7 +21,7 @@
 
 .hero-section {
   position: relative;
-  background: #ffffff url("../images/backgrounds/hero-bg.svg") no-repeat fixed center center;
+  background: #ffffff url("../images/background/hero-bg.svg") no-repeat fixed center center;
   background-size: cover;
   padding: 80px 0 10%;
 }
@@ -367,7 +367,8 @@
 }
 
 .project-section {
-  background: #000000 url("../images/backgrounds/portfolio-bg.svg") no-repeat fixed right top;
+  background: #000000 url("../images/background/portfolio-bg.svg") no-repeat fixed right top;
+  background-size: cover;
   color: #ffffff;
   position: relative;
   padding: 10% 0 0;
@@ -412,7 +413,8 @@
 }
 
 .project-container-section {
-  background: #000000 url("../images/backgrounds/portfolio-bg.svg") no-repeat fixed right top;
+  background: #000000 url("../images/background/portfolio-bg.svg") no-repeat fixed right top;
+  background-size: cover;
   width: 100%;
   padding: 32px 0;
 }
@@ -610,7 +612,7 @@
 
 .service-section {
   color: #000000;
-  background: #f1f1f1 url("../images/backgrounds/service-bg.svg") no-repeat fixed right top;
+  background: #f1f1f1 url("../images/background/service-bg.svg") no-repeat fixed right top;
   background-size: cover;
 }
 
@@ -1230,7 +1232,7 @@
 
 .workflow-section {
   position: relative;
-  background: #f1f1f1 url("../images/backgrounds/workflow-bg.svg") no-repeat fixed right center;
+  background: #f1f1f1 url("../images/background/workflow-bg.svg") no-repeat fixed right center;
   background-size: cover;
 }
 
@@ -1513,7 +1515,8 @@
   border-style: solid;
   border-color: transparent;
   border-radius: 0;
-  background: #fff;
+  background: #ffffff;
+  color: #000000;
   cursor: none;
   font-size: 14px;
   -webkit-transition: all 0.3s;
@@ -1764,7 +1767,7 @@
 
 .comparison-section {
   color: #ffffff;
-  background: url("../images/backgrounds/comparision-bg.png") no-repeat fixed right center;
+  background: url("../images/background/comparision-bg.png") no-repeat fixed right center;
   background-size: cover;
 }
 
