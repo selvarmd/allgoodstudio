@@ -389,7 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cursor = document.querySelector(".custom-cursor");
     if (!cursor) return; // nothing to do if custom cursor not present
 
-    const gallery = document.querySelector(".gallery");
+    const portfolioWrapper = document.querySelector(".portfolio-wrapper");
     const header = document.querySelector(".site-header");
     const footer = document.querySelector(".footer-bottom");
 
@@ -400,16 +400,16 @@ document.addEventListener("DOMContentLoaded", () => {
       cursor.classList.add("active");
     });
 
-    // Gallery handling
-    if (gallery) {
-      gallery.addEventListener("mouseenter", () =>
+    // portfolioWrapper handling
+    if (portfolioWrapper) {
+      portfolioWrapper.addEventListener("mouseenter", () =>
         cursor.classList.add("text-mode")
       );
-      gallery.addEventListener("mouseleave", () =>
+      portfolioWrapper.addEventListener("mouseleave", () =>
         cursor.classList.remove("text-mode")
       );
 
-      gallery.querySelectorAll(".portfolio-link").forEach((link) => {
+      portfolioWrapper.querySelectorAll(".portfolio-link").forEach((link) => {
         link.addEventListener("mouseenter", () => {
           cursor.style.display = "flex";
           cursor.classList.add("text-mode");
@@ -421,7 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
       });
 
-      gallery
+      portfolioWrapper
         .querySelectorAll(".category-wrapper, .category-wrapper *")
         .forEach((el) => {
           el.addEventListener("mouseenter", () => {
@@ -448,13 +448,13 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Links and buttons outside gallery - show system pointer
+    // Links and buttons outside portfolio Wrapper - show system pointer
     // We guard by selecting only if elements exist
     const outsideLinks = document.querySelectorAll("a, button");
     if (outsideLinks.length > 0) {
       outsideLinks.forEach((el) => {
-        // If element is inside .gallery, skip — gallery code already handles it
-        if (el.closest(".gallery")) return;
+        // If element is inside .portfolio-wrapper, skip — gallery code already handles it
+        if (el.closest(".portfolio-wrapper")) return;
         el.addEventListener("mouseenter", () => {
           cursor.style.display = "none";
           el.style.cursor = "pointer";
@@ -468,80 +468,71 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
 
   /*********** Portfolio vertical stacked scroll (guarded + robust) *************/
-  (function () {
-    const portfolio = document.getElementById("portfolio");
-    const portfolioInner = document.getElementById("portfolioInner");
-    const slides = Array.from(document.querySelectorAll(".case-study"));
-    const gap = 40; // vertical gap between slides
-    const widthMap = [0, 120, 90, 60, 30, 0]; // shrink widths
+  const portfolio = document.getElementById("portfolio");
+  const portfolioInner = document.getElementById("portfolioInner");
+  const slides = document.querySelectorAll(".case-study");
+  const steps = slides.length;
+  const gap = 40; // vertical gap between slides
 
-    // Calculate total height of the sticky wrapper based on first slide + gaps
-    function setWrapperHeight() {
-      const firstHeight = slides[0].offsetHeight;
-      const totalHeight = firstHeight + gap * (slides.length - 1);
-      portfolioInner.style.height = `${totalHeight}px`;
-      portfolio.style.height = `100vh`; // full viewport for sticky
-    }
+  // shrink rules after each new slide completes
+  const widthMap = [0, 120, 90, 60, 30, 0];
 
-    function onScroll() {
-      const scrollY = window.scrollY || window.pageYOffset;
-      const offsetTop = portfolio.offsetTop;
-      const vh = window.innerHeight;
+  function setHeights() {
+    const vh = window.innerHeight;
+    const totalHeight = vh + gap * (steps - 1);
+    portfolioInner.style.height = `${totalHeight}px`;
+    portfolio.style.height = `${vh * steps}px`; // enough scroll space
+  }
 
-      // Start animation only when portfolio-inner reaches top
-      let progress = scrollY - offsetTop;
-      if (progress < 0) progress = 0;
+  function onScroll() {
+    const vh = window.innerHeight;
+    const scrollY = window.scrollY || window.pageYOffset;
+    const progress = Math.min(
+      Math.max((scrollY - portfolio.offsetTop) / vh, 0),
+      steps
+    );
 
-      // Total scrollable height for animation
-      const totalScroll =
-        slides.reduce(
-          (acc, s, i) => acc + s.offsetHeight + (i > 0 ? gap : 0),
-          0
-        ) - vh;
+    slides.forEach((slide, i) => {
+      slide.style.zIndex = i + 1;
+      const prevSlide = slides[i - 1];
+      const targetY = i * gap; // 0, 40px, 80px, 120px, etc.
 
-      // Lock scroll until all slides revealed
-      if (progress < totalScroll) window.scrollTo(0, offsetTop + progress);
-
-      const slideProgress = Math.min(progress / vh, slides.length);
-
-      slides.forEach((slide, i) => {
-        const prevSlide = slides[i - 1];
-        const targetY = i * gap;
-
-        // Set z-index so newer slides are on top
-        slide.style.zIndex = slides.length - i;
-
-        if (i === 0) {
-          slide.style.transform = `translateX(-50%) translateY(0)`;
-          slide.style.width =
-            slideProgress >= 1 ? `calc(100% - ${widthMap[1]}px)` : "100%";
-        } else if (slideProgress >= i) {
+      if (i === 0) {
+        // first item always pinned at top
+        slide.style.transform = `translateX(-50%) translateY(0)`;
+        slide.style.width =
+          progress >= 2 ? `calc(100% - ${widthMap[1]}px)` : "100%";
+      } else {
+        if (progress > i) {
+          // fully revealed
           slide.style.transform = `translateX(-50%) translateY(${targetY}px)`;
-          slide.style.width = `calc(100% - ${widthMap[i]}px)`;
+          slide.style.width = "100%";
           if (prevSlide)
             prevSlide.style.width = `calc(100% - ${widthMap[i]}px)`;
-        } else if (slideProgress > i - 1) {
-          const t = slideProgress - (i - 1);
-          const y = vh * (1 - t) + targetY * t;
+        } else if (progress > i - 1) {
+          // during animation
+          const t = progress - (i - 1);
+          const startY = vh;
+          const y = startY * (1 - t) + targetY * t;
           slide.style.transform = `translateX(-50%) translateY(${y}px)`;
-          slide.style.width = `calc(100% - ${widthMap[i] * t}px)`;
+          slide.style.width = "100%";
           if (prevSlide)
             prevSlide.style.width = `calc(100% - ${widthMap[i] * t}px)`;
         } else {
+          // not reached yet
           slide.style.transform = `translateX(-50%) translateY(${vh}px)`;
           slide.style.width = "100%";
         }
-      });
-    }
-
-    // Initialize
-    setWrapperHeight();
-    onScroll();
-
-    window.addEventListener("scroll", onScroll, { passive: false });
-    window.addEventListener("resize", () => {
-      setWrapperHeight();
-      onScroll();
+      }
     });
-  })();
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", () => {
+    setHeights();
+    onScroll();
+  });
+
+  setHeights();
+  onScroll();
 });
