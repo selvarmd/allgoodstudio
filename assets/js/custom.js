@@ -4,6 +4,40 @@ window.addEventListener("pageshow", (event) => {
   window.scrollTo(0, 0);
 });
 
+/********** adding expanded classs to the header **********/
+document.addEventListener("DOMContentLoaded", () => {
+  const toggler = document.querySelector(".navbar-toggler");
+  const siteHeader = document.querySelector(".site-header");
+  const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+  // Hamburger toggle
+  toggler.addEventListener("click", () => {
+    toggler.classList.toggle("open");
+    siteHeader.classList.toggle("expanded");
+
+    // Block / allow scroll
+    if (siteHeader.classList.contains("expanded")) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  });
+
+  // Nav link click → close menu & reset states
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      const navbarCollapse = document.querySelector(".navbar-collapse.show");
+
+      if (navbarCollapse) {
+        new bootstrap.Collapse(navbarCollapse, { toggle: true });
+      }
+
+      siteHeader.classList.remove("expanded");
+      document.body.classList.remove("no-scroll");
+    });
+  });
+});
+
 // prefer manual restoration
 if ("scrollRestoration" in history) {
   history.scrollRestoration = "manual";
@@ -513,7 +547,7 @@ document.addEventListener("DOMContentLoaded", () => {
           // during animation
           const tRaw = progress - (i - 1);
           const t = Math.min(1, Math.max(0, tRaw));
-          const easedT = 1 - Math.pow(1 - t, 5); // cubic ease-out (faster)
+          const easedT = 1 - Math.pow(1 - t, 7); // cubic ease-out (faster)
 
           const startY = vh;
           const y = startY * (1 - easedT) + targetY * easedT;

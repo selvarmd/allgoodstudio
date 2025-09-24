@@ -3,11 +3,16 @@ body {
   background-color: #ffffff;
   font-family: "ClashGrotesk", sans-serif;
   font-weight: 400;
-  padding-top: 80px;
   cursor: none;
+  padding-top: 80px;
 
   &.index {
     padding-top: 0;
+  }
+
+  &.no-scroll {
+    overflow: hidden;
+    height: 100vh;
   }
 }
 
@@ -33,18 +38,23 @@ img {
   );
   z-index: 999;
   transition: all 0.3s ease-in-out;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+
+  &.expanded {
+    bottom: 0;
+  }
 
   &.scrolled {
     background-color: transparent;
-    backdrop-filter: blur(12px) saturate(180%);
-    -webkit-backdrop-filter: blur(12px) saturate(180%);
+    box-shadow: 0 0 2px 0 rgba(175, 175, 175, 0.5);
 
     .navbar {
       padding: 5px 0;
 
       @media (min-width: 992px) {
         height: 70px;
-        box-shadow: 0 0 2px 0 rgba(175, 175, 175, 0.5);
+        box-shadow: none;
       }
     }
   }
@@ -75,6 +85,12 @@ img {
 
       .navbar-brand {
         color: #ffffff;
+      }
+    }
+
+    .navbar-toggler {
+      span {
+        background-color: #ffffff;
       }
     }
 
@@ -114,14 +130,14 @@ img {
     }
 
     .navbar-collapse {
-      position: absolute;
+      // position: absolute;
       width: 100%;
-      left: 0;
-      top: 100%;
-      z-index: 100;
-      background-color: #ffffff;
-      padding: 0 0 20px;
-      box-shadow: 0 6px 7px 0 rgba(0, 0, 0, 0.08);
+      // left: 0;
+      // top: 100%;
+      // z-index: 100;
+      // background-color: #ffffff;
+      padding: 20px 0;
+      // box-shadow: 0 6px 7px 0 rgba(0, 0, 0, 0.08);
 
       @media (min-width: 992px) {
         position: initial;
@@ -132,8 +148,6 @@ img {
       }
 
       > div {
-        padding: 0 12px;
-
         @media (min-width: 576px) {
           max-width: 540px;
           margin: auto;
@@ -149,6 +163,7 @@ img {
           display: flex;
           align-items: center;
           flex-basis: auto;
+          padding: 0 12px;
         }
       }
     }
@@ -158,9 +173,13 @@ img {
         font-size: 1rem;
         color: #000000;
         font-weight: 500;
-        margin: 0 16px;
         line-height: 1;
         transition: all 0.3s ease-in-out;
+        display: inline-block;
+
+        @media (min-width: 992px) {
+          margin: 0 16px;
+        }
 
         @media (min-width: 1200px) {
           margin: 0 25px;
@@ -189,6 +208,11 @@ img {
     z-index: 1;
     text-decoration: none;
     transition: color 0.3s ease;
+    margin-top: 10px;
+
+    @media (min-width: 992px) {
+      margin: 0;
+    }
 
     &::before {
       content: "";
@@ -544,6 +568,7 @@ img {
 
   &:hover {
     color: #ffffff; // text color change
+    border-color: #000;
 
     &::before {
       transform: translateX(-50%) scale(25); // expand big enough to fill button
@@ -624,6 +649,63 @@ img {
 
     .cursor-text {
       display: block;
+    }
+  }
+}
+
+.navbar-toggler {
+  position: relative;
+  width: 30px;
+  height: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  padding: 0;
+
+  &:focus {
+    box-shadow: none;
+  }
+
+  span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background: #000;
+    border-radius: 4px;
+    transition: all 0.4s ease;
+    transform-origin: center;
+
+    &:nth-child(1) {
+      transform: rotate(45deg) translate(6px, 6px);
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+
+    &:nth-child(3) {
+      transform: rotate(-45deg) translate(6px, -6px);
+    }
+  }
+
+  &.collapsed {
+    span {
+      &:nth-child(1) {
+        transform: rotate(0deg) translate(0, 0);
+      }
+
+      &:nth-child(2) {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      &:nth-child(3) {
+        transform: rotate(0deg) translate(0, 0);
+      }
     }
   }
 }
