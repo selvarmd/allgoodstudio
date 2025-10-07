@@ -423,7 +423,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cursor = document.querySelector(".custom-cursor");
     if (!cursor) return; // nothing to do if custom cursor not present
 
-    const portfolioWrapper = document.querySelector(".portfolio-wrapper");
+    const portfolioWrapper = document.querySelector(".portfolio-section");
     const header = document.querySelector(".site-header");
     const footer = document.querySelector(".footer-bottom");
 
@@ -487,8 +487,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const outsideLinks = document.querySelectorAll("a, button");
     if (outsideLinks.length > 0) {
       outsideLinks.forEach((el) => {
-        // If element is inside .portfolio-wrapper, skip — gallery code already handles it
-        if (el.closest(".portfolio-wrapper")) return;
+        // If element is inside .portfolio-section, skip — gallery code already handles it
+        if (el.closest(".portfolio-section")) return;
         el.addEventListener("mouseenter", () => {
           cursor.style.display = "none";
           el.style.cursor = "pointer";
@@ -500,80 +500,4 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     }
   })();
-
-  /*********** Portfolio vertical stacked scroll (guarded + robust) *************/
-  const portfolio = document.getElementById("portfolio");
-const portfolioInner = document.getElementById("portfolioInner");
-const slides = document.querySelectorAll(".case-study");
-const steps = slides.length;
-const gap = 40; // vertical gap between slides
-const widthMap = [0, 120, 90, 60, 30, 0];
-
-// smooth scroll interpolation
-let lastProgress = 0;
-
-function setHeights() {
-  const vh = window.innerHeight;
-  const totalHeight = vh + gap * (steps - 1);
-  portfolioInner.style.height = `${totalHeight}px`;
-  portfolio.style.height = `${vh * steps}px`;
-}
-
-function easeInOutQuad(t) {
-  return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-}
-
-function onScroll() {
-  const vh = window.innerHeight;
-  const scrollY = window.scrollY || window.pageYOffset;
-  const targetProgress = Math.min(
-    Math.max((scrollY - portfolio.offsetTop) / (vh * 0.9), 0),
-    steps
-  );
-
-  // interpolate between frames (slow & smooth)
-  lastProgress += (targetProgress - lastProgress) * 0.08; // smaller = smoother/slower
-
-  slides.forEach((slide, i) => {
-    slide.style.zIndex = i + 1;
-    const prevSlide = slides[i - 1];
-    const targetY = i * gap;
-
-    if (i === 0) {
-      slide.style.transform = `translateX(-50%) translateY(0)`;
-      slide.style.width =
-        lastProgress >= 2 ? `calc(100% - ${widthMap[1]}px)` : "100%";
-    } else {
-      if (lastProgress > i) {
-        slide.style.transform = `translateX(-50%) translateY(${targetY}px)`;
-        slide.style.width = "100%";
-        if (prevSlide)
-          prevSlide.style.width = `calc(100% - ${widthMap[i]}px)`;
-      } else if (lastProgress > i - 1) {
-        const tRaw = lastProgress - (i - 1);
-        const t = Math.min(1, Math.max(0, tRaw));
-        const easedT = easeInOutQuad(t);
-
-        const startY = vh;
-        const y = startY * (1 - easedT) + targetY * easedT;
-        slide.style.transform = `translateX(-50%) translateY(${y}px)`;
-        slide.style.width = "100%";
-        if (prevSlide)
-          prevSlide.style.width = `calc(100% - ${widthMap[i] * easedT}px)`;
-      } else {
-        slide.style.transform = `translateX(-50%) translateY(${vh}px)`;
-        slide.style.width = "100%";
-      }
-    }
-  });
-
-  requestAnimationFrame(onScroll); // continuously smooth updates
-}
-
-window.addEventListener("resize", () => {
-  setHeights();
-});
-setHeights();
-requestAnimationFrame(onScroll);
-
 });
