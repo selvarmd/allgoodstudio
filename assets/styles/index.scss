@@ -13,16 +13,13 @@
 
 .hero-section {
   position: relative;
-  // background: #ffffff url("../images/background/hero-bg.svg") no-repeat;
   background: #ffffff url("../images/background/hero-bg.svg") no-repeat fixed
     center center;
   background-size: cover;
-  // background-position: center;
   padding: 80px 0 10%;
 
   @media (min-width: 768px) {
     padding: 15% 0 10%;
-    // background-position: left center;
   }
 
   @media (min-width: 1600px) {
@@ -275,18 +272,12 @@
 }
 
 .project-section {
-  // background: #000000 url("../images/background/portfolio-bg.svg") no-repeat;
   background: #000000 url("../images/background/portfolio-bg.svg") no-repeat
     fixed right top;
   background-size: cover;
-  // background-position: center;
   color: #ffffff;
   position: relative;
   padding: 10% 0 0;
-
-  @media (min-width: 768px) {
-    // background-position: left center;
-  }
 
   .project-title {
     font-size: 32px;
@@ -312,7 +303,9 @@
 
     .project-title-top,
     .project-title-bottom {
-      transform: translateY(100%); /* Start hidden below */
+      @media(min-width:768px) {
+        transform: translateY(100%); /* Start hidden below */
+      }
     }
   }
 }
@@ -321,7 +314,6 @@
   background: #000000 url("../images/background/portfolio-bg.svg") no-repeat
     fixed right top;
   background-size: cover;
-  // position: relative;
   width: 100%;
   padding: 32px 0;
 
@@ -336,22 +328,34 @@
   .portfolio-section {
     position: relative;
     overflow: hidden;
-    height: 100vh;
 
     .portfolio-carousel {
       position: relative;
       width: 100%;
-      height: 100vh;
+      height: 750px;
 
       .carousel-item {
         position: absolute;
         top: 0;
         left: 0;
         width: 100%;
-        height: 100%;
+        height: 670px;
         display: flex;
         justify-content: center;
         opacity: 1;
+        border-radius: 10px;
+        overflow: hidden;
+
+        .portfolio-link {
+          height: 100%;
+          width: 100%;
+
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+        }
 
         .category-wrapper {
           width: 100%;
@@ -402,7 +406,6 @@
             }
 
             @media (min-width: 992px) {
-              // grid-template-columns: repeat(4, 1fr);
               margin: 30px auto;
             }
 
@@ -477,15 +480,9 @@
 
 .service-section {
   color: #000000;
-  // background: #f1f1f1 url("../images/background/service-bg.svg") no-repeat;
   background: #f1f1f1 url("../images/background/service-bg.svg") no-repeat fixed
     right top;
   background-size: cover;
-  // background-position: center;
-
-  @media (min-width: 768px) {
-    // background-position: left center;
-  }
 
   .title-block {
     display: flex;
@@ -585,8 +582,12 @@
       display: flex;
       flex-direction: column;
       gap: 20px;
-      opacity: 0;
+      opacity: 1;
       transition: all 0.3s ease;
+      
+      @media (min-width: 768px) {
+        opacity: 0;
+      }
 
       @media (min-width: 1600px) {
         padding: 20px;
@@ -929,15 +930,9 @@
 
 .workflow-section {
   position: relative;
-  // background: #f1f1f1 url("../images/background/workflow-bg.svg") no-repeat;
   background: #f1f1f1 url("../images/background/workflow-bg.svg") no-repeat
     fixed right center;
   background-size: cover;
-  // background-position: center;
-
-  @media (min-width: 768px) {
-    // background-position: left center;
-  }
 
   .title-block {
     h2 {
@@ -1545,8 +1540,12 @@
       background-color: #ffffff;
       padding: 20px 0;
       margin-bottom: 10px;
-      opacity: 0;
+      opacity: 1;
       transition: all 0.3s ease-in-out;
+
+      @media (min-width: 768px) {
+        opacity: 0;
+      }
 
       @media (min-width: 1400px) {
         padding: 30px 0;
