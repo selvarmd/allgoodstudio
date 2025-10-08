@@ -700,17 +700,16 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  opacity: 1;
-  transition: all 0.3s ease;
+  transition: all 0.3s ease !important;
 }
-@media (min-width: 768px) {
-  .service-section .services .service-card {
-    opacity: 0;
-  }
-}
-@media (min-width: 1600px) {
+@media (min-width: 1200px) {
   .service-section .services .service-card {
     padding: 20px;
+  }
+}
+@media (min-width: 1440px) {
+  .service-section .services .service-card {
+    padding: 30px;
   }
 }
 .service-section .services .service-card:hover {
@@ -719,14 +718,30 @@
   transform: translateY(-10px) !important;
 }
 .service-section .services .service-card .icon {
+  text-align: center;
   margin-bottom: 10px;
 }
 .service-section .services .service-card .icon img {
-  width: 80px;
+  width: 100px;
+}
+@media (min-width: 768px) {
+  .service-section .services .service-card .icon img {
+    width: 150px;
+  }
+}
+@media (min-width: 992px) {
+  .service-section .services .service-card .icon img {
+    width: 200px;
+  }
+}
+@media (min-width: 1440px) {
+  .service-section .services .service-card .icon img {
+    width: 250px;
+  }
 }
 @media (min-width: 1600px) {
   .service-section .services .service-card .icon img {
-    width: 120px;
+    width: 300px;
   }
 }
 .service-section .services .service-card .sercive-card-content {
@@ -1121,12 +1136,15 @@
   .workflow-section .workflow-cards {
     margin-top: 50px;
     grid-template-columns: repeat(4, 1fr);
-    gap: 3px;
   }
 }
 .workflow-section .workflow-cards .workflow-card {
   background: #ffffff;
   padding: 30px 20px;
+  transition: all 0.5s ease-in-out !important;
+}
+.workflow-section .workflow-cards .workflow-card:hover {
+  transform: translateY(-10px) !important;
 }
 .workflow-section .workflow-cards .workflow-card .step {
   display: block;
@@ -1146,11 +1164,12 @@
 }
 .workflow-section .workflow-cards .workflow-card img {
   width: 100%;
-  margin: 20px 0;
+  max-width: 250px;
+  margin: 20px auto;
 }
 @media (min-width: 1200px) {
   .workflow-section .workflow-cards .workflow-card img {
-    margin: 40px 0;
+    margin: 40px auto;
   }
 }
 .workflow-section .workflow-cards .workflow-card h3 {
