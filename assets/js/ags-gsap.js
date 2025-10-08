@@ -376,7 +376,7 @@ ScrollTrigger.matchMedia({
 /*********** Portfolio vertical stacked scroll (guarded + robust) *************/
 
 const carousel = document.querySelector(".portfolio-carousel");
-const items = gsap.utils.toArray(".carousel-item");
+const items = gsap.utils.toArray(".portfolio-item");
 
 // ✅ Force all except the first item to start at translateY(100%)
 gsap.set(items.slice(1), { y: "100%" });
