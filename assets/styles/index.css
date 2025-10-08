@@ -288,18 +288,22 @@
   }
 }
 
-.project-section {
-  background: #000000 url("../images/background/portfolio-bg.svg") no-repeat fixed right top;
+.project-wrapper-section {
+  background: #000000 url("../images/background/portfolio-bg.svg") no-repeat scroll right top;
   background-size: cover;
+}
+
+.project-section {
   color: #ffffff;
   position: relative;
   padding: 10% 0 0;
 }
 .project-section .project-title {
   font-size: 32px;
-  font-weight: 500;
   line-height: 1;
   overflow: hidden;
+  text-align: center;
+  margin-bottom: 30px;
 }
 @media (min-width: 576px) {
   .project-section .project-title {
@@ -322,15 +326,34 @@
   }
 }
 @media (min-width: 768px) {
-  .project-section .project-title .project-title-top,
-  .project-section .project-title .project-title-bottom {
+  .project-section .project-title .project-title-top {
+    transform: translateY(100%); /* Start hidden below */
+  }
+}
+.project-section .project-description {
+  text-align: center;
+  font-size: 16px;
+  line-height: 22px;
+}
+@media (min-width: 768px) {
+  .project-section .project-description {
+    font-size: 18px;
+    line-height: 24px;
+  }
+}
+@media (min-width: 992px) {
+  .project-section .project-description {
+    font-size: 24px;
+    line-height: 30px;
+  }
+}
+@media (min-width: 768px) {
+  .project-section .project-description .project-description-top {
     transform: translateY(100%); /* Start hidden below */
   }
 }
 
 .project-container-section {
-  background: #000000 url("../images/background/portfolio-bg.svg") no-repeat fixed right top;
-  background-size: cover;
   width: 100%;
   padding: 32px 0;
 }
@@ -368,6 +391,62 @@
 .project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link {
   height: 100%;
   width: 100%;
+  position: relative;
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link .item-header {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 20px;
+  color: #ffffff;
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link .item-header.dark {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link .item-header .item-logo {
+  max-width: 120px;
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link .item-header .item-logo img {
+  -o-object-fit: initial;
+     object-fit: initial;
+  height: auto;
+  width: auto;
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link .item-header .description {
+  max-width: 500px;
+  line-height: 20px;
+  opacity: 0.7;
+  display: none;
+}
+@media (min-width: 992px) {
+  .project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link .item-header .description {
+    display: block;
+  }
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link .item-header .description.dark {
+  color: #000000;
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link .item-header .item-type {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link .item-header .item-type span {
+  white-space: nowrap;
+  padding: 10px;
+  background-color: rgba(226, 226, 226, 0.1);
+  border-radius: 8px;
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link .item-header .item-type span.dark {
+  color: #000000;
+  background-color: rgba(0, 0, 0, 0.1);
 }
 .project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link img {
   height: 100%;
@@ -1752,7 +1831,7 @@
 .link-wrapper,
 .detail-wrapper,
 .project-title-top-wrapper,
-.project-title-bottom-wrapper,
+.project-description-wrapper,
 .service-title-top-wrapper,
 .service-title-middle-wrapper,
 .service-title-bottom-wrapper,
@@ -1772,7 +1851,7 @@
 }
 
 .project-title-top,
-.project-title-bottom,
+.project-description-top,
 .service-title-top,
 .service-title-middle,
 .service-title-bottom,

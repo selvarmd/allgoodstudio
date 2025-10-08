@@ -53,7 +53,7 @@ ScrollTrigger.matchMedia({
 
     /********** Project Section Title Animation **********/
     gsap.fromTo(
-      [".project-title-top", ".project-title-bottom"],
+      [".project-title-top", ".project-description-top"],
       { y: "100%" },
       {
         y: "0%",
