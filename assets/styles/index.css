@@ -394,6 +394,11 @@
     height: 750px;
   }
 }
+@media (min-width: 19200px) {
+  .project-container-section .portfolio-section .portfolio-carousel .portfolio-item {
+    height: 850px;
+  }
+}
 .project-container-section .portfolio-section .portfolio-carousel .portfolio-item .portfolio-link {
   height: 100%;
   width: 100%;
