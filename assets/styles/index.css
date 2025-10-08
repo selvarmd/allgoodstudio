@@ -321,9 +321,11 @@
     font-size: 80px;
   }
 }
-.project-section .project-title .project-title-top,
-.project-section .project-title .project-title-bottom {
-  transform: translateY(100%); /* Start hidden below */
+@media (min-width: 768px) {
+  .project-section .project-title .project-title-top,
+  .project-section .project-title .project-title-bottom {
+    transform: translateY(100%); /* Start hidden below */
+  }
 }
 
 .project-container-section {
@@ -345,22 +347,33 @@
 .project-container-section .portfolio-section {
   position: relative;
   overflow: hidden;
-  height: 100vh;
 }
 .project-container-section .portfolio-section .portfolio-carousel {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 750px;
 }
 .project-container-section .portfolio-section .portfolio-carousel .carousel-item {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 670px;
   display: flex;
   justify-content: center;
   opacity: 1;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link {
+  height: 100%;
+  width: 100%;
+}
+.project-container-section .portfolio-section .portfolio-carousel .carousel-item .portfolio-link img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .project-container-section .portfolio-section .portfolio-carousel .carousel-item .category-wrapper {
   width: 100%;
@@ -596,8 +609,13 @@
   display: flex;
   flex-direction: column;
   gap: 20px;
-  opacity: 0;
+  opacity: 1;
   transition: all 0.3s ease;
+}
+@media (min-width: 768px) {
+  .service-section .services .service-card {
+    opacity: 0;
+  }
 }
 @media (min-width: 1600px) {
   .service-section .services .service-card {
@@ -1550,9 +1568,14 @@
   background-color: #ffffff;
   padding: 20px 0;
   margin-bottom: 10px;
-  opacity: 0;
+  opacity: 1;
   transition: all 0.3s ease-in-out;
   /* When accordion is open → make it "-" */
+}
+@media (min-width: 768px) {
+  .faq-section .accordion .accordion-item {
+    opacity: 0;
+  }
 }
 @media (min-width: 1400px) {
   .faq-section .accordion .accordion-item {
