@@ -392,7 +392,7 @@ gsap.set(items[0], {
 
 // 2️⃣ Animate the rest upward and scale gradually
 items.slice(1).forEach((item, i) => {
-  const offsetY = (i + 1) * 20;  // each card 20px lower
+  const offsetY = (i + 1) * 50;  // each card 20px lower
   const scale = 0.8 + ((i + 1) / (items.length - 1)) * 0.2; // from 0.8 → 1.0
 
   tl.to(item, {
