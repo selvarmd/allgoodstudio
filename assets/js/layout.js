@@ -44,6 +44,13 @@ if ("scrollRestoration" in history) {
 }
 
 window.addEventListener("load", () => {
+  // siteloader gif
+  const loader = document.getElementById("siteLoader");
+  if (loader) {
+    loader.classList.add("hidden");
+    setTimeout(() => loader.remove(), 1000); // remove after fade-out
+  }
+
   window.scrollTo(0, 0);
 
   let resizeTimeout;
@@ -54,7 +61,7 @@ window.addEventListener("load", () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
       const widthChanged = window.innerWidth !== initialWidth;
-      const heightChanged = Math.abs(window.innerHeight - initialHeight) > 100; 
+      const heightChanged = Math.abs(window.innerHeight - initialHeight) > 100;
       // 100px tolerance avoids reload from mobile address bar toggling
 
       if (widthChanged || heightChanged) {
