@@ -1,3 +1,9 @@
+/********** Animate on scroll inuitialization **********/
+AOS.init({
+  once: true, // ✅ ensures animation happens only once (no reverse)
+  easing: "ease-out", // optional: smoother fade-up
+});
+
 /********** Scroll to top when page loads **********/
 window.addEventListener("pageshow", (event) => {
   // always try to reset scroll on page show / bfcache restore
@@ -6,6 +12,13 @@ window.addEventListener("pageshow", (event) => {
 
 /********** adding expanded classs to the header **********/
 document.addEventListener("DOMContentLoaded", () => {
+  // siteloader gif
+  const loader = document.getElementById("siteLoader");
+  if (loader) {
+    loader.classList.add("hidden");
+    setTimeout(() => loader.remove(), 1000); // remove after fade-out
+  }
+
   const toggler = document.querySelector(".navbar-toggler");
   const siteHeader = document.querySelector(".site-header");
   const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
@@ -38,37 +51,37 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// prefer manual restoration
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
-}
+// // prefer manual restoration
+// if ("scrollRestoration" in history) {
+//   history.scrollRestoration = "manual";
+// }
 
-window.addEventListener("load", () => {
-  window.scrollTo(0, 0);
+// window.addEventListener("load", () => {
+//   window.scrollTo(0, 0);
 
-  let resizeTimeout;
-  let initialWidth = window.innerWidth;
-  let initialHeight = window.innerHeight;
+//   let resizeTimeout;
+//   let initialWidth = window.innerWidth;
+//   let initialHeight = window.innerHeight;
 
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      const widthChanged = window.innerWidth !== initialWidth;
-      const heightChanged = Math.abs(window.innerHeight - initialHeight) > 100; 
-      // 100px tolerance avoids reload from mobile address bar toggling
+//   window.addEventListener("resize", () => {
+//     clearTimeout(resizeTimeout);
+//     resizeTimeout = setTimeout(() => {
+//       const widthChanged = window.innerWidth !== initialWidth;
+//       const heightChanged = Math.abs(window.innerHeight - initialHeight) > 100;
+//       // 100px tolerance avoids reload from mobile address bar toggling
 
-      if (widthChanged || heightChanged) {
-        window.scrollTo(0, 0);
-        window.location.reload();
-      }
-    }, 250);
-  });
-});
+//       if (widthChanged || heightChanged) {
+//         window.scrollTo(0, 0);
+//         window.location.reload();
+//       }
+//     }, 250);
+//   });
+// });
 
-window.addEventListener("orientationchange", () => {
-  window.scrollTo(0, 0);
-  window.location.reload();
-});
+// window.addEventListener("orientationchange", () => {
+//   window.scrollTo(0, 0);
+//   window.location.reload();
+// });
 
 /********** Put DOM-dependent code inside DOMContentLoaded **********/
 document.addEventListener("DOMContentLoaded", () => {

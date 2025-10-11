@@ -209,7 +209,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /********** Counter animations (GSAP + ScrollTrigger guarded) **********/
   (function () {
-    // buildRolling does not depend on GSAP, can build even without it
     function buildRolling(wrapper) {
       const raw = (wrapper.dataset.target || "").trim();
       const m = raw.match(/^(\d+)(.*)$/);
@@ -220,18 +219,22 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const numberString = m[1];
       const suffix = (m[2] || "").trim();
+
       const numberContainer = document.createElement("div");
       numberContainer.className = "number";
       wrapper.innerHTML = "";
       wrapper.appendChild(numberContainer);
 
-      const digits = numberString.split("");
-      const cycles = 3;
-      digits.forEach(() => {
+      const cycles = 3; // how many full rolls before final digit
+      numberString.split("").forEach((digitChar) => {
+        const targetDigit = parseInt(digitChar, 10);
         const digitCol = document.createElement("div");
         digitCol.className = "digit";
+
         const list = document.createElement("div");
         list.className = "digit-list";
+
+        // Build stack of numbers (0–9 repeated for multiple rolls)
         for (let c = 0; c < cycles; c++) {
           for (let n = 0; n <= 9; n++) {
             const item = document.createElement("div");
@@ -240,7 +243,13 @@ document.addEventListener("DOMContentLoaded", () => {
             list.appendChild(item);
           }
         }
-        // final target will be appended later by logic (kept simpler)
+
+        // Finally append the target digit at the end
+        const finalItem = document.createElement("div");
+        finalItem.className = "digit-item";
+        finalItem.textContent = targetDigit;
+        list.appendChild(finalItem);
+
         digitCol.appendChild(list);
         numberContainer.appendChild(digitCol);
       });
@@ -253,9 +262,10 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
+    // Build all odometer structures
     document.querySelectorAll(".number-wrapper").forEach(buildRolling);
 
-    // Only attempt GSAP animation if gsap and ScrollTrigger are available
+    // Animate only when .stats scrolls into view
     if (window.gsap && window.ScrollTrigger) {
       try {
         ScrollTrigger.create({
@@ -268,19 +278,65 @@ document.addEventListener("DOMContentLoaded", () => {
               const items = list.querySelectorAll(".digit-item");
               if (items.length === 0) return;
               const itemHeight = items[0].getBoundingClientRect().height;
-              const finalTranslate = -(items.length - 1) * itemHeight;
+              const totalHeight = items.length * itemHeight;
+
+              // Roll to the last (target) digit
+              const finalTranslate = -(totalHeight - itemHeight);
+
               gsap.to(list, {
                 y: finalTranslate,
-                duration: 1.5,
-                ease: "power3.out",
+                duration: 2,
+                ease: "power3.inOut",
               });
             });
           },
         });
       } catch (err) {
-        // if anything fails with GSAP do not break the rest
-        // console.warn("GSAP/ScrollTrigger failed:", err);
+        console.warn("GSAP/ScrollTrigger failed:", err);
       }
     }
   })();
+});
+
+/********** Service carousel **********/
+$(document).ready(function () {
+  var $carousel = $(".service-carousel");
+
+  // Initialize Owl Carousel with autoplay disabled
+  $carousel.owlCarousel({
+    loop: false,
+    margin: 20,
+    nav: false,
+    dots: false,
+    autoWidth: true,
+    autoplay: false, // we will start it manually
+    autoplayTimeout: 1500,
+    autoplayHoverPause: true,
+    smartSpeed: 600,
+    responsive: {
+      0: { items: 1 },
+      576: { items: 2 },
+      992: { items: 3 },
+    },
+  });
+
+  // Function to check if carousel top is 20% from viewport
+  function checkCarousel() {
+    var scrollTop = $(window).scrollTop();
+    var windowHeight = $(window).height();
+    var carouselTop = $carousel.offset().top;
+
+    // autoplay sstarts on 40% top  from the viewport
+    if (scrollTop + windowHeight * 0.6 >= carouselTop) {
+      // Start autoplay
+      $carousel.trigger("play.owl.autoplay", [2000]);
+      $(window).off("scroll", checkCarousel); // stop checking
+    }
+  }
+
+  // Run on page load
+  checkCarousel();
+
+  // Run on scroll
+  $(window).on("scroll", checkCarousel);
 });
