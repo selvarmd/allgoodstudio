@@ -643,7 +643,6 @@ body {
         font-size: 12px;
         font-weight: 500;
         line-height: 1;
-        cursor: pointer !important;
         overflow: hidden;
         z-index: 1;
         text-decoration: none;
@@ -846,6 +845,7 @@ body {
   margin-top: 50px;
   overflow: hidden;
   user-select: none;
+  cursor: pointer !important;
 
   @media (min-width: 576px) {
     height: 250px;
@@ -905,7 +905,6 @@ body {
     bottom: 0;
     width: 2px;
     background: #fff;
-    cursor: pointer;
     z-index: 3;
     display: flex;
     align-items: center;

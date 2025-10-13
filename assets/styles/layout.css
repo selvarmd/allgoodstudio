@@ -20,6 +20,11 @@ img {
   max-width: 100%;
 }
 
+a,
+button {
+  cursor: pointer !important;
+}
+
 @media (min-width: 1600px) {
   .container {
     max-width: 1470px;
@@ -208,7 +213,6 @@ img {
   font-size: 16px;
   font-weight: 500;
   line-height: 1;
-  cursor: pointer;
   overflow: hidden;
   z-index: 1;
   text-decoration: none;
@@ -812,7 +816,6 @@ img {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  cursor: pointer;
   border: none;
   background: transparent;
   padding: 0;

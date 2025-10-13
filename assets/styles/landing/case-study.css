@@ -855,7 +855,6 @@ body {
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
-  cursor: pointer !important;
   overflow: hidden;
   z-index: 1;
   text-decoration: none;
@@ -1111,6 +1110,7 @@ body {
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
+  cursor: pointer !important;
 }
 
 @media (min-width: 576px) {
@@ -1192,7 +1192,6 @@ body {
   bottom: 0;
   width: 2px;
   background: #fff;
-  cursor: pointer;
   z-index: 3;
   display: -webkit-box;
   display: -ms-flexbox;

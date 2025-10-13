@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const enableSystemPointer = (el) => {
       el.addEventListener("mouseenter", () => {
         cursor.style.display = "none"; // hide custom cursor
-        el.style.cursor = "pointer"; // use system pointer
+        el.style.cursor = "auto"; // use system pointer
       });
       el.addEventListener("mouseleave", () => {
         cursor.style.display = "flex"; // show custom cursor again
@@ -185,7 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     // === Apply pointer behavior ===
-    [header, footer].forEach((el) => el && enableSystemPointer(el));
+    [header, footer].forEach((el) => enableSystemPointer(el));
     shutters.forEach((el) => enableSystemPointer(el));
 
     // all <a> tags except those inside portfolio-section
