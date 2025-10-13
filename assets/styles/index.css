@@ -220,7 +220,6 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
-  cursor: pointer;
   overflow: hidden;
   z-index: 1;
   text-decoration: none;
@@ -304,7 +303,6 @@
   transition: transform 0.2s ease;
   transition: transform 0.2s ease, -webkit-transform 0.2s ease;
   will-change: transform;
-  cursor: pointer;
 }
 
 @media (min-width: 992px) {
@@ -507,6 +505,7 @@
   height: 100%;
   width: 100%;
   position: relative;
+  cursor: none !important;
 }
 
 .project-container-section .portfolio-section .portfolio-carousel .portfolio-item .portfolio-link .item-header {
@@ -705,7 +704,6 @@
   opacity: 0.5;
   -webkit-transition: opacity 0.3s ease-in-out;
   transition: opacity 0.3s ease-in-out;
-  cursor: pointer !important;
 }
 
 @media (min-width: 768px) {
@@ -1875,7 +1873,6 @@
   font-size: 16px;
   font-weight: 500;
   text-decoration: underline;
-  cursor: none;
 }
 
 .testimonial-section .card-wrap .more {
@@ -2350,7 +2347,6 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 1;
-  cursor: pointer !important;
   overflow: hidden;
   z-index: 1;
   text-decoration: none;

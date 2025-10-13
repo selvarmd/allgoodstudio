@@ -1,11 +1,11 @@
 // after DOM ready
 document.addEventListener("DOMContentLoaded", () => {
-  initShutter("#shutter", 60);
+  initShutter("#shutter", 50);
 });
 
 // Shutter block JS: initShutter(containerSelector, { initialPercent: 60 })
 (function () {
-  function initShutter(selector, initialPercent = 60) {
+  function initShutter(selector, initialPercent = 50) {
     const shutter = document.querySelector(selector);
     if (!shutter) return;
 
