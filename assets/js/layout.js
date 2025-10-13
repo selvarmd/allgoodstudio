@@ -1,3 +1,9 @@
+/********** Animate on scroll inuitialization **********/
+AOS.init({
+  once: true, // ✅ ensures animation happens only once (no reverse)
+  easing: "ease-out", // optional: smoother fade-up
+});
+
 /********** Scroll to top when page loads **********/
 window.addEventListener("pageshow", (event) => {
   // always try to reset scroll on page show / bfcache restore
@@ -6,6 +12,13 @@ window.addEventListener("pageshow", (event) => {
 
 /********** adding expanded classs to the header **********/
 document.addEventListener("DOMContentLoaded", () => {
+  // siteloader gif
+  const loader = document.getElementById("siteLoader");
+  if (loader) {
+    loader.classList.add("hidden");
+    setTimeout(() => loader.remove(), 1000); // remove after fade-out
+  }
+
   const toggler = document.querySelector(".navbar-toggler");
   const siteHeader = document.querySelector(".site-header");
   const navLinks = document.querySelectorAll(".navbar-nav .nav-link");
@@ -36,38 +49,6 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.classList.remove("no-scroll");
     });
   });
-});
-
-// prefer manual restoration
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
-}
-
-window.addEventListener("load", () => {
-  window.scrollTo(0, 0);
-
-  let resizeTimeout;
-  let initialWidth = window.innerWidth;
-  let initialHeight = window.innerHeight;
-
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      const widthChanged = window.innerWidth !== initialWidth;
-      const heightChanged = Math.abs(window.innerHeight - initialHeight) > 100; 
-      // 100px tolerance avoids reload from mobile address bar toggling
-
-      if (widthChanged || heightChanged) {
-        window.scrollTo(0, 0);
-        window.location.reload();
-      }
-    }, 250);
-  });
-});
-
-window.addEventListener("orientationchange", () => {
-  window.scrollTo(0, 0);
-  window.location.reload();
 });
 
 /********** Put DOM-dependent code inside DOMContentLoaded **********/
@@ -141,20 +122,22 @@ document.addEventListener("DOMContentLoaded", () => {
   /*********** Custom Cursor (guarded) *************/
   (function () {
     const cursor = document.querySelector(".custom-cursor");
-    if (!cursor) return; // nothing to do if custom cursor not present
+    if (!cursor) return;
 
     const portfolioWrapper = document.querySelector(".portfolio-section");
     const header = document.querySelector(".site-header");
     const footer = document.querySelector(".footer-bottom");
+    const shutters = document.querySelectorAll(".shutter");
+    const allLinks = document.querySelectorAll("a");
 
-    // Follow mouse (works on desktop; mobile won't fire mousemove)
+    // === Move custom cursor ===
     document.addEventListener("mousemove", (e) => {
       cursor.style.top = e.clientY + "px";
       cursor.style.left = e.clientX + "px";
       cursor.classList.add("active");
     });
 
-    // portfolioWrapper handling
+    // === Portfolio-section logic (keep as is) ===
     if (portfolioWrapper) {
       portfolioWrapper.addEventListener("mouseenter", () =>
         cursor.classList.add("text-mode")
@@ -189,35 +172,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Header/footer interaction: hide cursor inside header/footer
-    [header, footer].forEach((el) => {
-      if (!el) return;
+    // === Helper: system pointer toggle ===
+    const enableSystemPointer = (el) => {
       el.addEventListener("mouseenter", () => {
-        cursor.style.display = "none";
-        el.style.cursor = "auto";
+        cursor.style.display = "none"; // hide custom cursor
+        el.style.cursor = "pointer"; // use system pointer
       });
       el.addEventListener("mouseleave", () => {
-        cursor.style.display = "flex";
+        cursor.style.display = "flex"; // show custom cursor again
         el.style.cursor = "none";
       });
-    });
+    };
 
-    // Links and buttons outside portfolio Wrapper - show system pointer
-    // We guard by selecting only if elements exist
-    const outsideLinks = document.querySelectorAll("a, button");
-    if (outsideLinks.length > 0) {
-      outsideLinks.forEach((el) => {
-        // If element is inside .portfolio-section, skip — gallery code already handles it
-        if (el.closest(".portfolio-section")) return;
-        el.addEventListener("mouseenter", () => {
-          cursor.style.display = "none";
-          el.style.cursor = "pointer";
-        });
-        el.addEventListener("mouseleave", () => {
-          cursor.style.display = "flex";
-          el.style.cursor = "none";
-        });
-      });
-    }
+    // === Apply pointer behavior ===
+    [header, footer].forEach((el) => el && enableSystemPointer(el));
+    shutters.forEach((el) => enableSystemPointer(el));
+
+    // all <a> tags except those inside portfolio-section
+    allLinks.forEach((link) => {
+      if (!link.closest(".portfolio-section")) {
+        enableSystemPointer(link);
+      }
+    });
   })();
 });
