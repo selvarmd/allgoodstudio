@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const header = document.querySelector(".site-header");
     const footer = document.querySelector(".footer-bottom");
     const shutters = document.querySelectorAll(".shutter");
-    const allLinks = document.querySelectorAll("a");
+    const allLinks = document.querySelectorAll("a, button");
 
     // === Move custom cursor ===
     document.addEventListener("mousemove", (e) => {
