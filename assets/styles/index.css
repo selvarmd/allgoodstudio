@@ -897,6 +897,12 @@
   }
 }
 
+@media (min-width: 1600px) {
+  .service-section .services {
+    padding-left: calc((100vw - 1470px) / 2);
+  }
+}
+
 .service-section .services .owl-stage {
   display: -webkit-box;
   display: -ms-flexbox;

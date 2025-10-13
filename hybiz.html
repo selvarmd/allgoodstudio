@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>All Good Studio</title>
+    <title>Hybiz | All Good Studio</title>
     <link rel="icon" type="image/svg+xml" href="./favicon.svg">
 
     <!-- Primary Meta Tags -->
@@ -40,6 +40,7 @@
 
     <link rel="stylesheet" href="./assets/styles/bootstrap.min.css">
     <link rel="stylesheet" href="./assets/styles/clash-grotesk.css">
+    <link rel="stylesheet" href="./assets//styles/aos.css" />
     <link rel="stylesheet" href="./assets/styles/reset.css">
     <link rel="stylesheet" href="./assets/styles/layout.css">
     <link rel="stylesheet" href="./assets/styles/landing/case-study.css">
@@ -86,13 +87,16 @@
                             fill="currentColor" />
                     </svg>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                     <div>
-                        <ul class="navbar-nav me-3">
+                        <ul class="navbar-nav me-lg-3">
                             <li class="nav-item"><a class="nav-link" href="#work">Work</a></li>
                             <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
                             <li class="nav-item"><a class="nav-link" href="#process">Process</a></li>
@@ -107,116 +111,285 @@
         </nav>
     </header>
     <main>
-        <section class="case-study-wrapper" data-theme="light">
+        <section class="case-study-wrapper">
             <div class="container">
-                <div class="case-study">
-                    <div class="details">
-                        <div class="logo-wrapper">
-                            HYBIZ - Booking App
+                <div class="sectioin-wrapper" data-theme="light" data-aos="fade-up" data-aos-delay="0">
+                    <h5 class="case-study-title">Case Study</h5>
+                    <div class="case-study-block">
+                        <div class="title-block">
+                            <h1 class="title">AdvanceCM</h1>
+                            <p>AdvanceCM (formerly Tokeet) is a comprehensive property management platform for vacation
+                                rental
+                                hosts and property managers. The goal of this redesign was to modernize a legacy product
+                                UI,
+                                streamline workflows, and bring a new level of visual and functional clarity — without
+                                disrupting familiar user behaviors.</p>
                         </div>
-                        <div class="site-description">
-                            <p>HYBIZ Booking App is a digital platform designed to simplify and streamline the process
-                                of scheduling and managing reservations for services, events, or accommodations.</p>
-                        </div>
-                        <div class="value-wrapper">
-                            <div class="value-block">
+                        <div class="details-block">
+                            <div>
                                 <label>Industry</label>
-                                <p class="value">Travel & Hospitality</p>
+                                <p>SaaS / Property Management</p>
                             </div>
-                            <div class="value-block two-col">
-                                <div>
-                                    <label>Published</label>
-                                    <p class="value">2025</p>
-                                </div>
-                                <div>
-                                    <label>Cost</label>
-                                    <p class="value">TIme and Efforts</p>
-                                </div>
+                            <div>
+                                <label>Published</label>
+                                <p>2025</p>
                             </div>
-                            <div class="value-block">
+                            <div>
+                                <label>Tools</label>
+                                <p>Figma * UXMint * UX Pilot * Midjourney * Notion</p>
+                            </div>
+                            <div>
                                 <label>Deliverables</label>
-                                <div class="text-wrapper">
-                                    <p class="value">Web Portal</p>
-                                    <p class="value">High-Fidelity Mockups</p>
-                                    <p class="value">Design System / Component Library</p>
-                                    <p class="value">Developer Handoff Package</p>
-                                </div>
+                                <p>Web App Redesign * Design System * High-Fidelity UI * Developer Handoff</p>
                             </div>
-                            <div class="value-block">
-                                <label>Solution</label>
-                                <p>HYBIZ Booking App needed a compelling and credible investor deck to
-                                    clearly communicate its value proposition in the Web3 investment space. Without a
-                                    strong visual identity and online presence, it lacked the differentiation and
-                                    authority needed to attract investors and establish itself as a leader in the
-                                    industry.</p>
-                            </div>
-                            <div class="value-block">
-                                <label>Problem</label>
-                                <p>We started by crafting a high-impact investor deck, distilling
-                                    Pharsalus' mission and vision into a clear, persuasive narrative. This foundation
-                                    then informed a refined brand identity, leading to a Framer-built website designed
-                                    to captivate investors. Using animations, interactions, high-quality graphics, and a
-                                    polished design, the website reinforced Pharsalus' credibility, set them apart from
-                                    competitors, and positioned them as a trusted player in Web3 investments.</p>
-                            </div>
-                        </div>
-                        <div class="btn-wrapper">
-                            <a href="" class="connect-btn">Connect
-                                <svg width="45" height="26" viewBox="0 0 45 26" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
-                                        stroke="currentColor" stroke-width="1.5" />
-                                </svg>
-                            </a>
                         </div>
                     </div>
-                    <div class="mockups">
-                        <div class="img-wrapper">
-                            <img src="./assets/images/hybiz/hybiz-1.png" alt="">
+                </div>
+
+                <!-- Stacked shutter block (paste into your HTML) -->
+                <div id="shutter" class="shutter">
+                    <div class="shutter-panel shutter-panel--top">
+                        <div class="shutter-content">
+                            <img alt="" src="./assets/images/case-studies/advance-cm/advance-cm-1.png" />
                         </div>
-                        <div class="img-wrapper">
-                            <img src="./assets/images/hybiz/hybiz-2.png" alt="">
+                    </div>
+                    <div class="shutter-panel shutter-panel--bottom">
+                        <div class="shutter-content">
+                            <img alt="" src="./assets/images/case-studies/advance-cm/advance-cm-2.png" />
                         </div>
-                        <div class="img-wrapper">
-                            <img src="./assets/images/hybiz/hybiz-3.png" alt="">
+                    </div>
+                    <div class="shutter-handle">
+                        <span class="handle-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25"
+                                fill="none">
+                                <path
+                                    d="M9.04304 6.29297L2.83594 12.5001L9.04304 18.7072L10.4573 17.293L5.66436 12.5001L10.4573 7.70718L9.04304 6.29297ZM14.957 18.7073L21.1641 12.5002L14.957 6.29312L13.5427 7.70733L18.3356 12.5002L13.5427 17.2931L14.957 18.7073Z"
+                                    fill="#282735"></path>
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+
+
+
+                <div class="img-block" data-theme="dark" data-aos="fade-up" data-aos-delay="100">
+                    <img alt="" src="./assets/images/case-studies/advance-cm/advance-cm-1.png" />
+                </div>
+                <div class="block-wrapper" data-theme="light" data-aos="fade-up" data-aos-delay="0">
+                    <div class="block-title">
+                        <h2>Exciting brainstorming challenges</h2>
+                    </div>
+                    <div class="desc-block">
+                        <p class="desc">The existing interface, while feature-rich, suffered from low discoverability
+                            and inconsistent hierarchy. Users faced visual overload — long data tables, redundant
+                            filters, and dated components that slowed their daily workflows.</p>
+                        <p class="sub-text">The challenge was to elevate usability, unify the system, and improve visual
+                            comfort for high-frequency users managing hundreds of listings daily.</p>
+                    </div>
+                </div>
+                <div class="img-block" data-theme="dark" data-aos="fade-up" data-aos-delay="0">
+                    <img alt="" src="./assets/images/case-studies/advance-cm/advance-cm-2.png" />
+                </div>
+                <div class="block-wrapper" data-theme="light" data-aos="fade-up" data-aos-delay="0">
+                    <div class="block-title">
+                        <h2>Process Sneak Peek</h2>
+                    </div>
+                    <div class="desc-block">
+                        <p class="desc">We followed AllGood's AI-Accelerated 4-Step Framework:</p>
+                        <p class="sub-text">By combining AI-driven audits and automated wireframes, we accelerated
+                            decision-making and improved consistency across modules. The result: a fully modular design
+                            system that scaled faster and stayed visually consistent.</p>
+                    </div>
+                </div>
+                <div class="process-container" data-theme="dark" data-aos="fade-up" data-aos-delay="0">
+                    <div class="process-card discovery1">
+                        <h3>Discovery</h3>
+                        <p>Uncovering user needs and defining the problem space.</p>
+                    </div>
+                    <div class="process-card design">
+                        <h3>Design</h3>
+                        <p>Turning research into meaningful digital experiences.</p>
+                    </div>
+                    <div class="process-card build">
+                        <h3>Build</h3>
+                        <p>Where design meets development for real-world impact.</p>
+                    </div>
+                    <div class="process-card discovery2">
+                        <h3>Discovery</h3>
+                        <p>Delivering value through a seamless, tested user experience.</p>
+                    </div>
+                </div>
+                <div class="rd-block" data-theme="dark" data-aos="fade-up" data-aos-delay="0">
+                    <div class="rd-left">
+                        <h3>Research & Discovery</h3>
+                        <img alt="" src="./assets/images/case-studies/advance-cm/research-discovery.png" />
+                    </div>
+                    <div class="rd-right">
+                        <p class="rd-text">We began with a complete UX audit of Tokeet's legacy platform. AI tools
+                            (UXMint, UX Pilot) helped us analyze repetitive UI pain points, navigation friction, and
+                            overcomplicated workflows.</p>
+                        <p class="rd-subtext"><span>Interviews</span> with property managers revealed that most tasks
+                            required too
+                            many clicks and lacked contextual focus.</p>
+                        <p class="rd-subtext"><span>We mapped</span> these pain points into actionable UI patterns —
+                            resulting in a
+                            cleaner, predictable structure for every task.</p>
+                    </div>
+                </div>
+                <div class="block-wrapper" data-theme="light" data-aos="fade-up" data-aos-delay="0">
+                    <div class="block-title">
+                        <h2>Design Execution</h2>
+                    </div>
+                    <div class="desc-block">
+                        <p class="desc">The new AdvanceCM interface brings a refreshed and humanized approach:</p>
+                    </div>
+                </div>
+                <div class="grid-wrapper" data-theme="light" data-aos="fade-up" data-aos-delay="0">
+                    <div class="grid-item">
+                        <div class="grid-img">
+                            <img alt="" src="./assets/images/case-studies/advance-cm/grid-1.png" />
                         </div>
-                        <div class="testi-wrapper">
-                            <div class="testi-content">
-                                <h4 class="title">Testimonial</h4>
-                                <p class="testi-desc">Allgoods studio has demonstrated fantastic quality of work,
-                                    enormous
-                                    creativity and consistent ability to meet all of Hublot's challenges.</p>
-                                <div class="user-wrapper">
-                                    <div class="user-img">
-                                        <img alt="" src="./assets/images/user-4.png" />
-                                    </div>
-                                    <div>
-                                        <h5>Mirza Kim</h5>
-                                        <p>CFO Tokeet</p>
-                                    </div>
+                        <p>Introduced an elevated glassy interface with soft gradients and calm whitespaces.</p>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-img">
+                            <img alt="" src="./assets/images/case-studies/advance-cm/grid-2.png" />
+                        </div>
+                        <p>Reduced cognitive load with iconography, soft color-coded statuses, and a unified sidebar
+                            system.</p>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-img">
+                            <img alt="" src="./assets/images/case-studies/advance-cm/grid-3.png" />
+                        </div>
+                        <p>Rebuilt all modals and data tables with better spacing, visual grouping, and
+                            micro-interaction feedback.</p>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-img">
+                            <img alt="" src="./assets/images/case-studies/advance-cm/grid-4.png" />
+                        </div>
+                        <p>Designed scalable cards and dynamic dashboards with high information density yet clean
+                            alignment.</p>
+                    </div>
+                    <div class="grid-item">
+                        <div class="grid-img">
+                            <img alt="" src="./assets/images/case-studies/advance-cm/grid-5.png" />
+                        </div>
+                        <p>Standardized colors, icons, and components for consistency across 12+ modules.</p>
+                    </div>
+                </div>
+                <div class="result-block" data-theme="dark" data-aos="fade-up" data-aos-delay="0">
+                    <div class="result-left">
+                        <h3>The best result on your business</h3>
+                        <img alt="" src="./assets/images/case-studies/advance-cm/best-result.png" />
+                    </div>
+                    <div class="result-right">
+                        <div class="result-item">
+                            <p class="result-text">improvement in task completion time</p>
+                            <div class="value">45%</div>
+                        </div>
+                        <div class="result-item">
+                            <p class="result-text">fewer visual errors in user testing</p>
+                            <div class="value">32%</div>
+                        </div>
+                        <div class="result-item">
+                            <p class="result-text">faster learning curve for new users</p>
+                            <div class="value">60% </div>
+                        </div>
+                        <div class="result-item">
+                            <p class="result-text">reduction in developer rework</p>
+                            <div class="value">40%</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="block-wrapper" data-theme="light" data-aos="fade-up" data-aos-delay="0">
+                    <div class="block-title">
+                        <h2>Fabulous outcome</h2>
+                    </div>
+                    <div class="desc-block">
+                        <p class="desc">The redesign redefined AdvanceCM's product identity — transforming it from a
+                            transactional admin tool into a premium SaaS platform.</p>
+                        <p class="sub-text">The interface now communicates trust, clarity, and precision — helping teams
+                            focus on insights, not interfaces.</p>
+                    </div>
+                </div>
+                <div class="saas-block" data-theme="dark" data-aos="fade-up" data-aos-delay="0">
+                    <div class="saas-left">
+                        <img alt="" src="./assets/images/case-studies/advance-cm/all-good-studio.png" />
+                    </div>
+                    <div class="saas-right">
+                        <h4>Reflection / Learnings</h4>
+                        <p class="saas-text">Designing for a mature SaaS platform taught us to balance innovation with
+                            continuity. AI helped uncover friction fast — but empathy shaped the solution.</p>
+                        <p class="saas-subtext">The result reflects AllGood Studio's mission: to design clarity at
+                            speed, without compromise.</p>
+                        <a href="" class="build-btn">
+                            Let's Build Better SaaS Products Together
+                            <svg width="45" height="26" viewBox="0 0 45 26" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
+                                    stroke="currentColor" stroke-width="1.5" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="similar-block" data-theme="light" data-aos="fade-up" data-aos-delay="0">
+                    <h4 class="section-title">Similar works</h4>
+                    <div class="grid-container">
+                        <div class="container-item">
+                            <span class="tag">Travel · App</span>
+                            <div class="author-name">
+                                <div class="author-img">
+                                    <img src="./assets/images/user-1.png" alt="">
                                 </div>
+                                <h3>Mirza Kim</h3>
+                            </div>
+                            <h4>checkout, simplified.</h4>
+                            <p>From 12 steps to 7. Faster, clearer.</p>
+                            <div class="testi-img">
+                                <img src="./assets/images/testi-1.svg" alt="">
+                            </div>
+                            <div class="det-wrapper">
+                                <div class="percent-tag">+38% conversion</div>
+                                <a href="./hybiz.html" class="read-link">Read the case</a>
                             </div>
                         </div>
-                        <div class="next-study-wrapper">
-                            <div class="header-top">
-                                <p>Next Case study</p>
-                                <a href="" class="see-all">See All</a>
+                        <div class="container-item">
+                            <span class="tag">SaaS · App</span>
+                            <div class="author-name">
+                                <div class="author-img">
+                                    <img src="./assets/images/user-2.png" alt="">
+                                </div>
+                                <h3>Robert De Niro</h3>
                             </div>
-                            <div class="header-bottom">
-                                <h3>CUSTEES.AI -<br />
-                                    RETAIL PLATFORM</h3>
-                                <a href="" class="next-link">
-                                    <svg width="127" height="70" viewBox="0 0 127 70" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M0 35H126C92.665 38.3694 91.9922 68.2649 91.7476 69M91.4417 1C91.6864 1.73514 92.3592 31.6306 125.694 35"
-                                            stroke="currentColor" stroke-width="2" />
-                                    </svg>
-                                </a>
+                            <h4>MVP in 48h.</h4>
+                            <p>9 interviews; 2 test rounds; 3 key insights.</p>
+                            <div class="testi-img">
+                                <img src="./assets/images/testi-2.svg" alt="">
                             </div>
-                            <div class="img-wrapper">
-                                <img src="./assets/images/custees/custees.png" alt="">
+                            <div class="det-wrapper">
+                                <div class="percent-tag">Time-to-test: 48h</div>
+                                <a href="./hybiz.html" class="read-link">Read the case</a>
+                            </div>
+                        </div>
+                        <div class="container-item">
+                            <span class="tag">Fintech · Dashboard</span>
+                            <div class="author-name">
+                                <div class="author-img">
+                                    <img src="./assets/images/user-3.png" alt="">
+                                </div>
+                                <h3>Cambria Palencia</h3>
+                            </div>
+                            <h4>fewer screens, better flow.</h4>
+                            <p>12 screens to 7; cleaner paths.</p>
+                            <div class="testi-img">
+                                <img src="./assets/images/testi-3.svg" alt="">
+                            </div>
+                            <div class="det-wrapper">
+                                <div class="percent-tag">–47% time-to-task</div>
+                                <a href="./hybiz.html" class="read-link">Read the case</a>
                             </div>
                         </div>
                     </div>
@@ -233,12 +406,72 @@
                     d="M6.01534 21.6299C6.01534 21.6299 3.53718 34.4714 4.0769 43.3025C4.6264 52.2937 8.92294 59.9737 9.89222 62.4744M23.4613 57.473C23.4613 57.473 20.5537 44.9696 22.4921 33.2997"
                     stroke="currentColor" stroke-width="8" stroke-linecap="round" />
             </svg>
-            <span class="cursor-text">View<br />Case<br />study</span>
+            <span class="cursor-text">View<br />Case study</span>
         </div>
     </main>
+    <footer class="site-footer" data-theme="dark">
+        <div class="container">
+            <div class="footer-top">
+                <div class="title-block footer-title">
+                    <h2 class="title">
+                        <div class="footer-title-top-wrapper">
+                            <div class="footer-title-top">Don't just
+                                <span>dream.</span>
+                            </div>
+                        </div>
+                        <div class="footer-title-bottom-wrapper">
+                            <div class="footer-title-bottom" data-aos="fade-up" data-aos-delay="100">launch.</div>
+                        </div>
+                    </h2>
+                    <div class="footer-subtitle-wrapper">
+                        <p class="footer-subtitle" data-aos="fade-up" data-aos-delay="200">No sales pressure. Clear
+                            scope &amp; quote in 24h.</p>
+                    </div>
+                </div>
+                <div class="footer-cta" data-aos="fade-up" data-aos-delay="300">
+                    <a href="https://calendly.com/divanshu/15min" class="footer-cta-btn">
+                        Book a 15-min intro
+                        <svg width="45" height="26" viewBox="0 0 45 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M0 13H44C32.3592 14.1892 32.1243 24.7405 32.0388 25M31.932 1C32.0175 1.25946 32.2524 11.8108 43.8932 13"
+                                stroke="currentColor" stroke-width="1.5"></path>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="footer-bottom-content">
+                    <div class="footer-right">
+                        <img src="./assets/images/logo-icon.svg" alt="Logo" class="logo" />
+                        <p>We reply within 1 business day.</p>
+                    </div>
+                    <div class="footer-left">
+                        <p class="label">Prefer email?</p>
+                        <a href="mailto:hellow@allgoodstudio.com" class="email">hellow@allgoodstudio.com</a>
+                        <ul class="social">
+                            <li><a href="#">Tw</a></li>
+                            <li><a href="#">Lk</a></li>
+                            <li><a href="#">In</a></li>
+                            <li><a href="#">Bc</a></li>
+                            <li><a href="#">Pt</a></li>
+                        </ul>
+                        <p class="label">© 2025 – Allgood Studio.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div id="siteLoader" class="site-loader">
+        <img src="./assets/images/loader/logo.gif" alt="Loading..." />
+    </div>
     <script src="./assets/js/jquery.min.js"></script>
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/js/layout.js"></script>
+    <script src="./assets//js/aos.js"></script>
+    <script src="./assets/js/layout.js" defer></script>
+    <script src="./assets/js/case-study.js"></script>
+
 </body>
 
 </html>

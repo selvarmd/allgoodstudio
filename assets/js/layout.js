@@ -51,38 +51,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// // prefer manual restoration
-// if ("scrollRestoration" in history) {
-//   history.scrollRestoration = "manual";
-// }
-
-// window.addEventListener("load", () => {
-//   window.scrollTo(0, 0);
-
-//   let resizeTimeout;
-//   let initialWidth = window.innerWidth;
-//   let initialHeight = window.innerHeight;
-
-//   window.addEventListener("resize", () => {
-//     clearTimeout(resizeTimeout);
-//     resizeTimeout = setTimeout(() => {
-//       const widthChanged = window.innerWidth !== initialWidth;
-//       const heightChanged = Math.abs(window.innerHeight - initialHeight) > 100;
-//       // 100px tolerance avoids reload from mobile address bar toggling
-
-//       if (widthChanged || heightChanged) {
-//         window.scrollTo(0, 0);
-//         window.location.reload();
-//       }
-//     }, 250);
-//   });
-// });
-
-// window.addEventListener("orientationchange", () => {
-//   window.scrollTo(0, 0);
-//   window.location.reload();
-// });
-
 /********** Put DOM-dependent code inside DOMContentLoaded **********/
 document.addEventListener("DOMContentLoaded", () => {
   /********** Sticky header (guarded) **********/
@@ -159,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const portfolioWrapper = document.querySelector(".portfolio-section");
     const header = document.querySelector(".site-header");
     const footer = document.querySelector(".footer-bottom");
+    const dragBlock = document.querySelectorAll(".shutter");
 
     // Follow mouse (works on desktop; mobile won't fire mousemove)
     document.addEventListener("mousemove", (e) => {
@@ -202,8 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // Header/footer interaction: hide cursor inside header/footer
-    [header, footer].forEach((el) => {
+    // Header/footer/dragBlock  interaction: hide cursor inside header/footer/dragBlock
+    [header, footer, dragBlock].forEach((el) => {
       if (!el) return;
       el.addEventListener("mouseenter", () => {
         cursor.style.display = "none";

@@ -674,6 +674,9 @@
     @media (min-width: 1400px) {
       padding-left: calc((100vw - 1320px) / 2);
     }
+    @media (min-width: 1600px) {
+      padding-left: calc((100vw - 1470px) / 2);
+    }
 
     .owl-stage {
       display: flex;

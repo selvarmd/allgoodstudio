@@ -4,13 +4,15 @@ body {
 }
 
 .portfolio-wrapper {
-  padding: 50px 0 100px;
+  padding: 100px 0;
 }
 
 .portfolio-wrapper .title-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
