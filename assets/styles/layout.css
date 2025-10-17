@@ -23,6 +23,16 @@ button {
   cursor: pointer !important;
 }
 
+.container {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+@media (min-width: 992px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}
 @media (min-width: 1600px) {
   .container {
     max-width: 1470px;
